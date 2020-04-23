@@ -1,7 +1,6 @@
-#include "../include/main.h"
+#include "main.h"
 
 void displayMenu();
-
 void displayCredits();
 
 int main(int argc, char **argv) {
