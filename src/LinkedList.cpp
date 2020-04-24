@@ -69,12 +69,6 @@ void LinkedList::addFront(const char value) {
     }
 }
 
-void LinkedList::removeFront() {
-    head = head->next;
-    delete head->prev;
-    head->prev = nullptr;
-}
-
 void LinkedList::addBack(const char value) {
     Node *toAdd = new Node(value, nullptr, tail);
     if (head == nullptr) {
@@ -86,20 +80,33 @@ void LinkedList::addBack(const char value) {
     }
 }
 
+void LinkedList::removeFront() {
+    if (head->next != nullptr) {
+        head = head->next;
+        delete head->prev;
+        head->prev = nullptr;
+    } else {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+    }
+}
+
 void LinkedList::removeBack() {
-    tail = tail->prev;
-    delete tail->next;
-    tail->next = nullptr;
+    if (tail->prev != nullptr) {
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = nullptr;
+    } else {
+        delete tail;
+        head = nullptr;
+        tail = nullptr;
+    }
 }
 
 void LinkedList::clear() {
-    Node *current = head;
-    while (current != nullptr) {
-        Node *toClear = current;
-        current = current->next;
-        delete toClear;
+    while (head != nullptr) {
+        removeFront();
     }
-    head = nullptr;
-    tail = nullptr;
 }
 
