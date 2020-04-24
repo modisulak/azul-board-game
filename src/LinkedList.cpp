@@ -46,7 +46,7 @@ int LinkedList::size() {
 
 char LinkedList::get(int index) {
     char toReturn = '\0';
-    if (index < size()) {
+    if (index >= 0 && index < size()) {
         Node *current = head;
         int i = 0;
         while (i <= index) {
