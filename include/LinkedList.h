@@ -5,57 +5,59 @@
 
 class Node {
 public:
-   Node(Tile value, Node* next, Node* prev);
+    Node(Tile value, Node *next, Node *prev);
 
-   Tile value;
-   Node* next;
-   Node* prev;
+    Tile value;
+    Node *next;
+    Node *prev;
 };
 
 class LinkedList {
 public:
-   LinkedList();
-   LinkedList(LinkedList& other);
-   ~LinkedList();
+    LinkedList();
 
-   /**
-    * Return the current size of the Linked List.
-    */
-   int size();
+    LinkedList(const LinkedList &other);
 
-   /**
-    * Get the value at the given index.
-    */
-   char get(int index);
+    ~LinkedList();
 
-   /**
-    * Add the value to the back of the Linked List
-    */
-   void addBack(char value);
+    /**
+     * Return the current size of the Linked List.
+     */
+    unsigned int size() const;
 
-   /**
-    * Add the value to the front of the Linked List
-    */
-   void addFront(char value);
+    /**
+     * Get the value at the given index.
+     */
+    char get(const unsigned int index) const;
 
-   /**
-    * Remove the value at the back of the Linked List
-    */
-   void removeBack();
+    /**
+     * Add the value to the back of the Linked List
+     */
+    void addBack(const char value);
 
-   /**
-    * Remove the value at the front of the Linked List
-    */
-   void removeFront();
+    /**
+     * Add the value to the front of the Linked List
+     */
+    void addFront(const char value);
 
-   /**
-    * Removes all values from the Linked List
-    */
-   void clear();
+    /**
+     * Remove the value at the back of the Linked List
+     */
+    void removeBack();
+
+    /**
+     * Remove the value at the front of the Linked List
+     */
+    void removeFront();
+
+    /**
+     * Removes all values from the Linked List
+     */
+    void clear();
 
 private:
-   Node* head;
-   Node* tail;
+    Node *head;
+    Node *tail;
 };
 
 #endif // LINKED_LIST_H

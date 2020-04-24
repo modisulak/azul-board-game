@@ -11,7 +11,7 @@ LinkedList::LinkedList() {
     tail = nullptr;
 }
 
-LinkedList::LinkedList(LinkedList &other) :
+LinkedList::LinkedList(const LinkedList &other) :
         head(other.head),
         tail(other.tail) {
     if (head != nullptr) {
@@ -34,9 +34,9 @@ LinkedList::~LinkedList() {
     }
 }
 
-int LinkedList::size() {
+unsigned int LinkedList::size() const {
     Node *current = head;
-    int i = 0;
+    unsigned int i = 0;
     while (current != nullptr) {
         current = current->next;
         i++;
@@ -44,11 +44,11 @@ int LinkedList::size() {
     return i;
 }
 
-char LinkedList::get(int index) {
+char LinkedList::get(const unsigned int index) const {
     char toReturn = '\0';
-    if (index >= 0 && index < size()) {
+    if (index < size()) {
         Node *current = head;
-        int i = 0;
+        unsigned int i = 0;
         while (i <= index) {
             toReturn = current->value;
             current = current->next;
@@ -58,7 +58,7 @@ char LinkedList::get(int index) {
     return toReturn;
 }
 
-void LinkedList::addFront(char value) {
+void LinkedList::addFront(const char value) {
     Node *toAdd = new Node(value, head, nullptr);
     if (head == nullptr) {
         head = toAdd;
@@ -75,7 +75,7 @@ void LinkedList::removeFront() {
     head->prev = nullptr;
 }
 
-void LinkedList::addBack(char value) {
+void LinkedList::addBack(const char value) {
     Node *toAdd = new Node(value, nullptr, tail);
     if (head == nullptr) {
         head = toAdd;
