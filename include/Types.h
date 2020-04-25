@@ -6,6 +6,8 @@
 #define CREDITS   "3"
 #define QUIT      "4"
 
+#define MAX_FACTORY_TILES 4
+
 typedef char Tile;
 
 
