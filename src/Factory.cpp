@@ -36,7 +36,7 @@ int Factory::getTilesOfSameColour(const Tile tile) {
 
 void Factory::addTile(const Tile tile) {
     int i = 0;
-    while (i != MAX_FACTORY_TILES && tiles[i] == EMPTY) {
+    while (i != MAX_FACTORY_TILES && tiles[i] != EMPTY) {
         ++i;
     }
     if (tiles[i] == EMPTY) {

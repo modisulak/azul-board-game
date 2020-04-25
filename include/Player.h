@@ -25,6 +25,11 @@ public:
      * Set the player score.
      */
     void setScore(int score);
+    
+    /**
+     * Set the players turn.
+     */
+    void setPlayerTurn(bool value);
 
     /**
      * Get the status of the players turn
