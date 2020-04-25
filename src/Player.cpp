@@ -1,25 +1,29 @@
 #include "Player.h"
 
-Player::Player (string name, int score) :
-    name(name),
-    score(score) {}
+Player::Player(string name, int score) :
+        name(name),
+        score(score) {}
 
 Player::Player(const Player &other) :
-    name(other.name),
-    score(other.score) {}
+        name(other.name),
+        score(other.score) {}
 
-Player::~Player() {}    
+Player::~Player() {}
 
-string Player::getName() { 
+string Player::getName() {
     return name;
 }
 
-int Player::getScore() { 
+int Player::getScore() {
     return score;
 }
 
-void  Player::setScore(int score) { 
-    this->score = score; 
+void Player::setScore(int score) {
+    this->score = score;
+}
+
+bool Player::isPlayersTurn() {
+    return isTurn;
 }
 
 

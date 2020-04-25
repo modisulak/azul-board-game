@@ -3,37 +3,39 @@
 
 #include "Types.h"
 
-class Player { 
-    public:
-      
-      Player(string name, int score);
+class Player {
+public:
+    Player(string name, int score);
 
-      Player(const Player &other);
+    Player(const Player &other);
 
-      ~Player();
+    ~Player();
 
-      /**
-      * Get the player name.
-      */
-      string getName();
+    /**
+    * Get the player name.
+    */
+    string getName();
 
-      /**
-       * Get the player score.
-       */
-      int getScore(); 
-      
-      /**
-       * Set the player score.
-       */
-      void setScore(int score); 
+    /**
+     * Get the player score.
+     */
+    int getScore();
 
-    private:
-      
-      string name;
-      int score; 
-       
+    /**
+     * Set the player score.
+     */
+    void setScore(int score);
+
+    /**
+     * Get the status of the players turn
+     */
+    bool isPlayersTurn();
+
+private:
+    string name;
+    int score;
+    bool isTurn;
+
 };
-
-
 
 #endif //APT_A2_PLAYER_H

@@ -3,36 +3,35 @@
 
 #include "Types.h"
 
-class Factory { 
-    public:
+class Factory {
+public:
 
     Factory();
-    
+
     Factory(const Factory &other);
 
-    ~Factory(); 
+    ~Factory();
 
-     /**
-      * Get Tile at Index. 
-      */
-     Tile getTile(int index); 
+    /**
+     * Get Tile at Index.
+     */
+    Tile getTile(int index);
 
-     /**
-      * Get tiles of the same colour 
-      */
-     int getTilesOfSameColour(Tile tile);
+    /**
+     * Get number of tiles of the same colour
+     */
+    int getTilesOfSameColour(Tile tile);
 
-     /**
-      * Add a tile to the factory
-      */
-     void addTile(Tile tile); 
-    
-    private:
-      
-      Tile* tiles = new Tile[MAX_FACTORY_TILES]; 
+    /**
+     * Add a tile to the factory
+     */
+    void addTile(Tile tile);
+
+private:
+
+    Tile *tiles;
 
 };
-
 
 
 #endif //APT_A2_FACTORY_H
