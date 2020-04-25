@@ -1,7 +1,7 @@
 #ifndef APT_A2_FACTORY_H
 #define APT_A2_FACTORY_H
 
-#include "main.h"
+#include "Types.h"
 
 class Factory { 
     public:

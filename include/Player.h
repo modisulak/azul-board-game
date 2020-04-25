@@ -1,7 +1,7 @@
 #ifndef APT_A2_PLAYER_H
 #define APT_A2_PLAYER_H
 
-#include "main.h"
+#include "Types.h"
 
 class Player { 
     public:

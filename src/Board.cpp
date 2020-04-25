@@ -1,4 +1,4 @@
-#include <../include/Board.h>
+#include "../include/Board.h"
 
 Board::Board() { 
     newBoard();
