@@ -1,7 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-#include "main.h"
+#include "Types.h"
 
 class Node {
 public:
