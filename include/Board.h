@@ -1,9 +1,7 @@
 #ifndef APT_A2_BOARD_H
 #define APT_A2_BOARD_H
 
-#include <Types.h>
-#include <main.h>
-#include <LinkedList.h>
+#include "LinkedList.h"
 
 #define MAX_BOARD_ROWS    5
 #define MAX_BOARD_COLS    11

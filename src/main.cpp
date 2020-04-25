@@ -1,4 +1,4 @@
-#include "../include/main.h"
+#include "../include/Main.h"
 
 void displayMenu();
 void displayCredits();
