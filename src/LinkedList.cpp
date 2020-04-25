@@ -1,4 +1,3 @@
-
 #include "LinkedList.h"
 
 Node::Node(Tile value, Node *next, Node *prev) :
