@@ -1,9 +1,10 @@
-#include "main.h"
+#include "../include/main.h"
 
 void displayMenu();
 void displayCredits();
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
+
     cout << "Welcome to Azul!" << endl;
     cout << "-------------------" << endl;
 

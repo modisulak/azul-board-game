@@ -1,0 +1,5 @@
+    .|byrul
+   ..|lbyru
+  ...|ulbyr
+ ....|rulby
+.....|yrulb
