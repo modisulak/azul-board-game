@@ -15,7 +15,7 @@ void GameManager::newGame() {
     // TODO - create a new game
 }
 
-void playRound() {
+void GameManager::playRound() {
     /**
      * while (factories are not empty) {
      * playTurn(player)
@@ -23,17 +23,21 @@ void playRound() {
      */
 }
 
-void playTurn(int factoryNo, Tile colour, int storageRow) {
+void GameManager::playTurn(int factoryNo, Tile colour, int storageRow) {
     // TODO
 }
 
-int getScore() {
+int GameManager::getScore() {
     int score = 0;
     // player->getScore()
     // TODO
     return score;
 }
 
-void help() {
+void GameManager::help() {
+    // TODO
+}
+
+void GameManager::saveGame() {
     // TODO
 }

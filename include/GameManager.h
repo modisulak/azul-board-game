@@ -42,6 +42,11 @@ public:
      */
     void help();
 
+    /**
+     * Saves the current state of the game
+     */
+    void saveGame();
+
 private:
 
 
