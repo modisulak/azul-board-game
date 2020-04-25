@@ -1,80 +1,144 @@
 #include "../include/Board.h"
 
-Board::Board() { 
+Board::Board() {
+    board = new Tile *[MAX_BOARD_ROWS];
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        board[row] = new Tile[MAX_BOARD_COLS];
+    }
     newBoard();
     newBroken();
 }
 
-Board::Board(string fileName) {
-    newBoard(fileName);
-    newBroken(fileName);
+Board::Board(string boardInput, string brokenInput) {
+    board = new Tile *[MAX_BOARD_ROWS];
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        board[row] = new Tile[MAX_BOARD_COLS];
+    }
+    newBoard(boardInput);
+    newBroken(brokenInput);
 }
 
 Board::~Board() {
-    //TODO - delete 2D array of the board
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        delete[] board[row];
+    }
+    delete board;
     delete broken;
 }
 
 string Board::getBoardAsString() {
-    string boardAsString = "";
-    //TODO
-
+    string boardAsString;
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        for (int col = 0; col < MAX_BOARD_COLS; ++col) {
+            boardAsString += board[row][col];
+        }
+    }
     return boardAsString;
 }
 
 string Board::getBrokenAsString() {
-    string brokenAsString = "";
+    string brokenAsString;
     int count = 0;
-    while(broken->get(count) != ' ') { 
-       brokenAsString = brokenAsString + broken->get(count) + " ";
-       count++;
+    while (broken->get(count) != EMPTY) {
+        brokenAsString += broken->get(count);
+        count++;
     }
     return brokenAsString;
 }
 
-
-
-void Board::addToStorage(Tile colour, int numberOfTiles, int row) {
-    int brokenTiles = numberOfTiles - row;
+void Board::addToStorage(Tile tile, int numberOfTiles, int row) {
+    int brokenTiles = numberOfTiles - (row + 1);
     if (brokenTiles != 0) {
         for (int i = 0; i < brokenTiles; i++) {
-            broken->addBack(colour);
+            broken->addBack(tile);
+            --numberOfTiles;
         }
     }
-    // TODO - update board with tiles in storage spots
+    for (int col = MAX_STORAGE_COLS; col >= row + MAX_STORAGE_COLS; --col) {
+        board[row][col] = tile;
+    }
 }
 
 int Board::addToMosaic() {
     int points = 0;
-    //TODO
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        int col = 0;
+        int count = 0;
+        while (board[row][col] != DIVIDER) {
+            if (board[row][col] != EMPTY) {
+                ++count;
+            }
+            ++col;
+        }
+        if (count == row + 1) {
+            Tile tile = board[row][col];
+            Tile location = std::tolower(tile);
+            while (board[row][col] != location) {
+                ++col;
+            }
+            board[row][col] = tile;
+            //TODO Tally up points based on surrounding tiles
+        }
+    }
     return points;
 }
 
 bool Board::isGameFinished() {
     bool finished = false;
-    //TODO - loop through array and check if a row is complete
+    int row = 0;
+    while (row != MAX_BOARD_ROWS && !finished) {
+        int col = MAX_BOARD_COLS - MAX_MOSAIC_COLS;
+        while (board[row][col] != EMPTY) {
+            ++col;
+        }
+        if (col == MAX_MOSAIC_COLS) {
+            finished = true;
+        }
+        ++row;
+    }
     return finished;
 }
 
 void Board::newBoard() {
     string fileName = "../include/blankBoard.h";
-    //TODO - load board from file and add it to array
+    ifstream file;
+    file.open(fileName);
+
+    if (file.is_open()) {
+        int row = 0;
+        while (!file.eof() && row != MAX_BOARD_ROWS) {
+            string line;
+            getline(file, line);
+            for (int col = 0; col < MAX_BOARD_COLS; ++col) {
+                this->board[row][col] = line[col];
+            }
+            ++row;
+        }
+    }
+    file.close();
 }
 
-void Board::newBoard(string fileName) {
-    //TODO - load board from save file and add it to array
+void Board::newBoard(string boardInput) {
+    int count = 0;
+    for (int row = 0; row < MAX_BOARD_ROWS; ++row) {
+        for (int col = 0; col < MAX_BOARD_COLS; ++col) {
+            this->board[row][col] = boardInput[count];
+            ++count;
+        }
+    }
 }
-
 
 void Board::newBroken() {
     broken->clear();
     for (int i = 0; i < MAX_BOARD_BROKEN; i++) {
-        broken->addBack(' ');
+        broken->addBack(EMPTY);
     }
 }
 
-void Board::newBroken(string fileName) {
-    //TODO - create a new broken list from a save file
+void Board::newBroken(string brokenInput) {
+    for (int i = 0; i < MAX_BOARD_BROKEN; ++i) {
+        broken->addBack(brokenInput[i]);
+    }
 }
 
 void Board::addToBroken(Tile brokenTile) {
@@ -84,11 +148,11 @@ void Board::addToBroken(Tile brokenTile) {
 int Board::lostPoints() {
     int lostPoints = 0;
     int count = 0;
-    while(broken->get(count) != ' ') { 
-       if (count < 2) {lostPoints = lostPoints - 1;}
-       else if (count < 5) {lostPoints = lostPoints - 2;}
-       else {lostPoints = lostPoints - 3;}
-       count++;
+    while (broken->get(count) != EMPTY) {
+        if (count < 2) { lostPoints -= 1; }
+        else if (count < 5) { lostPoints -= 2; }
+        else { lostPoints -= 3; }
+        count++;
     }
     return lostPoints;
 }

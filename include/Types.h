@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 
+#define DIVIDER   '|'
+#define EMPTY     ' '
 #define MAX_FACTORY_TILES 4
 
 typedef char Tile;

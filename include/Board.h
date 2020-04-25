@@ -3,9 +3,11 @@
 
 #include "LinkedList.h"
 
-#define MAX_BOARD_ROWS    5
+#define MAX_BOARD_ROWS     5
 #define MAX_BOARD_COLS    11
-#define MAX_BOARD_BROKEN  7
+#define MAX_BOARD_BROKEN   7
+#define MAX_MOSAIC_COLS    5
+#define MAX_STORAGE_COLS   5
 
 class Board { 
 public:
@@ -17,7 +19,7 @@ public:
     /**
      * Build's a previous board when loading from a saved game file
      */
-    Board(string fileName);
+    Board(string boardInput, string brokenInput);
     
     ~Board();
 
@@ -50,7 +52,7 @@ public:
 
 private:
     //2D array containing the board
-    Tile board[MAX_BOARD_ROWS][MAX_BOARD_COLS];
+    Tile** board;
 
     // Linked List containing the broken tiles
     LinkedList *broken = new LinkedList();
@@ -63,7 +65,7 @@ private:
     /** 
      * Load a board file into a board array
      */
-    void newBoard(string fileName);
+    void newBoard(string boardInput);
 
     /** 
      * Initialise the "broken" array with empty spots (spaces)
@@ -74,12 +76,12 @@ private:
     /** 
      * Load the saved broken array in from a file
      */
-    void newBroken(string fileName);
+    void newBroken(string brokenInput);
 
     /** 
      * Add to the broken section
      */
-    void addToBroken(Tile bokenTile);
+    void addToBroken(Tile brokenTile);
 
     /** 
      * Return the number of points lost from broken tiles
