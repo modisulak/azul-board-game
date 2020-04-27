@@ -4,38 +4,47 @@
 #include "LinkedList.h"
 
 #define MAX_BOARD_ROWS     5
-#define MAX_BOARD_COLS    11
+#define MAX_BOARD_COLS     5
 #define MAX_BOARD_BROKEN   7
-#define MAX_MOSAIC_COLS    5
-#define MAX_STORAGE_COLS   5
+#define DEFAULT_MOSAIC     "byrul"
 
-class Board { 
+class Board {
 public:
     /**
-     * Default constructor, builds a new "blank" board
+     * Default constructor, builds a new "blank" storage
      */
     Board();
 
     /**
-     * Build's a previous board when loading from a saved game file
+     * Build's a previous storage when loading from a saved game file
+     * @param storageInput
+     * @param mosaicInput
+     * @param brokenInput
      */
-    Board(string boardInput, string brokenInput);
-    
+    Board(string storageInput, string mosaicInput, string brokenInput);
+
     ~Board();
 
     /**
-     * Return a string displaying the board array
+     * Return a string displaying the storage 2D array
      */
-    string getBoardAsString();
+    string storageToString();
+
+    /**
+     * Return a string displaying the mosaic 2D array
+     */
+    string mosaicToString();
 
     /**
      * Return a string displaying the broken tiles
-     * Tile colours separated by a space
      */
-    string getBrokenAsString();
+    string brokenToString();
 
     /**
-     * Add tiles from factory to "storage" (LHS of board)
+     * Add tiles from factory to "storage" (LHS of storage)
+     * @param colour
+     * @param numberOfTiles
+     * @param row
      */
     void addToStorage(Tile colour, int numberOfTiles, int row);
 
@@ -51,21 +60,26 @@ public:
     bool isGameFinished();
 
 private:
-    //2D array containing the board
-    Tile** board;
+    //2D array for the tile storage
+    Tile **storage;
+    //2D array for the tile mosaic
+    Tile **mosaic;
 
     // Linked List containing the broken tiles
     LinkedList *broken = new LinkedList();
 
     /** 
-     * Create an empty new board array
+     * Create an empty new storage array
+     * * Create an empty new mosaic array
      */
     void newBoard();
 
-    /** 
-     * Load a board file into a board array
+    /**
+     * Load a storage file into a storage array
+     * @param boardInput
+     * @param mosaicInput
      */
-    void newBoard(string boardInput);
+    void newBoard(string boardInput, string mosaicInput);
 
     /** 
      * Initialise the "broken" array with empty spots (spaces)
@@ -75,11 +89,13 @@ private:
 
     /** 
      * Load the saved broken array in from a file
+     * * @param brokenInput
      */
     void newBroken(string brokenInput);
 
-    /** 
+    /**
      * Add to the broken section
+     * @param brokenTile
      */
     void addToBroken(Tile brokenTile);
 
@@ -88,6 +104,11 @@ private:
      */
     int lostPoints();
 
+    /**
+     * Shift the mosaic string along by 1 element
+     * @param mosaicRow
+     */
+    void shiftMosaic(string &mosaicRow);
 };
 
 #endif //APT_A2_BOARD_H
