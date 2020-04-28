@@ -5,7 +5,6 @@
 
 #define MAX_BOARD_ROWS     5
 #define MAX_BOARD_COLS     5
-#define MAX_BOARD_BROKEN   7
 #define DEFAULT_MOSAIC     "byrul"
 
 class Board {
@@ -26,6 +25,15 @@ public:
     ~Board();
 
     /**
+     * Getters for each of the member variables
+     */
+    Tile **getStorage() const;
+
+    Tile **getMosaic() const;
+
+    LinkedList *getBroken() const;
+
+    /**
      * Return a string displaying the storage 2D array
      */
     string storageToString();
@@ -41,12 +49,12 @@ public:
     string brokenToString();
 
     /**
-     * Add tiles from factory to "storage" (LHS of storage)
-     * @param colour
+     * Add tiles from factory to "storage"
+     * @param tile
      * @param numberOfTiles
      * @param row
      */
-    void addToStorage(Tile colour, int numberOfTiles, int row);
+    void addToStorage(Tile tile, int numberOfTiles, int row);
 
     /**
      * Move tiles to mosaic
@@ -60,13 +68,12 @@ public:
     bool isGameFinished();
 
 private:
-    //2D array for the tile storage
+    // 2D array for the tile storage
     Tile **storage;
-    //2D array for the tile mosaic
+    // 2D array for the tile mosaic
     Tile **mosaic;
-
     // Linked List containing the broken tiles
-    LinkedList *broken = new LinkedList();
+    LinkedList *broken;
 
     /** 
      * Create an empty new storage array
@@ -82,22 +89,10 @@ private:
     void newBoard(string boardInput, string mosaicInput);
 
     /** 
-     * Initialise the "broken" array with empty spots (spaces)
-     * Clears the linked list and then places 7 spaces in the list
-     */
-    void newBroken();
-
-    /** 
      * Load the saved broken array in from a file
      * * @param brokenInput
      */
     void newBroken(string brokenInput);
-
-    /**
-     * Add to the broken section
-     * @param brokenTile
-     */
-    void addToBroken(Tile brokenTile);
 
     /** 
      * Return the number of points lost from broken tiles
