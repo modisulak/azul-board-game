@@ -80,26 +80,30 @@ void LinkedList::addBack(const char value) {
 }
 
 void LinkedList::removeFront() {
-    if (head->next != nullptr) {
-        head = head->next;
-        delete head->prev;
-        head->prev = nullptr;
-    } else {
-        delete head;
-        head = nullptr;
-        tail = nullptr;
+    if (head != nullptr) {
+        if (head->next != nullptr) {
+            head = head->next;
+            delete head->prev;
+            head->prev = nullptr;
+        } else {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+        }
     }
 }
 
 void LinkedList::removeBack() {
-    if (tail->prev != nullptr) {
-        tail = tail->prev;
-        delete tail->next;
-        tail->next = nullptr;
-    } else {
-        delete tail;
-        head = nullptr;
-        tail = nullptr;
+    if (tail != nullptr) {
+        if (tail->prev != nullptr) {
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = nullptr;
+        } else {
+            delete tail;
+            head = nullptr;
+            tail = nullptr;
+        }
     }
 }
 
