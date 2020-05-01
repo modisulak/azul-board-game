@@ -8,11 +8,13 @@ Node::Node(Tile value, Node *next, Node *prev) :
 LinkedList::LinkedList() {
     head = nullptr;
     tail = nullptr;
+    length=0;
 }
 
 LinkedList::LinkedList(const LinkedList &other) :
         head(other.head),
-        tail(other.tail) {
+        tail(other.tail),
+        length(other.length){
     if (head != nullptr) {
         Node *current = head;
         while (current != nullptr) {
@@ -27,24 +29,18 @@ LinkedList::~LinkedList() {
 }
 
 unsigned int LinkedList::size() const {
-    Node *current = head;
-    unsigned int i = 0;
-    while (current != nullptr) {
-        current = current->next;
-        i++;
-    }
-    return i;
+    return length;
 }
 
 char LinkedList::get(const unsigned int index) const {
     char toReturn = '\0';
-    if (index < size()) {
+    if (index < length) {
         Node *current = head;
         unsigned int i = 0;
         while (i <= index) {
             toReturn = current->value;
             current = current->next;
-            i++;
+            ++i;
         }
     }
     return toReturn;
@@ -59,6 +55,7 @@ void LinkedList::addFront(const char value) {
         head->prev = toAdd;
         head = toAdd;
     }
+    ++length;
 }
 
 void LinkedList::addBack(const char value) {
@@ -70,6 +67,7 @@ void LinkedList::addBack(const char value) {
         tail->next = toAdd;
         tail = toAdd;
     }
+    ++length;
 }
 
 void LinkedList::removeFront() {
@@ -83,6 +81,7 @@ void LinkedList::removeFront() {
             head = nullptr;
             tail = nullptr;
         }
+        --length;
     }
 }
 
@@ -93,10 +92,9 @@ void LinkedList::removeBack() {
             delete tail->next;
             tail->next = nullptr;
         } else {
-            delete tail;
-            head = nullptr;
-            tail = nullptr;
+            removeFront();
         }
+        --length;
     }
 }
 

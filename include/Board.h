@@ -86,7 +86,7 @@ private:
      * @param boardInput
      * @param mosaicInput
      */
-    void newBoard(string boardInput, string mosaicInput);
+    void newBoard(string&& boardInput, string&& mosaicInput);
 
     /** 
      * Load the saved broken array in from a file

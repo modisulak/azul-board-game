@@ -28,17 +28,17 @@ public:
     /**
      * Get the value at the given index.
      */
-    char get(const unsigned int index) const;
+    char get(unsigned int index) const;
 
     /**
      * Add the value to the back of the Linked List
      */
-    void addBack(const char value);
+    void addBack(char value);
 
     /**
      * Add the value to the front of the Linked List
      */
-    void addFront(const char value);
+    void addFront(char value);
 
     /**
      * Remove the value at the back of the Linked List
@@ -58,6 +58,7 @@ public:
 private:
     Node *head;
     Node *tail;
+    unsigned int length;
 };
 
 #endif // LINKED_LIST_H

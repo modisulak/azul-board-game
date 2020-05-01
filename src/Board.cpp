@@ -178,7 +178,7 @@ void Board::shiftMosaic(string &mosaicRow) {
     }
 }
 
-void Board::newBoard(string boardInput, string mosaicInput) {
+void Board::newBoard(string &&boardInput, string &&mosaicInput) {
     int count = 0;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
