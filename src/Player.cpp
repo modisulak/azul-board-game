@@ -17,7 +17,9 @@ Player::Player(const Player &other) :
         score(other.score),
         isTurn(false) {}
 
-Player::~Player() {}
+Player::~Player() {
+    delete board;
+}
 
 string Player::getName() {
     return name;

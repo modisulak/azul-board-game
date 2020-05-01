@@ -8,13 +8,20 @@ Factory::Factory() {
     }
 }
 
-Factory::Factory(const Factory &other) {
-    tiles = new Tile[MAX_FACTORY_TILES];
-
+Factory::Factory(int x) {
+    tiles = new Tile[MAX_DISCARD_TILES];
     for (int i = 0; i != MAX_FACTORY_TILES; ++i) {
-        tiles[i] = other.tiles[i];
+        tiles[i] = BLANK_SPACE;
     }
 }
+
+// Factory::Factory(const Factory &other) {
+//     tiles = new Tile[MAX_FACTORY_TILES];
+
+//     for (int i = 0; i != MAX_FACTORY_TILES; ++i) {
+//         tiles[i] = other.tiles[i];
+//     }
+// }
 
 Factory::~Factory() {
     delete[] tiles;

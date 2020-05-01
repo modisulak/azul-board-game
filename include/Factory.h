@@ -6,9 +6,17 @@
 class Factory {
 public:
 
+    /**
+     * Default constructor for 5 factories
+     */
     Factory();
 
-    Factory(const Factory &other);
+    /**
+     * Constructor for discard pile
+     */
+    Factory(int x);
+
+    // Factory(const Factory &other);
 
     ~Factory();
 

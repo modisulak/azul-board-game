@@ -51,7 +51,7 @@ public:
     /**
      * Return a string displaying the whole board
      */
-    string boardToString();
+    string toString();
 
     /**
      * Add tiles from factory to "storage"

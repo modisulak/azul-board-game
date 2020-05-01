@@ -6,9 +6,14 @@
 #include <fstream>
 #include <memory>
 
-#define BLANK_SPACE     ' '
-#define EMPTY           '.'
-#define MAX_FACTORY_TILES 4
+#define BLANK_SPACE             ' '
+#define EMPTY                   '.'
+#define MAX_FACTORY_TILES       4
+#define MAX_FACTORY_INSTANCES   5
+#define MAX_DISCARD_TILES       25
+#define MAX_TOTAL_TILES         100
+#define MAX_AMOUNT_COLOUR       20
+
 
 typedef char Tile;
 

@@ -76,7 +76,7 @@ string Board::brokenToString() {
     return brokenToString;
 }
 
-string Board::boardToString() {
+string Board::toString() {
     string boardToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
