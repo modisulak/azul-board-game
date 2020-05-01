@@ -2,10 +2,15 @@
 #define APT_A2_PLAYER_H
 
 #include "Types.h"
+#include "Board.h"
 
 class Player {
 public:
+    // New player constructor
     Player(string name, int score);
+
+    // Load player constructor
+    Player(string name, int score, string storageInput, string mosaicInput, string brokenInput);
 
     Player(const Player &other);
 
@@ -40,6 +45,7 @@ private:
     string name;
     int score;
     bool isTurn;
+    Board* board;
 
 };
 

@@ -60,7 +60,7 @@ string Board::mosaicToString() {
     string mosaicToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
-            mosaicToString += storage[row][col];
+            mosaicToString += mosaic[row][col];
         }
     }
     return mosaicToString;
@@ -74,6 +74,21 @@ string Board::brokenToString() {
         ++i;
     }
     return brokenToString;
+}
+
+string Board::boardToString() {
+    string boardToString;
+    for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
+        for (int col = 0; col != MAX_BOARD_COLS; ++col) {
+            boardToString += storage[row][col];
+        }
+        boardToString += "|";
+        for (int col = 0; col != MAX_BOARD_COLS; ++col) {
+            boardToString += mosaic[row][col];
+        }
+    }
+    boardToString += brokenToString();
+    return boardToString;
 }
 
 void Board::addToStorage(Tile tile, int numberOfTiles, int row) {

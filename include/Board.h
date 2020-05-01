@@ -49,6 +49,11 @@ public:
     string brokenToString();
 
     /**
+     * Return a string displaying the whole board
+     */
+    string boardToString();
+
+    /**
      * Add tiles from factory to "storage"
      * @param tile
      * @param numberOfTiles
