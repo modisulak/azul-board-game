@@ -23,14 +23,7 @@ LinkedList::LinkedList(const LinkedList &other) :
 }
 
 LinkedList::~LinkedList() {
-    if (head != nullptr) {
-        Node *current = head;
-        while (current != nullptr) {
-            Node *toDelete = current;
-            current = current->next;
-            delete toDelete;
-        }
-    }
+    clear();
 }
 
 unsigned int LinkedList::size() const {
