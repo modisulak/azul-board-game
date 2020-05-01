@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <memory>
 
 #define BLANK_SPACE     ' '
 #define EMPTY           '.'
@@ -13,6 +14,10 @@ typedef char Tile;
 
 using std::string;
 using std::ifstream;
+
+using std::move;
+using std::shared_ptr;
+using std::make_shared;
 
 
 #endif //APT_A2_TYPES_H

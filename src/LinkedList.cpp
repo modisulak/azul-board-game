@@ -1,22 +1,22 @@
 #include "LinkedList.h"
 
-Node::Node(Tile value, Node *next, Node *prev) :
+Node::Node(Tile value, shared_ptr<Node> next, shared_ptr<Node> prev) :
         value(value),
-        next(next),
-        prev(prev) {}
+        next(move(next)),
+        prev(move(prev)) {}
 
 LinkedList::LinkedList() {
     head = nullptr;
     tail = nullptr;
-    length=0;
+    length = 0;
 }
 
 LinkedList::LinkedList(const LinkedList &other) :
         head(other.head),
         tail(other.tail),
-        length(other.length){
+        length(other.length) {
     if (head != nullptr) {
-        Node *current = head;
+        shared_ptr<Node> current = head;
         while (current != nullptr) {
             addBack(current->value);
             current = current->next;
@@ -32,10 +32,10 @@ unsigned int LinkedList::size() const {
     return length;
 }
 
-char LinkedList::get(const unsigned int index) const {
-    char toReturn = '\0';
+Tile LinkedList::get(const unsigned int index) const {
+    Tile toReturn = BLANK_SPACE;
     if (index < length) {
-        Node *current = head;
+        shared_ptr<Node> current = head;
         unsigned int i = 0;
         while (i <= index) {
             toReturn = current->value;
@@ -46,8 +46,8 @@ char LinkedList::get(const unsigned int index) const {
     return toReturn;
 }
 
-void LinkedList::addFront(const char value) {
-    Node *toAdd = new Node(value, head, nullptr);
+void LinkedList::addFront(const Tile value) {
+    shared_ptr<Node> toAdd = make_shared<Node>(value, head, nullptr);
     if (head == nullptr) {
         head = toAdd;
         tail = toAdd;
@@ -58,8 +58,8 @@ void LinkedList::addFront(const char value) {
     ++length;
 }
 
-void LinkedList::addBack(const char value) {
-    Node *toAdd = new Node(value, nullptr, tail);
+void LinkedList::addBack(const Tile value) {
+    shared_ptr<Node> toAdd = make_shared<Node>(value, nullptr, tail);
     if (head == nullptr) {
         head = toAdd;
         tail = toAdd;
@@ -74,10 +74,8 @@ void LinkedList::removeFront() {
     if (head != nullptr) {
         if (head->next != nullptr) {
             head = head->next;
-            delete head->prev;
             head->prev = nullptr;
         } else {
-            delete head;
             head = nullptr;
             tail = nullptr;
         }
@@ -89,7 +87,6 @@ void LinkedList::removeBack() {
     if (tail != nullptr) {
         if (tail->prev != nullptr) {
             tail = tail->prev;
-            delete tail->next;
             tail->next = nullptr;
         } else {
             removeFront();

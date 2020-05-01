@@ -5,11 +5,11 @@
 
 class Node {
 public:
-    Node(Tile value, Node *next, Node *prev);
+    Node(Tile value, shared_ptr<Node> next, shared_ptr<Node> prev);
 
     Tile value;
-    Node *next;
-    Node *prev;
+    shared_ptr<Node> next;
+    shared_ptr<Node> prev;
 };
 
 class LinkedList {
@@ -28,17 +28,17 @@ public:
     /**
      * Get the value at the given index.
      */
-    char get(unsigned int index) const;
+    Tile get(unsigned int index) const;
 
     /**
      * Add the value to the back of the Linked List
      */
-    void addBack(char value);
+    void addBack(Tile value);
 
     /**
      * Add the value to the front of the Linked List
      */
-    void addFront(char value);
+    void addFront(Tile value);
 
     /**
      * Remove the value at the back of the Linked List
@@ -56,8 +56,8 @@ public:
     void clear();
 
 private:
-    Node *head;
-    Node *tail;
+    shared_ptr<Node> head;
+    shared_ptr<Node> tail;
     unsigned int length;
 };
 
