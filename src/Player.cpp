@@ -6,10 +6,10 @@ Player::Player(string name, int score) :
         isTurn(false)
         {board = new Board();}
 
-Player::Player(string name, int score, string storageInput, string mosaicInput, string brokenInput) :
+Player::Player(string name, int score, string storageInput, string mosaicInput, string brokenInput, bool isTurn) :
         name(name),
         score(score),
-        isTurn(false)
+        isTurn(isTurn)
         { board = new Board(storageInput, mosaicInput, brokenInput); }
 
 Player::Player(const Player &other) :
@@ -39,6 +39,17 @@ void Player::setPlayerTurn(bool value) {
 
 bool Player::isPlayersTurn() {
     return isTurn;
+}
+
+string Player::getStrings(string data) {
+    string s;
+
+    if (data == "storage") {s = board->storageToString();}
+    else if (data == "mosaic") {s = board->mosaicToString();}
+    else if (data == "broken") {s = board->brokenToString();}
+    else {s = board->toString();}
+
+    return s;
 }
 
 

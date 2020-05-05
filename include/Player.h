@@ -10,7 +10,7 @@ public:
     Player(string name, int score);
 
     // Load player constructor
-    Player(string name, int score, string storageInput, string mosaicInput, string brokenInput);
+    Player(string name, int score, string storageInput, string mosaicInput, string brokenInput, bool isTurn);
 
     Player(const Player &other);
 
@@ -41,12 +41,16 @@ public:
      */
     bool isPlayersTurn();
 
+    /**
+     * Get the board as a string
+     */
+    string getStrings(string data);
+
 private:
     string name;
     int score;
     bool isTurn;
     Board* board;
-
 };
 
 #endif //APT_A2_PLAYER_H

@@ -2,6 +2,7 @@
 #define GAME_MANAGER_H
 
 #include <vector>
+#include <Types.h>
 
 #include "Types.h"
 #include "Board.h"
@@ -13,7 +14,7 @@ public:
     /**
      * Creates a new game
      */
-    GameManager(string p1, string p2);
+    GameManager(string p1, string p2, int seed);
 
     /**
      * Loads a game from a save file with given name
@@ -46,9 +47,12 @@ public:
     /**
      * Saves the current state of the game
      */
-    void saveGame();
+    void saveGame(string fileName);
 
 private:
+    // Seed number
+    int seed;
+
     // 2D array to store factories factories
     Factory **factories;
 
@@ -56,8 +60,7 @@ private:
     Factory* discard;
 
     // 2 Players
-    Player* player1;
-    Player* player2;
+    Player **players;
 
     // Vector representing the bag
     std::vector<Tile>* bag;
@@ -74,6 +77,11 @@ private:
      * Populates factories
      */
     void populateFactories();
+
+    /**
+     * Returns the bag as a string for saving
+     */
+    string bagToString();
 
 };
 

@@ -52,6 +52,7 @@ string Board::storageToString() {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
             storageToString += storage[row][col];
         }
+        if (row != MAX_BOARD_ROWS -1) {storageToString += "\n";}
     }
     return storageToString;
 }

@@ -20,8 +20,12 @@ int main(int argc, char **argv) {
         if (cin.good()) {
             if (input == NEW_GAME) {
                 cout << "To-do" << endl;
+                // TODO - Start new game
+                
             } else if (input == LOAD_GAME) {
                 cout << "To-do" << endl;
+                // TODO - Load new game from save file
+
             } else if (input == CREDITS) {
                 displayCredits();
             } else if (input == QUIT) {

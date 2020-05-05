@@ -14,7 +14,7 @@ public:
     /**
      * Constructor for discard pile
      */
-    Factory(int x);
+    Factory(bool isDiscard);
 
     // Factory(const Factory &other);
 
@@ -35,9 +35,15 @@ public:
      */
     void addTile(Tile tile);
 
+    /**
+     * Return the contents of the factory as a string 
+     */
+    string toString();
+
 private:
 
     Tile *tiles;
+    bool isDiscard;
 
 };
 

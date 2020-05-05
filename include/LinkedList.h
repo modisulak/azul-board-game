@@ -55,6 +55,11 @@ public:
      */
     void clear();
 
+    /**
+     * Returns a string containing all the elements in the list
+     */
+    string toString();
+
 private:
     shared_ptr<Node> head;
     shared_ptr<Node> tail;

@@ -101,3 +101,14 @@ void LinkedList::clear() {
     }
 }
 
+string LinkedList::toString() {
+    string list = "";
+    if (head != nullptr) {
+        shared_ptr<Node> current = head;
+        while (current != nullptr) {
+            list = list + current->value;
+            current = current->next;
+        }
+    return list;
+}
+

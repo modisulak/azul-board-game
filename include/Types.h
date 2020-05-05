@@ -13,11 +13,13 @@
 #define MAX_DISCARD_TILES       25
 #define MAX_TOTAL_TILES         100
 #define MAX_AMOUNT_COLOUR       20
+#define MAX_PLAYER_INSTANCES    2
 
 
 typedef char Tile;
 
 using std::string;
+using std::endl;
 using std::ifstream;
 
 using std::move;

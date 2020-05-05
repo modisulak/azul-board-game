@@ -1,9 +1,15 @@
 #include "../include/GameManager.h"
 
-GameManager::GameManager(string p1, string p2) {   
-    player1 = new Player(p1, 0);
-    player2 = new Player(p2, 0);
-    discard = new Factory(1);
+GameManager::GameManager(string p1, string p2, int seed) : 
+    seed(seed)
+{   
+    string pl [MAX_PLAYER_INSTANCES] = {p1, p2};
+    players = new Player *[MAX_PLAYER_INSTANCES];
+    for (int i = 0; i != MAX_PLAYER_INSTANCES; i++) {
+        players[i] = new Player(pl[i], 0);
+    }
+
+    discard = new Factory(true);
     bag = new std::vector<Tile>();
     boxLid = new LinkedList();
 
@@ -25,7 +31,9 @@ GameManager::GameManager(string fileName) :
     }
 */
 
-GameManager::~GameManager() { }
+GameManager::~GameManager() { 
+    // TODO
+}
 
 void GameManager::playRound() {
     populateFactories();
@@ -48,10 +56,6 @@ int GameManager::getScore() {
 }
 
 void GameManager::help() {
-    // TODO
-}
-
-void GameManager::saveGame() {
     // TODO
 }
 
@@ -83,4 +87,40 @@ void GameManager::populateFactories() {
     }
 
     discard[0] = 'F';
+}
+
+void GameManager::saveGame(string fileName) {
+    string path = "../save_files/" + fileName;
+
+    std::ofstream outfile;
+    outfile.open(path);
+
+    outfile << seed << endl;
+    outfile << players[0]->isPlayersTurn();
+
+    for (int i = 0; i != MAX_PLAYER_INSTANCES; i++) {
+        outfile << players[i]->getName() << endl;
+        outfile << players[i]->getScore() << endl;
+    }
+
+    outfile << discard->toString() << endl;
+
+    for (int i = 0; i != MAX_FACTORY_INSTANCES; i++) {
+        outfile << factories[i]->toString() << endl;
+    }
+
+    for (int i = 0; i != MAX_PLAYER_INSTANCES; i++) {
+        outfile << players[i]->getStrings("storage") << endl;
+        outfile << players[i]->getStrings("broken") << endl;
+        outfile << players[i]->getStrings("mosaic") << endl;
+    }
+
+    outfile << boxLid->toString() << endl;
+    outfile << bagToString();
+
+    outfile.close();
+}
+
+string GameManager::bagToString() {
+    return std::string(bag->data(), bag->size());
 }
