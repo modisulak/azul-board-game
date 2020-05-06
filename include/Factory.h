@@ -9,12 +9,12 @@ public:
     /**
      * Default constructor for 5 factories
      */
-    Factory();
+    explicit Factory(int size);
 
     /**
-     * Constructor for discard pile
+     * Constructor for pile loaded from file
      */
-    Factory(bool isDiscard);
+    Factory(int size, string tiles);
 
     // Factory(const Factory &other);
 
@@ -42,8 +42,8 @@ public:
 
 private:
 
-    Tile *tiles;
-    bool isDiscard;
+    unique_ptr<Tile[]> tiles;
+    int size;
 
 };
 

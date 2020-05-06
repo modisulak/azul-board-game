@@ -1,3 +1,4 @@
+#include <GameManager.h>
 #include "../include/main.h"
 
 void displayMenu();
@@ -5,6 +6,19 @@ void displayMenu();
 void displayCredits();
 
 int main(int argc, char **argv) {
+
+
+    string filename;
+    int seed;
+    for (int i = 0; i != argc; ++i) {
+        if (argv[i] == SEED_FLAG){
+            seed = std::stoi(argv[i+1]);
+        } else if (argv[i] == FILENAME_FLAG){
+            filename = argv[i+1];
+        }
+    }
+
+    unique_ptr<GameManager> manager;
 
     cout << "Welcome to Azul!" << endl;
     cout << "-------------------" << endl;
@@ -20,11 +34,13 @@ int main(int argc, char **argv) {
         if (cin.good()) {
             if (input == NEW_GAME) {
                 cout << "To-do" << endl;
-                // TODO - Start new game
-                
+                //TODO - get player names to pass to constructor
+                manager = make_unique<GameManager>("","",seed);
+                manager->playGame();
             } else if (input == LOAD_GAME) {
                 cout << "To-do" << endl;
-                // TODO - Load new game from save file
+                manager = make_unique<GameManager>(filename);
+                manager->playGame();
 
             } else if (input == CREDITS) {
                 displayCredits();

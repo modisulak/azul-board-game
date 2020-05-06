@@ -1,20 +1,24 @@
 #include "Factory.h"
 
-Factory::Factory() : 
-    isDiscard(false)
-{
-    tiles = new Tile[MAX_FACTORY_TILES];
-    for (int i = 0; i != MAX_FACTORY_TILES; ++i) {
+Factory::Factory(int size) :
+        size(size) {
+    tiles = make_unique<Tile[]>(size);
+    for (int i = 0; i != size; ++i) {
         tiles[i] = BLANK_SPACE;
     }
 }
 
-Factory::Factory(bool isDiscard) : 
-    isDiscard(isDiscard)
-{
-    tiles = new Tile[MAX_DISCARD_TILES];
-    for (int i = 0; i != MAX_DISCARD_TILES; ++i) {
-        tiles[i] = BLANK_SPACE;
+Factory::Factory(int size, string tiles) :
+        size(size) {
+    this->tiles = make_unique<Tile[]>(size);
+
+    for (int i = 0; i != size; ++i) {
+        if (size < tiles.length()) {
+            this->tiles[i] = tiles[i];
+            ++i;
+        } else {
+            tiles[i] = BLANK_SPACE;
+        }
     }
 }
 
@@ -28,7 +32,6 @@ Factory::Factory(const Factory &other) {
 }*/
 
 Factory::~Factory() {
-    delete[] tiles;
 }
 
 Tile Factory::getTile(const int index) {
@@ -37,53 +40,29 @@ Tile Factory::getTile(const int index) {
 
 int Factory::getTilesOfSameColour(const Tile tile) {
     int tileCount = 0;
-    if (isDiscard) {
-        for (int i = 0; i != MAX_DISCARD_TILES; ++i) {
-            if (tiles[i] == tile) {
+    for (int i = 0; i != size; ++i) {
+        if (tiles[i] == tile) {
             ++tileCount;
-            }
         }
-    } else {
-        for (int i = 0; i != MAX_FACTORY_TILES; ++i) {
-            if (tiles[i] == tile) {
-            ++tileCount;
-            }
-        }   
     }
     return tileCount;
 }
 
 void Factory::addTile(const Tile tile) {
     int i = 0;
-    if (isDiscard) {
-        while (i != MAX_DISCARD_TILES && tiles[i] != BLANK_SPACE) {
-            if (tiles[i] == BLANK_SPACE) {
-                tiles[i] = tile;
-            }
-            ++i;
+    while (i != size && tiles[i] != BLANK_SPACE) {
+        if (tiles[i] == BLANK_SPACE) {
+            tiles[i] = tile;
         }
-    } else {
-        while (i != MAX_FACTORY_TILES && tiles[i] != BLANK_SPACE) {
-            if (tiles[i] == BLANK_SPACE) {
-                tiles[i] = tile;
-            }
-            ++i;
-        }
+        ++i;
     }
 }
 
 string Factory::toString() {
     string out = "";
-    
-    if (isDiscard) {
-        for (int i = 0; i != MAX_DISCARD_TILES; i++) {
-            out = out + tiles[i];
-        }
-    } else {
-        for (int i = 0; i != MAX_FACTORY_TILES; i++) {
-            out = out + tiles[i];
-        }
+    for (int i = 0; i != size; i++) {
+        out += tiles[i];
     }
-
     return out;
 }
+

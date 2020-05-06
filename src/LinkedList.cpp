@@ -106,9 +106,9 @@ string LinkedList::toString() {
     if (head != nullptr) {
         shared_ptr<Node> current = head;
         while (current != nullptr) {
-            list = list + current->value;
+            list += current->value;
             current = current->next;
         }
+    }
     return list;
 }
-

@@ -10,7 +10,7 @@ public:
     Player(string name, int score);
 
     // Load player constructor
-    Player(string name, int score, string storageInput, string mosaicInput, string brokenInput, bool isTurn);
+    Player(string name, int score, const string& storageInput, const string& mosaicInput, const string& brokenInput, bool isTurn);
 
     Player(const Player &other);
 
@@ -24,7 +24,7 @@ public:
     /**
      * Get the player score.
      */
-    int getScore();
+    int getScore() const;
 
     /**
      * Set the player score.
@@ -39,18 +39,18 @@ public:
     /**
      * Get the status of the players turn
      */
-    bool isPlayersTurn();
+    bool isPlayersTurn() const;
 
     /**
      * Get the board as a string
      */
-    string getStrings(string data);
+    string getStrings(const string& data);
 
 private:
     string name;
     int score;
     bool isTurn;
-    Board* board;
+    unique_ptr<Board> board;
 };
 
 #endif //APT_A2_PLAYER_H

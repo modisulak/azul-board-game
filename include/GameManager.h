@@ -19,9 +19,14 @@ public:
     /**
      * Loads a game from a save file with given name
      */
-    GameManager(string fileName);
+    GameManager(const string& filename);
 
     ~GameManager();
+
+    /**
+     * Manages the playing of the game
+     */
+    void playGame();
 
     /**
      * Manages the playing of a round
@@ -47,20 +52,20 @@ public:
     /**
      * Saves the current state of the game
      */
-    void saveGame(string fileName);
+    void saveGame(const string& fileName);
 
 private:
     // Seed number
     int seed;
 
     // 2D array to store factories factories
-    Factory **factories;
+    unique_ptr<unique_ptr<Factory>[]> factories;
 
     // Discard factory
-    Factory* discard;
+    unique_ptr<Factory> discard;
 
     // 2 Players
-    Player **players;
+    unique_ptr<unique_ptr<Player>[]> players;
 
     // Vector representing the bag
     std::vector<Tile>* bag;

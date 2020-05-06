@@ -1,31 +1,28 @@
 #include "Player.h"
-
 Player::Player(string name, int score) :
-        name(name),
+        name(std::move(name)),
         score(score),
         isTurn(false)
-        {board = new Board();}
+        {board = make_unique<Board>();}
 
-Player::Player(string name, int score, string storageInput, string mosaicInput, string brokenInput, bool isTurn) :
-        name(name),
+Player::Player(string name, int score, const string& storageInput, const string& mosaicInput, const string& brokenInput, bool isTurn) :
+        name(std::move(name)),
         score(score),
         isTurn(isTurn)
-        { board = new Board(storageInput, mosaicInput, brokenInput); }
+        { board = make_unique<Board>(storageInput, mosaicInput, brokenInput); }
 
 Player::Player(const Player &other) :
         name(other.name),
         score(other.score),
         isTurn(false) {}
 
-Player::~Player() {
-    delete board;
-}
+Player::~Player() = default;
 
 string Player::getName() {
     return name;
 }
 
-int Player::getScore() {
+int Player::getScore() const {
     return score;
 }
 
@@ -37,11 +34,11 @@ void Player::setPlayerTurn(bool value) {
     this->isTurn = value;
 }
 
-bool Player::isPlayersTurn() {
+bool Player::isPlayersTurn() const {
     return isTurn;
 }
 
-string Player::getStrings(string data) {
+string Player::getStrings(const string& data) {
     string s;
 
     if (data == "storage") {s = board->storageToString();}
