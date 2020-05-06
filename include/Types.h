@@ -8,7 +8,6 @@
 #include <utility>
 
 #define SEED_FLAG               "s"
-#define FILENAME_FLAG           "f"
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'

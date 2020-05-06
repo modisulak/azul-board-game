@@ -2,8 +2,6 @@
 #define GAME_MANAGER_H
 
 #include <vector>
-#include <Types.h>
-
 #include "Types.h"
 #include "Board.h"
 #include "Player.h"

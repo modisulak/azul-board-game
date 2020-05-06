@@ -34,9 +34,9 @@ GameManager::GameManager(const string& filename) {
         seed = stoi(line);
 
         getline(file, line);
-        bool p1Turn = true;
-        if (line == "false") {
-            p1Turn = false;
+        bool p1Turn = false;
+        if (line == "1") {
+            p1Turn = true;
         }
 
         string player1Name;
