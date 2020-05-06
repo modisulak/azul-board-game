@@ -180,7 +180,6 @@ void Board::newBoard() {
             mosaic[row][col] = defaultMosaic[col];
         }
         shiftMosaic(defaultMosaic);
-        ++row;
     }
 }
 

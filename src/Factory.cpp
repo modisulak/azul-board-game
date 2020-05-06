@@ -22,15 +22,6 @@ Factory::Factory(int size, string tiles) :
     }
 }
 
-/*
-Factory::Factory(const Factory &other) {
-    tiles = new Tile[MAX_FACTORY_TILES];
-
-    for (int i = 0; i != MAX_FACTORY_TILES; ++i) {
-        tiles[i] = other.tiles[i];
-    }
-}*/
-
 Factory::~Factory() {
 }
 

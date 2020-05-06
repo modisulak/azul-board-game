@@ -16,8 +16,6 @@ public:
      */
     Factory(int size, string tiles);
 
-    // Factory(const Factory &other);
-
     ~Factory();
 
     /**

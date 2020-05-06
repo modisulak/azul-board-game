@@ -1,5 +1,5 @@
 #include <GameManager.h>
-#include "../include/main.h"
+#include "../include/Main.h"
 
 void displayMenu();
 
