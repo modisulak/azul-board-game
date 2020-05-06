@@ -18,7 +18,6 @@ GameManager::GameManager(string p1, string p2, int seed) :
     }
 
     populateBag();
-
 }
 
 GameManager::GameManager(const string& filename) {
@@ -139,7 +138,7 @@ void GameManager::help() {
 
 void GameManager::populateBag() {
     int i = 0;
-    while (i < MAX_TOTAL_TILES) {
+    while (i != MAX_TOTAL_TILES) {
         if (i < MAX_AMOUNT_COLOUR) { bag->push_back('R'); }
         else if (i < 2 * MAX_AMOUNT_COLOUR) { bag->push_back('Y'); }
         else if (i < 3 * MAX_AMOUNT_COLOUR) { bag->push_back('B'); }
@@ -150,7 +149,7 @@ void GameManager::populateBag() {
 
     // TODO - Shuffle elements with use of a seed to ensure the 
     // randomness is the same every time
-    for (int i = 0; i < bag->size() - 1; i++) {
+    for (int i = 0; i != bag->size() - 1; i++) {
         int j = i + rand() % (bag->size() - i);
         std::swap(bag[i], bag[j]);
     }
@@ -200,7 +199,7 @@ void GameManager::saveGame(const string &filename) {
 }
 
 string GameManager::bagToString() {
-    return std::string(bag->data(), bag->size());
+    return string(bag->data(), bag->size());
 }
 
 

@@ -6,15 +6,10 @@ void displayMenu();
 void displayCredits();
 
 int main(int argc, char **argv) {
-
-
-    string filename;
     int seed;
     for (int i = 0; i != argc; ++i) {
         if (argv[i] == SEED_FLAG){
             seed = std::stoi(argv[i+1]);
-        } else if (argv[i] == FILENAME_FLAG){
-            filename = argv[i+1];
         }
     }
 
@@ -39,9 +34,10 @@ int main(int argc, char **argv) {
                 manager->playGame();
             } else if (input == LOAD_GAME) {
                 cout << "To-do" << endl;
+                //TODO - prompt for file then feed into manager
+                string filename;
                 manager = make_unique<GameManager>(filename);
                 manager->playGame();
-
             } else if (input == CREDITS) {
                 displayCredits();
             } else if (input == QUIT) {
