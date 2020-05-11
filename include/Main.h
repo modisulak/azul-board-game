@@ -1,6 +1,9 @@
 #ifndef APT_A2_MAIN_H
 #define APT_A2_MAIN_H
 
+#include <dirent.h>
+#include <stdio.h>
+
 #include "Types.h"
 #include "LinkedList.h"
 

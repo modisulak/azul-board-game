@@ -107,10 +107,8 @@ GameManager::GameManager(const string& filename) {
     }
 }
 
-GameManager::~GameManager() = default;
-
-void GameManager::playGame() {
-
+GameManager::~GameManager() {
+    // TODO
 }
 
 void GameManager::playRound() {

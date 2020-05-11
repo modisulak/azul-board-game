@@ -6,11 +6,14 @@
 #include <fstream>
 #include <memory>
 #include <utility>
+#include <vector>
 
 #define SEED_FLAG               "-s"
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'
+#define INPUT_TAB               "> "
+#define SAVE_PATH               "../save_files/"
 #define MAX_FACTORY_TILES       4
 #define MAX_FACTORY_INSTANCES   5
 #define MAX_DISCARD_TILES       17
