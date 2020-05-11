@@ -13,11 +13,10 @@ Factory::Factory(int size, string tiles) :
     this->tiles = make_unique<Tile[]>(size);
 
     for (int i = 0; i != size; ++i) {
-        if (size < tiles.length()) {
+        if (i < tiles.length()) {
             this->tiles[i] = tiles[i];
-            ++i;
         } else {
-            tiles[i] = BLANK_SPACE;
+            this->tiles[i] = BLANK_SPACE;
         }
     }
 }
@@ -66,8 +65,8 @@ void Factory::removeTile(Tile tile) {
     while (i != size && tiles[i] != tile) {
         ++i;
     }
-    if(i != size)
-    tiles[i] = BLANK_SPACE;
+    if (i != size)
+        tiles[i] = BLANK_SPACE;
 }
 
 string Factory::toString() {

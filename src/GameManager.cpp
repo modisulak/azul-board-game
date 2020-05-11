@@ -22,6 +22,7 @@ GameManager::GameManager(string p1, string p2, int seed) :
     for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
         factories[i] = make_unique<Factory>(MAX_FACTORY_TILES);
     }
+    populateFactories();
 }
 
 GameManager::GameManager(const string &filename) {
@@ -63,12 +64,15 @@ GameManager::GameManager(const string &filename) {
         for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
             string factoryAsString;
             getline(file, factoryAsString);
-            factories[i] = make_unique<Factory>(MAX_FACTORY_TILES,
-                                                factoryAsString);
+            factories[i] = make_unique<Factory>(MAX_FACTORY_TILES, factoryAsString);
         }
 
         string p1storageAsString;
         for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
+            int blankSpaces = MAX_BOARD_COLS - i - 1;
+            for (int j = 0; j < blankSpaces; ++j) {
+                p1storageAsString += BLANK_SPACE;
+            }
             getline(file, line);
             p1storageAsString += line;
         }
@@ -81,6 +85,10 @@ GameManager::GameManager(const string &filename) {
 
         string p2storageAsString;
         for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
+            int blankSpaces = MAX_BOARD_COLS - i - 1;
+            for (int j = 0; j < blankSpaces; ++j) {
+                p2storageAsString += BLANK_SPACE;
+            }
             getline(file, line);
             p2storageAsString += line;
         }
@@ -127,12 +135,12 @@ void GameManager::playGame() {
 
         players[0]->setScore(players[0]->getScore() + p1Points);
         players[1]->setScore(players[1]->getScore() + p2Points);
+        populateFactories();
     }
     //TODO announce the winner!
 }
 
 void GameManager::playRound() {
-    populateFactories();
     bool roundEnd = false;
 
     cout << endl << "=== Start Round ===" << endl;
@@ -283,13 +291,13 @@ void GameManager::populateFactories() {
 }
 
 void GameManager::saveGame(const string &filename) {
-    string path = "../save_files/" + filename + ".txt";
+    string path = SAVE_PATH + filename + FILE_EXTENSION;
 
     std::ofstream outfile;
     outfile.open(path);
 
     outfile << seed << endl;
-    outfile << players[0]->isPlayersTurn();
+    outfile << players[0]->isPlayersTurn() << endl;
 
     for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i) {
         outfile << players[i]->getName() << endl;

@@ -7,9 +7,7 @@ void displayCredits();
 
 int getSeed(int argc, char **argv);
 
-bool listSaveFiles(const char *path, std::vector<string> &vect);
-
-bool saveGame(const string &filename);
+bool getSaveFiles(std::vector<string> &saveFiles);
 
 int main(int argc, char **argv) {
     unique_ptr<GameManager> manager;
@@ -43,7 +41,7 @@ int main(int argc, char **argv) {
                         }
                     }
                 }
-                cout << "Starting a new game" << endl;
+                cout << endl << "Starting a new game..." << endl;
                 manager = make_unique<GameManager>(players[0], players[1], seed);
                 manager->playGame();
             } else if (input == LOAD_GAME) {
@@ -51,7 +49,7 @@ int main(int argc, char **argv) {
                 bool selection = false;
                 std::vector<string> saveFiles;
                 cout << endl;
-                bool files = listSaveFiles(SAVE_PATH, saveFiles);
+                bool files = getSaveFiles(saveFiles);
                 if (files) {
                     for (int i = 0; i < saveFiles.size(); i++) {
                         cout << i + 1 << ": " << saveFiles[i] << endl;
@@ -63,13 +61,12 @@ int main(int argc, char **argv) {
                             cout << "Selection is invalid. Please try again." << endl;
                         } else { selection = true; }
                     }
-                    string filename = saveFiles[saveSelection - 1];
+                    string filename = SAVE_PATH + saveFiles[saveSelection - 1];
                     cout << "Loading game from selection" << endl;
                     manager = make_unique<GameManager>(filename);
                     manager->playGame();
                 } else {
                     cout << "There are no current save files available to choose from. Please start a new game" << endl;
-                    gameExit = true;
                 }
             } else if (input == CREDITS) {
                 displayCredits();
@@ -128,17 +125,17 @@ void displayCredits() {
     cout << "-------------------------------------" << endl;
 }
 
-bool listSaveFiles(const char *path, std::vector<string> &vect) {
+bool getSaveFiles(std::vector<string> &saveFiles) {
     bool files = false;
     struct dirent *ent;
-    DIR *directory = opendir(path);
+    DIR *directory = opendir(SAVE_PATH);
 
-    if (directory != NULL) {
+    if (directory != nullptr) {
         char str1[] = ".", str2[] = "..";
-        while ((ent = readdir(directory)) != NULL) {
-            if ((strcmp(ent->d_name, str1)) && (strcmp(ent->d_name, str2))) {
+        while ((ent = readdir(directory)) != nullptr) {
+            if ((strcmp(ent->d_name, str1) != 0) && (strcmp(ent->d_name, str2) != 0)) {
                 files = true;
-                vect.push_back(ent->d_name);
+                saveFiles.emplace_back(ent->d_name);
             }
         }
     }

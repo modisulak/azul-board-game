@@ -50,7 +50,9 @@ string Board::storageToString() {
     string storageToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
-            storageToString += storage[row][col];
+            if (storage[row][col] != BLANK_SPACE) {
+                storageToString += storage[row][col];
+            }
         }
         if (row != MAX_BOARD_ROWS - 1) { storageToString += "\n"; }
     }
@@ -83,8 +85,8 @@ string Board::toString() {
         boardToString += std::to_string(row + 1);
         boardToString += ": ";
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
-            boardToString += " ";
             boardToString += storage[row][col];
+            boardToString += " ";
         }
         boardToString += "||";
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
@@ -203,13 +205,13 @@ void Board::shiftMosaic(string &mosaicRow) {
     }
 }
 
-void Board::newBoard(string &&boardInput, string &&mosaicInput) {
+void Board::newBoard(string &&storageInput, string &&mosaicInput) {
     int count = 0;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
-            storage[row][col] = boardInput[count];
-            mosaic[row][col] = mosaicInput[count];
-            ++count;
+                storage[row][col] = storageInput[count];
+                mosaic[row][col] = mosaicInput[count];
+                ++count;
         }
     }
 }

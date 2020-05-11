@@ -11,9 +11,9 @@
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'
-#define SUCCESS                 "Success"
 #define INPUT_TAB               "> "
 #define SAVE_PATH               "../save_files/"
+#define FILE_EXTENSION          ".txt"
 #define MAX_FACTORY_TILES       4
 #define MAX_FACTORY_INSTANCES   5
 #define MAX_DISCARD_TILES       17
