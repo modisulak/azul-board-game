@@ -1,0 +1,11 @@
+2 //loadsgame
+pick_tile_from_centerpile_first.input //intial_game_state
+(P2) -> 0 B 2   //player2’s turn
+
+savegame
+end
+
+
+
+
+

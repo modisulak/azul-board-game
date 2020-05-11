@@ -1,0 +1,9 @@
+2 //loadsgame
+move_tile_to_board.input //intial_game_state
+savegame
+end
+
+
+
+
+
