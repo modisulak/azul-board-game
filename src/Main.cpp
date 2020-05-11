@@ -7,7 +7,7 @@ void displayCredits();
 
 int getSeed(int argc, char **argv);
 
-void listSaveFiles(const char *path, std::vector<string> &vect);
+bool listSaveFiles(const char *path, std::vector<string> &vect);
 
 bool saveGame(const string &filename);
 
@@ -50,23 +50,27 @@ int main(int argc, char **argv) {
                 int saveSelection;
                 bool selection = false;
                 std::vector<string> saveFiles;
-                listSaveFiles(SAVE_PATH, saveFiles);
                 cout << endl;
-                for (int i = 0; i < saveFiles.size(); i++) {
-                    cout << i + 1 << ": " << saveFiles[i] << endl;
+                bool files = listSaveFiles(SAVE_PATH, saveFiles);
+                if (files) {
+                    for (int i = 0; i < saveFiles.size(); i++) {
+                        cout << i + 1 << ": " << saveFiles[i] << endl;
+                    }
+                    cout << endl << "Please select save file to load from list: " << endl << INPUT_TAB;
+                    while (!selection) {
+                        cin >> saveSelection;
+                        if ((saveSelection <= 0) || (saveSelection >= saveFiles.size() + 1)) {
+                            cout << "Selection is invalid. Please try again." << endl;
+                        } else { selection = true; }
+                    }
+                    string filename = saveFiles[saveSelection - 1];
+                    cout << "Loading game from selection" << endl;
+                    manager = make_unique<GameManager>(filename);
+                    manager->playGame();
+                } else {
+                    cout << "There are no current save files available to choose from. Please start a new game" << endl;
+                    gameExit = true;
                 }
-                cout << endl << "Please select save file to load from list: " << endl << INPUT_TAB;
-
-                while (!selection) {
-                    cin >> saveSelection;
-                    if ((saveSelection <= 0) || (saveSelection >= saveFiles.size() + 1)) {
-                        cout << "Selection is invalid. Please try again." << endl;
-                    } else { selection = true; }
-                }
-                string filename = saveFiles[saveSelection - 1];
-                cout << "Loading game from selection" << endl;
-                manager = make_unique<GameManager>(filename);
-                manager->playGame();
             } else if (input == CREDITS) {
                 displayCredits();
             } else if (input == QUIT) {
@@ -124,7 +128,8 @@ void displayCredits() {
     cout << "-------------------------------------" << endl;
 }
 
-void listSaveFiles(const char *path, std::vector<string> &vect) {
+bool listSaveFiles(const char *path, std::vector<string> &vect) {
+    bool files = false;
     struct dirent *ent;
     DIR *directory = opendir(path);
 
@@ -132,9 +137,11 @@ void listSaveFiles(const char *path, std::vector<string> &vect) {
         char str1[] = ".", str2[] = "..";
         while ((ent = readdir(directory)) != NULL) {
             if ((strcmp(ent->d_name, str1)) && (strcmp(ent->d_name, str2))) {
+                files = true;
                 vect.push_back(ent->d_name);
             }
         }
-        closedir(directory);
     }
+    closedir(directory);
+    return files;
 }

@@ -179,38 +179,18 @@ string GameManager::promptPlayer(int index) {
     cout << endl << "Turn for player " << players[index]->getName()  << ":" << endl;
 
     cout << endl << "Factories: " << endl << "0: ";
-    for (int i = 0; i != MAX_DISCARD_TILES; ++i) {
-        cout << discard->getTile(i) << " ";
-    }
+    cout << discard->toString() << endl;
+
     for (int i = 0; i < MAX_FACTORY_INSTANCES; ++i) {
-        cout << endl << i + 1 << ": ";
-        for (int j = 0; j != MAX_FACTORY_TILES; ++j) {
-            cout << factories[i]->getTile(j) << " ";
-        }
-    }
-    auto storage = players[index]->getBoard()->getStorage();
-    auto mosaic = players[index]->getBoard()->getMosaic();
-
-    cout << endl << endl << "Mosaic for " << players[index]->getName() << ":";
-    for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
-        cout << endl << i + 1 << ": ";
-        for (int j = 0; j < MAX_BOARD_COLS; ++j) {
-            cout << storage[i][j] << " ";
-        }
-        cout << "|| ";
-        for (int j = 0; j < MAX_BOARD_COLS; ++j) {
-            cout << mosaic[i][j] << " ";
-        }
+        cout << i + 1 << ": ";
+        cout << factories[i]->toString() << endl;
     }
 
-    auto broken = players[index]->getBoard()->getBroken();
+    cout << endl << "Mosaic for " << players[index]->getName() << ":" << endl;
 
-    cout << endl << endl << "Broken: " << endl;
-    for (int i = 0; i != broken->size(); ++i) {
-        cout << broken->get(i) << " ";
-    }
+    cout << players[index]->getBoard()->toString() << endl;
 
-    cout << endl << "> ";
+    cout << endl << INPUT_TAB;
     string line;
     while (line.empty()) {
         getline(cin, line);

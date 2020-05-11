@@ -80,14 +80,21 @@ string Board::brokenToString() {
 string Board::toString() {
     string boardToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
+        boardToString += std::to_string(row + 1);
+        boardToString += ": ";
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
+            boardToString += " ";
             boardToString += storage[row][col];
         }
-        boardToString += "|";
+        boardToString += "||";
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
+            boardToString += " ";
             boardToString += mosaic[row][col];
         }
+        boardToString += "\n";
     }
+    boardToString += "\n";
+    boardToString += "Broken: ";
     boardToString += brokenToString();
     return boardToString;
 }
