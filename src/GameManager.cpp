@@ -2,6 +2,7 @@
 
 GameManager::GameManager(string p1, string p2, int seed) :
         seed(seed) {
+    engine.seed(seed);
     string pl[MAX_PLAYER_INSTANCES] = {move(p1), move(p2)};
     players = make_unique<unique_ptr<Player>[]>(MAX_PLAYER_INSTANCES);
     for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i) {
@@ -146,15 +147,13 @@ void GameManager::populateBag() {
         else { bag->push_back('U'); }
         ++i;
     }
+    // Shuffle bag using random engine
+    std::shuffle(std::begin(*bag), std::end(*bag), engine);
 
-    // TODO - Shuffle elements with use of a seed to ensure the 
-    // randomness is the same every time
-    for (int i = 0; i != bag->size() - 1; i++) {
-        int j = i + rand() % (bag->size() - i);
-        std::swap(bag[i], bag[j]);
+    for (int j = 0; j != bag->size(); ++j) {
+        std::cout << j << ": " << bag->at(j) << endl;
     }
 }
-
 
 void GameManager::populateFactories() {
     for (int fNo = 0; fNo != MAX_FACTORY_INSTANCES; ++fNo) {

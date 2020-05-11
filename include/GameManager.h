@@ -2,6 +2,8 @@
 #define GAME_MANAGER_H
 
 #include <vector>
+#include <random>
+#include <algorithm>
 #include "Types.h"
 #include "Board.h"
 #include "Player.h"
@@ -53,6 +55,9 @@ public:
     void saveGame(const string& fileName);
 
 private:
+    // engine to randomly swap / assign tiles
+    std::default_random_engine engine;
+
     // Seed number
     int seed;
 

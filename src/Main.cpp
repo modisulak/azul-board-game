@@ -5,14 +5,9 @@ void displayMenu();
 
 void displayCredits();
 
-int main(int argc, char **argv) {
-    int seed;
-    for (int i = 0; i != argc; ++i) {
-        if (argv[i] == SEED_FLAG){
-            seed = std::stoi(argv[i+1]);
-        }
-    }
+int getSeed(int argc, char **argv);
 
+int main(int argc, char **argv) {
     unique_ptr<GameManager> manager;
 
     cout << "Welcome to Azul!" << endl;
@@ -20,6 +15,7 @@ int main(int argc, char **argv) {
 
     bool gameExit = false;
     while (!gameExit) {
+        int seed = getSeed(argc, argv);
         displayMenu();
         std::cout << "> ";
 
@@ -48,6 +44,25 @@ int main(int argc, char **argv) {
         }
     }
     return EXIT_SUCCESS;
+}
+
+int getSeed(int argc, char **argv) {
+    // Generate random seed
+    std::random_device engine;
+    int min = std::numeric_limits<int>::min();
+    int max = std::numeric_limits<int>::max();
+
+    std::uniform_int_distribution<int> uniform_dist(min, max);
+    int seed = uniform_dist(engine);
+
+    //Override seed with command line argument
+    for (int i = 0; i != argc; ++i) {
+        if (argv[i] == std::string(SEED_FLAG)){
+            seed = std::stoi(argv[i+1]);
+            cout << seed <<endl;
+        }
+    }
+    return seed;
 }
 
 void displayMenu() {

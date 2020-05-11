@@ -7,7 +7,7 @@
 #include <memory>
 #include <utility>
 
-#define SEED_FLAG               "s"
+#define SEED_FLAG               "-s"
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'
