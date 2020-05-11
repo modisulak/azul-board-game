@@ -46,11 +46,13 @@ public:
      */
     string getStrings(const string& data);
 
+    const shared_ptr<Board> &getBoard() const;
+
 private:
     string name;
     int score;
     bool isTurn;
-    unique_ptr<Board> board;
+    shared_ptr<Board> board;
 };
 
 #endif //APT_A2_PLAYER_H

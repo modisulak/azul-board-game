@@ -29,20 +29,23 @@ int main(int argc, char **argv) {
         if (cin.good()) {
             if (input == NEW_GAME) {
                 string players[MAX_PLAYER_INSTANCES];
-                for (int i = 0; i < MAX_PLAYER_INSTANCES; i++) {
+                for (auto &player : players) {
                     bool success = false;
                     cout << endl << "Enter player name: ";
                     cout << endl << INPUT_TAB;
                     while (!success) {
-                        try { cin >> players[i]; success = true;}
-                        catch (...) { 
+                        try {
+                            cin >> player;
+                            success = true;
+                        }
+                        catch (...) {
                             cout << "Selection is invalid. Please try again." << endl;
                         }
                     }
                 }
-                cout << "Starting a new game" << endl;                
-                manager = make_unique<GameManager>(players[0],players[1],seed);
-
+                cout << "Starting a new game" << endl;
+                manager = make_unique<GameManager>(players[0], players[1], seed);
+                manager->playGame();
             } else if (input == LOAD_GAME) {
                 int saveSelection;
                 bool selection = false;
@@ -50,20 +53,20 @@ int main(int argc, char **argv) {
                 listSaveFiles(SAVE_PATH, saveFiles);
                 cout << endl;
                 for (int i = 0; i < saveFiles.size(); i++) {
-                    cout << i+1 << ": " << saveFiles[i] << endl;
+                    cout << i + 1 << ": " << saveFiles[i] << endl;
                 }
                 cout << endl << "Please select save file to load from list: " << endl << INPUT_TAB;
-                
+
                 while (!selection) {
                     cin >> saveSelection;
-                    if ( (saveSelection <= 0) || (saveSelection >= saveFiles.size() + 1) ) {
+                    if ((saveSelection <= 0) || (saveSelection >= saveFiles.size() + 1)) {
                         cout << "Selection is invalid. Please try again." << endl;
-                    } else {selection = true;}
+                    } else { selection = true; }
                 }
                 string filename = saveFiles[saveSelection - 1];
-                cout << "Loading game from selection" << endl; 
+                cout << "Loading game from selection" << endl;
                 manager = make_unique<GameManager>(filename);
-
+                manager->playGame();
             } else if (input == CREDITS) {
                 displayCredits();
             } else if (input == QUIT) {
@@ -72,45 +75,7 @@ int main(int argc, char **argv) {
                 cout << "Selection is invalid. Please try again." << endl;
             }
         }
-
-        bool endGame = false;
-        while (!endGame) {
-            cout << "Enter SAVE at any input point to save game" << endl;
-            cout << "Enter HELP at any input point to view help" << endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
     }
-
     return EXIT_SUCCESS;
 }
 
@@ -125,9 +90,9 @@ int getSeed(int argc, char **argv) {
 
     //Override seed with command line argument
     for (int i = 0; i != argc; ++i) {
-        if (argv[i] == std::string(SEED_FLAG)){
-            seed = std::stoi(argv[i+1]);
-            cout << seed <<endl;
+        if (argv[i] == std::string(SEED_FLAG)) {
+            seed = std::stoi(argv[i + 1]);
+            cout << seed << endl;
         }
     }
     return seed;
@@ -160,16 +125,16 @@ void displayCredits() {
 }
 
 void listSaveFiles(const char *path, std::vector<string> &vect) {
-   struct dirent *ent;
-   DIR *directory = opendir(path);
-   
-   if (directory != NULL) {
+    struct dirent *ent;
+    DIR *directory = opendir(path);
+
+    if (directory != NULL) {
         char str1[] = ".", str2[] = "..";
         while ((ent = readdir(directory)) != NULL) {
             if ((strcmp(ent->d_name, str1)) && (strcmp(ent->d_name, str2))) {
                 vect.push_back(ent->d_name);
             }
+        }
+        closedir(directory);
     }
-    closedir(directory);
-   }
 }

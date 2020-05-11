@@ -3,13 +3,13 @@ Player::Player(string name, int score) :
         name(std::move(name)),
         score(score),
         isTurn(false)
-        {board = make_unique<Board>();}
+        {board = make_shared<Board>();}
 
 Player::Player(string name, int score, const string& storageInput, const string& mosaicInput, const string& brokenInput, bool isTurn) :
         name(std::move(name)),
         score(score),
         isTurn(isTurn)
-        { board = make_unique<Board>(storageInput, mosaicInput, brokenInput); }
+        { board = make_shared<Board>(storageInput, mosaicInput, brokenInput); }
 
 Player::Player(const Player &other) :
         name(other.name),
@@ -47,6 +47,10 @@ string Player::getStrings(const string& data) {
     else {s = board->toString();}
 
     return s;
+}
+
+const shared_ptr<Board> &Player::getBoard() const {
+    return board;
 }
 
 

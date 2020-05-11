@@ -59,13 +59,19 @@ public:
      * @param numberOfTiles
      * @param row
      */
-    void addToStorage(Tile tile, int numberOfTiles, int row);
+    bool addToStorage(Tile tile, int numberOfTiles, int row);
 
     /**
      * Move tiles to mosaic
      * Returns points earned within round
      */
     int addToMosaic();
+
+    /**
+     * Add a tile to the broken list
+     * @param tile
+     */
+    void addToBroken(Tile tile);
 
     /**
      * Check whether someone has ended the game by completing a row

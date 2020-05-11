@@ -3,14 +3,12 @@
 
 #include <dirent.h>
 #include <stdio.h>
+#include <cstring>
 
 #include "Types.h"
 #include "LinkedList.h"
 
-using std::cout;
-using std::cin;
-using std::endl;
-
+#define SEED_FLAG "-s"
 #define NEW_GAME  "1"
 #define LOAD_GAME "2"
 #define CREDITS   "3"

@@ -3,25 +3,28 @@
 GameManager::GameManager(string p1, string p2, int seed) :
         seed(seed) {
     engine.seed(seed);
+
     string pl[MAX_PLAYER_INSTANCES] = {move(p1), move(p2)};
     players = make_unique<unique_ptr<Player>[]>(MAX_PLAYER_INSTANCES);
     for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i) {
         players[i] = make_unique<Player>(pl[i], 0);
     }
 
+    setFirstTurn();
+
     discard = make_unique<Factory>(MAX_DISCARD_TILES);
     bag = new std::vector<Tile>();
     boxLid = new LinkedList();
+
+    populateBag();
 
     factories = make_unique<unique_ptr<Factory>[]>(MAX_FACTORY_INSTANCES);
     for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
         factories[i] = make_unique<Factory>(MAX_FACTORY_TILES);
     }
-
-    populateBag();
 }
 
-GameManager::GameManager(const string& filename) {
+GameManager::GameManager(const string &filename) {
     players = make_unique<unique_ptr<Player>[]>(MAX_PLAYER_INSTANCES);
     factories = make_unique<unique_ptr<Factory>[]>(MAX_FACTORY_INSTANCES);
     bag = new std::vector<Tile>();
@@ -33,6 +36,7 @@ GameManager::GameManager(const string& filename) {
         string line;
         getline(file, line);
         seed = stoi(line);
+        engine.seed(seed);
 
         getline(file, line);
         bool p1Turn = false;
@@ -107,28 +111,167 @@ GameManager::GameManager(const string& filename) {
     }
 }
 
-GameManager::~GameManager() {
-    // TODO
+GameManager::~GameManager() = default;
+
+void GameManager::playGame() {
+    shared_ptr<Board> p1Board = players[0]->getBoard();
+    shared_ptr<Board> p2Board = players[1]->getBoard();
+
+    cout << endl << "Let's Play!" << endl;
+
+    while (!p1Board->isGameFinished() && !p2Board->isGameFinished()) {
+        playRound();
+
+        int p1Points = p1Board->addToMosaic();
+        int p2Points = p2Board->addToMosaic();
+
+        players[0]->setScore(players[0]->getScore() + p1Points);
+        players[1]->setScore(players[1]->getScore() + p2Points);
+    }
+    //TODO announce the winner!
 }
 
 void GameManager::playRound() {
     populateFactories();
-    /**
-     * while (factories are not empty) {
-     * playTurn(player)
-     * }
-     */
+    bool roundEnd = false;
+
+    cout << endl << "=== Start Round ===" << endl;
+
+    while (!roundEnd) {
+        int playerIndex;
+        if (players[0]->isPlayersTurn()) {
+            playerIndex = 0;
+        } else {
+            playerIndex = 1;
+        }
+
+        string input = promptPlayer(playerIndex);
+        std::vector<string> inputs;
+        getInputsVector(input, inputs);
+
+        string message = "Invalid input, try again.";
+        if (inputs[0] == "turn") {
+            if (inputs.size() == 4) {
+                bool success = playTurn(inputs, playerIndex);
+                if (success) {
+                    roundEnd = isRoundEnd();
+                    for (int i = 0; i < MAX_PLAYER_INSTANCES; ++i) {
+                        players[i]->setPlayerTurn(!players[i]->isPlayersTurn());
+                    }
+                    message = "Turn successful.";
+                }
+            }
+        } else if (inputs[0] == "save") {
+            if (inputs.size() == 2) {
+                saveGame(inputs[1]);
+                message = "Game Saved.";
+            }
+        } else if (inputs[0] == "help") {
+            help();
+            message = "";
+        }
+        cout << message << endl;
+    }
 }
 
-void GameManager::playTurn(int factoryNo, Tile colour, int storageRow) {
-    // TODO
+string GameManager::promptPlayer(int index) {
+
+    cout << endl << "Turn for player " << players[index]->getName()  << ":" << endl;
+
+    cout << endl << "Factories: " << endl << "0: ";
+    for (int i = 0; i != MAX_DISCARD_TILES; ++i) {
+        cout << discard->getTile(i) << " ";
+    }
+    for (int i = 0; i < MAX_FACTORY_INSTANCES; ++i) {
+        cout << endl << i + 1 << ": ";
+        for (int j = 0; j != MAX_FACTORY_TILES; ++j) {
+            cout << factories[i]->getTile(j) << " ";
+        }
+    }
+    auto storage = players[index]->getBoard()->getStorage();
+    auto mosaic = players[index]->getBoard()->getMosaic();
+
+    cout << endl << endl << "Mosaic for " << players[index]->getName() << ":";
+    for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
+        cout << endl << i + 1 << ": ";
+        for (int j = 0; j < MAX_BOARD_COLS; ++j) {
+            cout << storage[i][j] << " ";
+        }
+        cout << "|| ";
+        for (int j = 0; j < MAX_BOARD_COLS; ++j) {
+            cout << mosaic[i][j] << " ";
+        }
+    }
+
+    auto broken = players[index]->getBoard()->getBroken();
+
+    cout << endl << endl << "Broken: " << endl;
+    for (int i = 0; i != broken->size(); ++i) {
+        cout << broken->get(i) << " ";
+    }
+
+    cout << endl << "> ";
+    string line;
+    while (line.empty()) {
+        getline(cin, line);
+    }
+    return line;
 }
 
-int GameManager::getScore() {
-    int score = 0;
-    // score = player1->getScore()
-    // TODO
-    return score;
+void GameManager::getInputsVector(string &input, std::vector<string> &inputs) const {
+    std::string delimiter = " ";
+    int pos = 0;
+    std::string token;
+    while ((pos = input.find(delimiter)) != std::string::npos) {
+        token = input.substr(0, pos);
+        inputs.push_back(token);
+        input.erase(0, pos + delimiter.length());
+    }
+    inputs.push_back(input);
+}
+
+bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
+    int factoryNumber = std::stoi(inputs[1]);
+    bool isDiscard = true;
+    if (factoryNumber != 0) {
+        factoryNumber -= 1;
+        isDiscard = false;
+    }
+    Tile tile = inputs[2][0];
+    int storageRow = std::stoi(inputs[3]) - 1;
+    int noOfTiles = isDiscard ? discard->getTilesOfSameColour(tile)
+                              : factories[factoryNumber]->getTilesOfSameColour(tile);
+
+    bool success = false;
+    if (noOfTiles > 0 && tile != FIRST_PLAYER_TILE) {
+        success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
+        if (success) {
+            if (isDiscard) {
+                if (discard->contains(FIRST_PLAYER_TILE)) {
+                    players[playerIndex]->getBoard()->addToBroken(FIRST_PLAYER_TILE);
+                    discard->removeTile(FIRST_PLAYER_TILE);
+                }
+            } else {
+                for (int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
+                    if (factories[factoryNumber]->getTile(i) != BLANK_SPACE) {
+                        discard->addTile(factories[factoryNumber]->getTile(i));
+                        factories[factoryNumber]->removeTile(i);
+                    }
+                }
+            }
+        }
+    }
+    return success;
+}
+
+bool GameManager::isRoundEnd() const {
+    bool roundEnd;
+    int i = 0;
+    while (factories[i]->isEmpty()) {
+        ++i;
+    }
+    roundEnd = discard->isEmpty() && i == MAX_FACTORY_INSTANCES;
+    return roundEnd;
 }
 
 void GameManager::help() {
@@ -147,10 +290,6 @@ void GameManager::populateBag() {
     }
     // Shuffle bag using random engine
     std::shuffle(std::begin(*bag), std::end(*bag), engine);
-
-    for (int j = 0; j != bag->size(); ++j) {
-        std::cout << j << ": " << bag->at(j) << endl;
-    }
 }
 
 void GameManager::populateFactories() {
@@ -164,7 +303,7 @@ void GameManager::populateFactories() {
 }
 
 void GameManager::saveGame(const string &filename) {
-    string path = "../save_files/" + filename;
+    string path = "../save_files/" + filename + ".txt";
 
     std::ofstream outfile;
     outfile.open(path);
@@ -197,6 +336,16 @@ void GameManager::saveGame(const string &filename) {
 
 string GameManager::bagToString() {
     return string(bag->data(), bag->size());
+}
+
+void GameManager::setFirstTurn() {
+    int min = 0;
+    int max = 1;
+
+    std::uniform_int_distribution<int> uniform_dist(min, max);
+    int index = uniform_dist(engine);
+
+    players[index]->setPlayerTurn(true);
 }
 
 

@@ -8,10 +8,10 @@
 #include <utility>
 #include <vector>
 
-#define SEED_FLAG               "-s"
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'
+#define SUCCESS                 "Success"
 #define INPUT_TAB               "> "
 #define SAVE_PATH               "../save_files/"
 #define MAX_FACTORY_TILES       4
@@ -23,6 +23,10 @@
 
 
 typedef char Tile;
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 using std::string;
 using std::endl;

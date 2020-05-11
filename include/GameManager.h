@@ -19,7 +19,7 @@ public:
     /**
      * Loads a game from a save file with given name
      */
-    GameManager(const string& filename);
+    GameManager(const string &filename);
 
     ~GameManager();
 
@@ -37,12 +37,7 @@ public:
      * Gets the input of the tiles chosen and places them onto the board
      * Factory number, colour, storage row     
      */
-    void playTurn(int factoryNo, Tile colour, int storageRow);
-
-    /**
-     * Returns the player's score
-     */
-    int getScore();
+    bool playTurn(std::vector<string> &inputs, int i);
 
     /**
      * Gives a selection of information to help a user interact with the game
@@ -52,7 +47,7 @@ public:
     /**
      * Saves the current state of the game
      */
-    void saveGame(const string& fileName);
+    void saveGame(const string &fileName);
 
 private:
     // engine to randomly swap / assign tiles
@@ -71,7 +66,7 @@ private:
     unique_ptr<unique_ptr<Player>[]> players;
 
     // Vector representing the bag
-    std::vector<Tile>* bag;
+    std::vector<Tile> *bag;
 
     // Linked list representing the box lid
     LinkedList *boxLid;
@@ -91,6 +86,13 @@ private:
      */
     string bagToString();
 
+    void setFirstTurn();
+
+    bool isRoundEnd() const;
+
+    string promptPlayer(int index);
+
+    void getInputsVector(string &input, std::vector<string> &inputs) const;
 };
 
 #endif // GAME_MANAGER_H

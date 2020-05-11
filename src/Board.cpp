@@ -52,7 +52,7 @@ string Board::storageToString() {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
             storageToString += storage[row][col];
         }
-        if (row != MAX_BOARD_ROWS -1) {storageToString += "\n";}
+        if (row != MAX_BOARD_ROWS - 1) { storageToString += "\n"; }
     }
     return storageToString;
 }
@@ -92,12 +92,15 @@ string Board::toString() {
     return boardToString;
 }
 
-void Board::addToStorage(Tile tile, int numberOfTiles, int row) {
+bool Board::addToStorage(Tile tile, int numberOfTiles, int row) {
+    bool success = false;
+
     // Ensure the mosaic doesn't already contain tile colour
     int col = 0;
     while (col != MAX_BOARD_COLS && mosaic[row][col] != tile) {
         ++col;
     }
+
     if (col == MAX_BOARD_COLS) {
         int colMin = MAX_BOARD_COLS - (row + 1);
         // Ensure storage row isn't full of tiles
@@ -117,15 +120,11 @@ void Board::addToStorage(Tile tile, int numberOfTiles, int row) {
                     broken->addBack(tile);
                     --numberOfTiles;
                 }
-            } else {
-                //TODO Display error - cannot put tile on this row as colour doesnt match
+                success = true;
             }
-        } else {
-            //TODO Display error - cannot put tile on this row as row is full
         }
-    } else {
-        //TODO Display error - cannot put tile on this row as mosaic already has this colour
     }
+    return success;
 }
 
 int Board::addToMosaic() {
@@ -143,10 +142,14 @@ int Board::addToMosaic() {
             }
             // Update mosaic
             mosaic[row][col] = tile;
-            //TODO Tally up points based on surrounding tiles
+            //TODO Tally up points based on surrounding tiles including lost points for broken tiles
         }
     }
     return points;
+}
+
+void Board::addToBroken(Tile tile) {
+    broken->addBack(tile);
 }
 
 bool Board::isGameFinished() {
