@@ -60,6 +60,8 @@ public:
      */
     string toString();
 
+    bool includes(Tile tile);
+
 private:
     shared_ptr<Node> head;
     shared_ptr<Node> tail;

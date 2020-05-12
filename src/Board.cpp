@@ -74,6 +74,7 @@ string Board::brokenToString() {
     int i = 0;
     while (i != broken->size()) {
         brokenToString += broken->get(i);
+        brokenToString += " ";
         ++i;
     }
     return brokenToString;
@@ -95,8 +96,7 @@ string Board::toString() {
         }
         boardToString += "\n";
     }
-    boardToString += "\n";
-    boardToString += "Broken: ";
+    boardToString += "6: Broken: ";
     boardToString += brokenToString();
     return boardToString;
 }
@@ -152,6 +152,11 @@ int Board::addToMosaic() {
             // Update mosaic
             mosaic[row][col] = tile;
             //TODO Tally up points based on surrounding tiles including lost points for broken tiles
+
+            // Reset completed storage row
+            for (int i = colMin; i != MAX_BOARD_COLS; ++i) {
+                storage[row][i] = EMPTY;
+            }
         }
     }
     return points;

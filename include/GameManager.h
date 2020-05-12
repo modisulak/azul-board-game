@@ -93,6 +93,10 @@ private:
     string promptPlayer(int index);
 
     void getInputsVector(string &input, std::vector<string> &inputs) const;
+
+    bool isANumber(const string &input);
+
+    bool validateInputs(std::vector<string> &inputs);
 };
 
 #endif // GAME_MANAGER_H

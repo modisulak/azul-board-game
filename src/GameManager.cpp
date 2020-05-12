@@ -121,6 +121,16 @@ GameManager::GameManager(const string &filename) {
 
 GameManager::~GameManager() = default;
 
+void GameManager::setFirstTurn() {
+    int min = 0;
+    int max = 1;
+
+    std::uniform_int_distribution<int> uniform_dist(min, max);
+    int index = uniform_dist(engine);
+
+    players[index]->setPlayerTurn(true);
+}
+
 void GameManager::playGame() {
     shared_ptr<Board> p1Board = players[0]->getBoard();
     shared_ptr<Board> p2Board = players[1]->getBoard();
@@ -130,11 +140,27 @@ void GameManager::playGame() {
     while (!p1Board->isGameFinished() && !p2Board->isGameFinished()) {
         playRound();
 
+        // Update mosaic and get score for newly placed tiles
         int p1Points = p1Board->addToMosaic();
         int p2Points = p2Board->addToMosaic();
 
+        // Update players score
         players[0]->setScore(players[0]->getScore() + p1Points);
         players[1]->setScore(players[1]->getScore() + p2Points);
+
+        // Update players turn
+        if (p1Board->getBroken()->includes(FIRST_PLAYER_TILE)) {
+            players[0]->setPlayerTurn(true);
+            players[1]->setPlayerTurn(false);
+        } else {
+            players[0]->setPlayerTurn(false);
+            players[1]->setPlayerTurn(true);
+        }
+
+        // Clear the broken tiles
+        p1Board->getBroken()->clear();
+        p2Board->getBroken()->clear();
+
         populateFactories();
     }
     //TODO announce the winner!
@@ -154,12 +180,14 @@ void GameManager::playRound() {
         }
 
         string input = promptPlayer(playerIndex);
+        transform(input.begin(), input.end(), input.begin(), ::toupper);
         std::vector<string> inputs;
         getInputsVector(input, inputs);
 
         string message = "Invalid input, try again.";
-        if (inputs[0] == "turn") {
-            if (inputs.size() == 4) {
+        string command = inputs[0];
+        if (command == TURN) {
+            if (inputs.size() == TURN_ARGC) {
                 bool success = playTurn(inputs, playerIndex);
                 if (success) {
                     roundEnd = isRoundEnd();
@@ -169,12 +197,14 @@ void GameManager::playRound() {
                     message = "Turn successful.";
                 }
             }
-        } else if (inputs[0] == "save") {
-            if (inputs.size() == 2) {
-                saveGame(inputs[1]);
+        } else if (command == SAVE) {
+            if (inputs.size() == SAVE_ARGC) {
+                string filename = inputs[1];
+                transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+                saveGame(filename);
                 message = "Game Saved.";
             }
-        } else if (inputs[0] == "help") {
+        } else if (command == HELP) {
             help();
             message = "";
         }
@@ -184,7 +214,7 @@ void GameManager::playRound() {
 
 string GameManager::promptPlayer(int index) {
 
-    cout << endl << "Turn for player " << players[index]->getName()  << ":" << endl;
+    cout << endl << "Turn for player " << players[index]->getName() << ":" << endl;
 
     cout << endl << "Factories: " << endl << "0: ";
     cout << discard->toString() << endl;
@@ -207,10 +237,10 @@ string GameManager::promptPlayer(int index) {
 }
 
 void GameManager::getInputsVector(string &input, std::vector<string> &inputs) const {
-    std::string delimiter = " ";
+    string delimiter = " ";
     int pos = 0;
-    std::string token;
-    while ((pos = input.find(delimiter)) != std::string::npos) {
+    string token;
+    while ((pos = input.find(delimiter)) != string::npos) {
         token = input.substr(0, pos);
         inputs.push_back(token);
         input.erase(0, pos + delimiter.length());
@@ -219,31 +249,47 @@ void GameManager::getInputsVector(string &input, std::vector<string> &inputs) co
 }
 
 bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
-    int factoryNumber = std::stoi(inputs[1]);
-    bool isDiscard = true;
-    if (factoryNumber != 0) {
-        factoryNumber -= 1;
-        isDiscard = false;
-    }
-    Tile tile = inputs[2][0];
-    int storageRow = std::stoi(inputs[3]) - 1;
-    int noOfTiles = isDiscard ? discard->getTilesOfSameColour(tile)
-                              : factories[factoryNumber]->getTilesOfSameColour(tile);
-
     bool success = false;
-    if (noOfTiles > 0 && tile != FIRST_PLAYER_TILE) {
-        success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
-        if (success) {
-            if (isDiscard) {
-                if (discard->contains(FIRST_PLAYER_TILE)) {
-                    players[playerIndex]->getBoard()->addToBroken(FIRST_PLAYER_TILE);
-                    discard->removeTile(FIRST_PLAYER_TILE);
+    if (validateInputs(inputs)) {
+        int factoryNumber = std::stoi(inputs[1]);
+        bool isDiscard = true;
+        if (factoryNumber != 0) {
+            factoryNumber -= 1;
+            isDiscard = false;
+        }
+        Tile tile = inputs[2][0];
+        int storageRow = std::stoi(inputs[3]) - 1;
+        if (tile != FIRST_PLAYER_TILE) {
+            int noOfTiles = isDiscard ? discard->getTilesOfSameColour(tile)
+                                      : factories[factoryNumber]->getTilesOfSameColour(tile);
+
+            if (noOfTiles > 0) {
+                if(storageRow == BROKEN_ROW){
+                    for (int count = 0; count != noOfTiles; ++count) {
+                        players[playerIndex]->getBoard()->addToBroken(tile);
+                    }
+                    success = true;
+                } else {
+                    success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
                 }
-            } else {
-                for (int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
-                    if (factories[factoryNumber]->getTile(i) != BLANK_SPACE) {
-                        discard->addTile(factories[factoryNumber]->getTile(i));
-                        factories[factoryNumber]->removeTile(i);
+                if (success) {
+                    if (isDiscard) {
+                        if (discard->contains(FIRST_PLAYER_TILE)) {
+                            players[playerIndex]->getBoard()->addToBroken(FIRST_PLAYER_TILE);
+                            discard->removeTile(FIRST_PLAYER_TILE);
+                        }
+                        for (int i = 0; i != discard->getSize(); ++i) {
+                            if (discard->getTile(i) == tile) {
+                                discard->removeTile(i);
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
+                            if (factories[factoryNumber]->getTile(i) != tile) {
+                                discard->addTile(factories[factoryNumber]->getTile(i));
+                            }
+                            factories[factoryNumber]->removeTile(i);
+                        }
                     }
                 }
             }
@@ -252,10 +298,18 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
     return success;
 }
 
+bool GameManager::validateInputs(std::vector<string> &inputs) {
+    return isANumber(inputs[1]) && inputs[2].length() == 1 && isANumber(inputs[3]);
+}
+
+bool GameManager::isANumber(const string &input) {
+    return input.find_first_not_of("0123456789") == string::npos;
+}
+
 bool GameManager::isRoundEnd() const {
     bool roundEnd;
     int i = 0;
-    while (factories[i]->isEmpty()) {
+    while (i != MAX_FACTORY_INSTANCES && factories[i]->isEmpty()) {
         ++i;
     }
     roundEnd = discard->isEmpty() && i == MAX_FACTORY_INSTANCES;
@@ -324,16 +378,6 @@ void GameManager::saveGame(const string &filename) {
 
 string GameManager::bagToString() {
     return string(bag->data(), bag->size());
-}
-
-void GameManager::setFirstTurn() {
-    int min = 0;
-    int max = 1;
-
-    std::uniform_int_distribution<int> uniform_dist(min, max);
-    int index = uniform_dist(engine);
-
-    players[index]->setPlayerTurn(true);
 }
 
 

@@ -2,18 +2,18 @@
 
 Factory::Factory(int size) :
         size(size) {
-    tiles = make_unique<Tile[]>(size);
-    for (int i = 0; i != size; ++i) {
+    tiles = make_unique<Tile[]>(this->size);
+    for (int i = 0; i != this->size; ++i) {
         tiles[i] = BLANK_SPACE;
     }
 }
 
 Factory::Factory(int size, string tiles) :
         size(size) {
-    this->tiles = make_unique<Tile[]>(size);
+    this->tiles = make_unique<Tile[]>(this->size);
 
-    for (int i = 0; i != size; ++i) {
-        if (i < tiles.length()) {
+    for (int i = 0; i != this->size; ++i) {
+        if (i != tiles.length()) {
             this->tiles[i] = tiles[i];
         } else {
             this->tiles[i] = BLANK_SPACE;
@@ -40,7 +40,6 @@ int Factory::getTilesOfSameColour(const Tile tile) {
     for (int i = 0; i != size; ++i) {
         if (tiles[i] == tile) {
             ++tileCount;
-            removeTile(i);
         }
     }
     return tileCount;
@@ -71,7 +70,7 @@ void Factory::removeTile(Tile tile) {
 
 string Factory::toString() {
     string out;
-    for (int i = 0; i != size; i++) {
+    for (int i = 0; i != size; ++i) {
         out += tiles[i];
     }
     return out;
@@ -79,10 +78,11 @@ string Factory::toString() {
 
 bool Factory::isEmpty() {
     int i = 0;
-    while (i < size && tiles[i] == BLANK_SPACE) {
+
+    while (i != size && tiles[i] == BLANK_SPACE) {
         ++i;
     }
-    return i < size && tiles[i] == BLANK_SPACE;
+    return i == size;
 }
 
 bool Factory::contains(Tile tile) {

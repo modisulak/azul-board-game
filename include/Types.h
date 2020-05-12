@@ -14,6 +14,12 @@
 #define INPUT_TAB               "> "
 #define SAVE_PATH               "../save_files/"
 #define FILE_EXTENSION          ".txt"
+#define TURN                    "TURN"
+#define SAVE                    "SAVE"
+#define HELP                    "HELP"
+#define BROKEN_ROW              5
+#define TURN_ARGC               4
+#define SAVE_ARGC               2
 #define MAX_FACTORY_TILES       4
 #define MAX_FACTORY_INSTANCES   5
 #define MAX_DISCARD_TILES       17

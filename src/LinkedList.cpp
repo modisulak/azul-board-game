@@ -112,3 +112,15 @@ string LinkedList::toString() {
     }
     return list;
 }
+
+bool LinkedList::includes(Tile tile) {
+    shared_ptr<Node> current = head;
+    bool includes = false;
+    while (current != nullptr && !includes) {
+        if (current->value == tile) {
+            includes = true;
+        }
+        current = current->next;
+    }
+    return includes;
+}
