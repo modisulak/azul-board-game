@@ -96,7 +96,7 @@ string Board::toString() {
         }
         boardToString += "\n";
     }
-    boardToString += "6: Broken: ";
+    boardToString += "Broken: ";
     boardToString += brokenToString();
     return boardToString;
 }

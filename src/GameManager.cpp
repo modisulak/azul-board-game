@@ -258,19 +258,21 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
             isDiscard = false;
         }
         Tile tile = inputs[2][0];
-        int storageRow = std::stoi(inputs[3]) - 1;
+
+
         if (tile != FIRST_PLAYER_TILE) {
             int noOfTiles = isDiscard ? discard->getTilesOfSameColour(tile)
                                       : factories[factoryNumber]->getTilesOfSameColour(tile);
 
             if (noOfTiles > 0) {
-                if(storageRow == BROKEN_ROW){
+                if (isANumber(inputs[3])) {
+                    int storageRow = std::stoi(inputs[3]) - 1;
+                    success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
+                } else if(inputs[3] == BROKEN){
                     for (int count = 0; count != noOfTiles; ++count) {
                         players[playerIndex]->getBoard()->addToBroken(tile);
                     }
                     success = true;
-                } else {
-                    success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
                 }
                 if (success) {
                     if (isDiscard) {
@@ -299,7 +301,7 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
 }
 
 bool GameManager::validateInputs(std::vector<string> &inputs) {
-    return isANumber(inputs[1]) && inputs[2].length() == 1 && isANumber(inputs[3]);
+    return isANumber(inputs[1]) && inputs[2].length() == TILE_LENGTH;
 }
 
 bool GameManager::isANumber(const string &input) {

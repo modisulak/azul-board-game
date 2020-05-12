@@ -17,7 +17,8 @@
 #define TURN                    "TURN"
 #define SAVE                    "SAVE"
 #define HELP                    "HELP"
-#define BROKEN_ROW              5
+#define BROKEN                  "BROKEN"
+#define TILE_LENGTH             1
 #define TURN_ARGC               4
 #define SAVE_ARGC               2
 #define MAX_FACTORY_TILES       4
