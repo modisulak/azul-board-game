@@ -19,6 +19,7 @@ Factory::Factory(int size, string tiles) :
             this->tiles->at(i) = BLANK_SPACE;
         }
     }
+    sortTiles();
 }
 
 Factory::~Factory() = default;
