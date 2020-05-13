@@ -13,8 +13,8 @@ GameManager::GameManager(string p1, string p2, int seed) :
     setFirstTurn();
 
     discard = make_unique<Factory>(MAX_DISCARD_TILES);
-    bag = new std::vector<Tile>();
-    boxLid = new LinkedList();
+    bag = make_unique<LinkedList>();
+    boxLid = make_unique<LinkedList>();
 
     populateBag();
 
@@ -28,8 +28,8 @@ GameManager::GameManager(string p1, string p2, int seed) :
 GameManager::GameManager(const string &filename) {
     players = make_unique<unique_ptr<Player>[]>(MAX_PLAYER_INSTANCES);
     factories = make_unique<unique_ptr<Factory>[]>(MAX_FACTORY_INSTANCES);
-    bag = new std::vector<Tile>();
-    boxLid = new LinkedList();
+    bag = make_unique<LinkedList>();
+    boxLid = make_unique<LinkedList>();
 
     ifstream file;
     file.open(filename);
@@ -113,7 +113,7 @@ GameManager::GameManager(const string &filename) {
 
         getline(file, line);
         for (char c : line) {
-            bag->push_back(c);
+            bag->addBack(c);
         }
         file.close();
     }
@@ -148,8 +148,12 @@ void GameManager::playGame() {
         players[0]->setScore(players[0]->getScore() + p1Points);
         players[1]->setScore(players[1]->getScore() + p2Points);
 
+        // Get broken for each player
+        shared_ptr<std::vector<Tile>> p1Broken = p1Board->getBroken();
+        shared_ptr<std::vector<Tile>> p2Broken = p2Board->getBroken();
+
         // Update players turn
-        if (p1Board->getBroken()->includes(FIRST_PLAYER_TILE)) {
+        if (std::count(p1Broken->begin(), p1Broken->end(), FIRST_PLAYER_TILE)) {
             players[0]->setPlayerTurn(true);
             players[1]->setPlayerTurn(false);
         } else {
@@ -157,9 +161,22 @@ void GameManager::playGame() {
             players[1]->setPlayerTurn(true);
         }
 
+
+        // Add broken tiles to back of the box lid
+        for (Tile i : *p1Broken) {
+            if (i != FIRST_PLAYER_TILE) {
+                boxLid->addBack(i);
+            }
+        }
+        for (Tile i : *p2Broken) {
+            if (i != FIRST_PLAYER_TILE) {
+                boxLid->addBack(i);
+            }
+        }
+
         // Clear the broken tiles
-        p1Board->getBroken()->clear();
-        p2Board->getBroken()->clear();
+        p1Broken->clear();
+        p2Broken->clear();
 
         populateFactories();
     }
@@ -268,7 +285,7 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
                 if (isANumber(inputs[3])) {
                     int storageRow = std::stoi(inputs[3]) - 1;
                     success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
-                } else if(inputs[3] == BROKEN){
+                } else if (inputs[3] == BROKEN) {
                     for (int count = 0; count != noOfTiles; ++count) {
                         players[playerIndex]->getBoard()->addToBroken(tile);
                     }
@@ -285,6 +302,7 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
                                 discard->removeTile(i);
                             }
                         }
+                        discard->sortTiles();
                     } else {
                         for (int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
                             if (factories[factoryNumber]->getTile(i) != tile) {
@@ -292,6 +310,7 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
                             }
                             factories[factoryNumber]->removeTile(i);
                         }
+                        factories[factoryNumber]->sortTiles();
                     }
                 }
             }
@@ -324,26 +343,41 @@ void GameManager::help() {
 
 void GameManager::populateBag() {
     int i = 0;
+    std::vector<Tile> tempBag;
     while (i != MAX_TOTAL_TILES) {
-        if (i < MAX_AMOUNT_COLOUR) { bag->push_back('R'); }
-        else if (i < 2 * MAX_AMOUNT_COLOUR) { bag->push_back('Y'); }
-        else if (i < 3 * MAX_AMOUNT_COLOUR) { bag->push_back('B'); }
-        else if (i < 4 * MAX_AMOUNT_COLOUR) { bag->push_back('L'); }
-        else { bag->push_back('U'); }
+        if (i < MAX_AMOUNT_COLOUR) { tempBag.push_back('R'); }
+        else if (i < 2 * MAX_AMOUNT_COLOUR) { tempBag.push_back('Y'); }
+        else if (i < 3 * MAX_AMOUNT_COLOUR) { tempBag.push_back('B'); }
+        else if (i < 4 * MAX_AMOUNT_COLOUR) { tempBag.push_back('L'); }
+        else { tempBag.push_back('U'); }
         ++i;
     }
     // Shuffle bag using random engine
-    std::shuffle(std::begin(*bag), std::end(*bag), engine);
+    std::shuffle(std::begin(tempBag), std::end(tempBag), engine);
+
+    for (char j : tempBag) {
+        bag->addBack(j);
+    }
 }
 
 void GameManager::populateFactories() {
+    if (bag->size() < (MAX_FACTORY_INSTANCES * MAX_FACTORY_TILES)) {
+        TransferLidToBag();
+    }
     for (int fNo = 0; fNo != MAX_FACTORY_INSTANCES; ++fNo) {
         for (int noTiles = 0; noTiles != MAX_FACTORY_TILES; ++noTiles) {
-            factories[fNo]->addTile(bag->back());
-            bag->pop_back();
+            factories[fNo]->addTile(bag->getFront());
+            bag->removeFront();
         }
     }
     discard->addTile(FIRST_PLAYER_TILE);
+}
+
+void GameManager::TransferLidToBag() {
+    for (int i = 0; i != boxLid->size(); ++i) {
+        bag->addBack(boxLid->getFront());
+        boxLid->removeFront();
+    }
 }
 
 void GameManager::saveGame(const string &filename) {
@@ -373,13 +407,7 @@ void GameManager::saveGame(const string &filename) {
     }
 
     outfile << boxLid->toString() << endl;
-    outfile << bagToString();
+    outfile << bag->toString();
 
     outfile.close();
 }
-
-string GameManager::bagToString() {
-    return string(bag->data(), bag->size());
-}
-
-

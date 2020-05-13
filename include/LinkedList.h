@@ -62,6 +62,8 @@ public:
 
     bool includes(Tile tile);
 
+    Tile getFront() const;
+
 private:
     shared_ptr<Node> head;
     shared_ptr<Node> tail;

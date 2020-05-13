@@ -28,6 +28,10 @@ LinkedList::~LinkedList() {
     clear();
 }
 
+Tile LinkedList::getFront() const {
+    return head->value;
+}
+
 unsigned int LinkedList::size() const {
     return length;
 }
@@ -102,7 +106,7 @@ void LinkedList::clear() {
 }
 
 string LinkedList::toString() {
-    string list = "";
+    string list;
     if (head != nullptr) {
         shared_ptr<Node> current = head;
         while (current != nullptr) {

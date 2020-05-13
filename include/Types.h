@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #define BLANK_SPACE             ' '
 #define EMPTY                   '.'
@@ -27,7 +28,6 @@
 #define MAX_TOTAL_TILES         100
 #define MAX_AMOUNT_COLOUR       20
 #define MAX_PLAYER_INSTANCES    2
-
 
 typedef char Tile;
 

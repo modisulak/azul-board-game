@@ -2,6 +2,7 @@
 #define APT_A2_BOARD_H
 
 #include "LinkedList.h"
+#include "../include/Utils.h"
 
 #define MAX_BOARD_ROWS     5
 #define MAX_BOARD_COLS     5
@@ -31,7 +32,7 @@ public:
 
     Tile **getMosaic() const;
 
-    LinkedList *getBroken() const;
+    shared_ptr<std::vector<Tile>> getBroken() const;
 
     /**
      * Return a string displaying the storage 2D array
@@ -83,8 +84,8 @@ private:
     Tile **storage;
     // 2D array for the tile mosaic
     Tile **mosaic;
-    // Linked List containing the broken tiles
-    LinkedList *broken;
+    // Vector containing the broken tiles
+    shared_ptr<std::vector<Tile>> broken;
 
     /** 
      * Create an empty new storage array

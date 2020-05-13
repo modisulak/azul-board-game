@@ -56,11 +56,11 @@ int main(int argc, char **argv) {
                     while (!selection) {
                         cout << endl << "Please enter the name of the save file you wish to load: " << endl << INPUT_TAB;
                         getline(cin, saveSelection);
-                        for (int i = 0; i < saveSelection.length(); i++){
-                            saveSelection[i] = tolower(saveSelection[i]);
-                        }
-                        for (int i = 0; i < saveFiles.size(); i++) {
-                            if (saveFiles[i].compare(saveSelection) == 0) {
+                        // Transform to lower case
+                        transform(saveSelection.begin(), saveSelection.end(), saveSelection.begin(), ::tolower);
+                        // Check if file exists
+                        for (auto & saveFile : saveFiles) {
+                            if (saveFile == saveSelection) {
                                 selection = true;
                             }
                         }
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
                             cout << endl << "There are no current files under that name, please retry your selection";
                         }
                     }
-                    string filename = saveSelection;
+                    string filename = SAVE_PATH+saveSelection;
                     cout << "Loading game from selection" << endl;
                     manager = make_unique<GameManager>(filename);
                     manager->playGame();

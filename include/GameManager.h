@@ -65,11 +65,11 @@ private:
     // 2 Players
     unique_ptr<unique_ptr<Player>[]> players;
 
-    // Vector representing the bag
-    std::vector<Tile> *bag;
+    // Linkedlist representing the bag
+    unique_ptr<LinkedList> bag;
 
     // Linked list representing the box lid
-    LinkedList *boxLid;
+    unique_ptr<LinkedList> boxLid;
 
     /**
      * Populates a new bag
@@ -80,11 +80,6 @@ private:
      * Populates factories
      */
     void populateFactories();
-
-    /**
-     * Returns the bag as a string for saving
-     */
-    string bagToString();
 
     void setFirstTurn();
 
@@ -97,6 +92,8 @@ private:
     bool isANumber(const string &input);
 
     bool validateInputs(std::vector<string> &inputs);
+
+    void TransferLidToBag();
 };
 
 #endif // GAME_MANAGER_H

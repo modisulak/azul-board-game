@@ -1,7 +1,8 @@
 #ifndef APT_A2_FACTORY_H
 #define APT_A2_FACTORY_H
 
-#include "Types.h"
+#include "../include/Types.h"
+#include "../include/Utils.h"
 
 class Factory {
 public:
@@ -78,10 +79,19 @@ public:
      */
     bool contains(Tile tile);
 
+    /**
+     * Sorts the tiles in a Total order of => F R Y B L U
+     */
+    void sortTiles() const;
+
 private:
 
-    unique_ptr<Tile[]> tiles;
+    unique_ptr<std::vector<Tile>> tiles;
     int size;
+
+    static bool totalOrdering(Tile x, Tile y);
+
+
 };
 
 

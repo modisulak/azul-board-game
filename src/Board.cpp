@@ -3,7 +3,7 @@
 Board::Board() {
     storage = new Tile *[MAX_BOARD_ROWS];
     mosaic = new Tile *[MAX_BOARD_ROWS];
-    broken = new LinkedList();
+    broken = make_shared<std::vector<Tile>>();
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         storage[row] = new Tile[MAX_BOARD_COLS];
         mosaic[row] = new Tile[MAX_BOARD_COLS];
@@ -14,7 +14,7 @@ Board::Board() {
 Board::Board(string storageInput, string mosaicInput, string brokenInput) {
     storage = new Tile *[MAX_BOARD_ROWS];
     mosaic = new Tile *[MAX_BOARD_ROWS];
-    broken = new LinkedList();
+    broken = make_shared<std::vector<Tile>>();
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         storage[row] = new Tile[MAX_BOARD_COLS];
         mosaic[row] = new Tile[MAX_BOARD_COLS];
@@ -31,7 +31,6 @@ Board::~Board() {
     }
     delete storage;
     delete mosaic;
-    delete broken;
 }
 
 Tile **Board::getStorage() const {
@@ -42,7 +41,7 @@ Tile **Board::getMosaic() const {
     return mosaic;
 }
 
-LinkedList *Board::getBroken() const {
+shared_ptr<std::vector<Tile>> Board::getBroken() const {
     return broken;
 }
 
@@ -73,7 +72,7 @@ string Board::brokenToString() {
     string brokenToString;
     int i = 0;
     while (i != broken->size()) {
-        brokenToString += broken->get(i);
+        brokenToString += broken->at(i);
         brokenToString += " ";
         ++i;
     }
@@ -126,7 +125,7 @@ bool Board::addToStorage(Tile tile, int numberOfTiles, int row) {
                 }
                 // Add Any extra tiles to the broken section
                 while (numberOfTiles != 0) {
-                    broken->addBack(tile);
+                    addToBroken(tile);
                     --numberOfTiles;
                 }
                 success = true;
@@ -163,7 +162,8 @@ int Board::addToMosaic() {
 }
 
 void Board::addToBroken(Tile tile) {
-    broken->addBack(tile);
+    broken->push_back(tile);
+    std::sort(broken->begin(), broken->end(), &Utils::totalOrdering);
 }
 
 bool Board::isGameFinished() {
@@ -223,14 +223,14 @@ void Board::newBoard(string &&storageInput, string &&mosaicInput) {
 
 void Board::newBroken(string brokenInput) {
     for (int i = 0; i != brokenInput.size(); ++i) {
-        broken->addBack(brokenInput[i]);
+        addToBroken(brokenInput[i]);
     }
 }
 
 int Board::lostPoints() {
     int lostPoints = 0;
     int count = 0;
-    while (broken->get(count) != BLANK_SPACE) {
+    while (broken->at(count) != BLANK_SPACE) {
         if (count < 2) { lostPoints -= 1; }
         else if (count < 5) { lostPoints -= 2; }
         else { lostPoints -= 3; }
