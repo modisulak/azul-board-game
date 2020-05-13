@@ -1,4 +1,3 @@
-#include "../include/GameManager.h"
 #include "../include/Main.h"
 
 void displayMenu();
@@ -22,7 +21,7 @@ int main(int argc, char **argv) {
         std::cout << INPUT_TAB;
 
         string input;
-        cin >> input;
+        getline(cin, input);
 
         if (cin.good()) {
             if (input == NEW_GAME) {
@@ -33,7 +32,7 @@ int main(int argc, char **argv) {
                     cout << endl << INPUT_TAB;
                     while (!success) {
                         try {
-                            cin >> player;
+                            getline(cin, player);
                             success = true;
                         }
                         catch (...) {
@@ -45,7 +44,7 @@ int main(int argc, char **argv) {
                 manager = make_unique<GameManager>(players[0], players[1], seed);
                 manager->playGame();
             } else if (input == LOAD_GAME) {
-                int saveSelection;
+                string saveSelection;
                 bool selection = false;
                 std::vector<string> saveFiles;
                 cout << endl;
@@ -54,19 +53,29 @@ int main(int argc, char **argv) {
                     for (int i = 0; i < saveFiles.size(); i++) {
                         cout << i + 1 << ": " << saveFiles[i] << endl;
                     }
-                    cout << endl << "Please select save file to load from list: " << endl << INPUT_TAB;
                     while (!selection) {
-                        cin >> saveSelection;
-                        if ((saveSelection <= 0) || (saveSelection >= saveFiles.size() + 1)) {
-                            cout << "Selection is invalid. Please try again." << endl;
-                        } else { selection = true; }
+                        cout << endl << "Please enter the name of the save file you wish to load: " << endl << INPUT_TAB;
+                        getline(cin, saveSelection);
+                        for (int i = 0; i < saveSelection.length(); i++){
+                            saveSelection[i] = tolower(saveSelection[i]);
+                        }
+                        for (int i = 0; i < saveFiles.size(); i++) {
+                            if (saveFiles[i].compare(saveSelection) == 0) {
+                                selection = true;
+                            }
+                        }
+
+                        if (!selection) { 
+                            cout << endl << "There are no current files under that name, please retry your selection";
+                        }
                     }
-                    string filename = SAVE_PATH + saveFiles[saveSelection - 1];
+                    string filename = saveSelection;
                     cout << "Loading game from selection" << endl;
                     manager = make_unique<GameManager>(filename);
                     manager->playGame();
                 } else {
-                    cout << "There are no current save files available to choose from. Please start a new game" << endl;
+                    cout << "There are no current save files available to choose from. Please start a new game" << endl << endl;
+                    gameExit = true;
                 }
             } else if (input == CREDITS) {
                 displayCredits();

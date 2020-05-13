@@ -6,6 +6,7 @@
 #include <cstring>
 
 #include "Types.h"
+#include "GameManager.h"
 #include "LinkedList.h"
 
 #define SEED_FLAG "-s"
