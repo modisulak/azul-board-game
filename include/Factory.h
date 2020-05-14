@@ -85,13 +85,10 @@ public:
     void sortTiles() const;
 
 private:
-
+    /**
+     * Collection of tiles in the factory
+     */
     unique_ptr<std::vector<Tile>> tiles;
-    int size;
-
-    static bool totalOrdering(Tile x, Tile y);
-
-
 };
 
 
