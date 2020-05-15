@@ -2,7 +2,7 @@
 #define APT_A2_BOARD_H
 
 #include "LinkedList.h"
-#include "../include/Utils.h"
+#include "Utils.h"
 
 #define MAX_BOARD_ROWS     5
 #define MAX_BOARD_COLS     5
@@ -17,7 +17,7 @@ public:
 
     /**
      * Build's a previous storage when loading from a saved game file
-     * @param storageInput
+     * @param storageInput 
      * @param mosaicInput
      * @param brokenInput
      */
@@ -25,34 +25,27 @@ public:
 
     ~Board();
 
-    /**
-     * Getters for each of the member variables
-     */
-    Tile **getStorage() const;
-
-    Tile **getMosaic() const;
-
     shared_ptr<std::vector<Tile>> getBroken() const;
 
     /**
      * Return a string displaying the storage 2D array
      */
-    string storageToString();
+    string storageToString() const;
 
     /**
      * Return a string displaying the mosaic 2D array
      */
-    string mosaicToString();
+    string mosaicToString() const;
 
     /**
      * Return a string displaying the broken tiles
      */
-    string brokenToString();
+    string brokenToString() const;
 
     /**
      * Return a string displaying the whole board
      */
-    string toString();
+    string toString() const;
 
     /**
      * Add tiles from factory to "storage"
@@ -60,11 +53,11 @@ public:
      * @param numberOfTiles
      * @param row
      */
-    bool addToStorage(Tile tile, int numberOfTiles, int row);
+    bool addToStorage(const Tile tile, const unsigned int numberOfTiles, const unsigned int row);
 
     /**
      * Move tiles to mosaic
-     * Returns points earned within round
+     * Returns the number of points earned within a round
      */
     int addToMosaic();
 
@@ -72,12 +65,12 @@ public:
      * Add a tile to the broken list
      * @param tile
      */
-    void addToBroken(Tile tile);
+    void addToBroken(const Tile tile);
 
     /**
      * Check whether someone has ended the game by completing a row
      */
-    bool isGameFinished();
+    bool isGameFinished() const;
 
 private:
     // 2D array for the tile storage
@@ -89,7 +82,7 @@ private:
 
     /** 
      * Create an empty new storage array
-     * * Create an empty new mosaic array
+     * Create an empty new mosaic array
      */
     void newBoard();
 
@@ -109,7 +102,7 @@ private:
     /** 
      * Return the number of points lost from broken tiles
      */
-    int lostPoints();
+    int lostPoints() const;
 
     /**
      * Shift the mosaic string along by 1 element

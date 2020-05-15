@@ -5,9 +5,7 @@
 #include <stdio.h>
 #include <cstring>
 
-#include "Types.h"
 #include "GameManager.h"
-#include "LinkedList.h"
 
 #define SEED_FLAG "-s"
 #define NEW_GAME  "1"

@@ -10,13 +10,12 @@ bool getSaveFiles(std::vector<string> &saveFiles);
 
 int main(int argc, char **argv) {
     unique_ptr<GameManager> manager;
-
-    cout << "Welcome to Azul!" << endl;
-    cout << "-------------------" << endl;
+    int seed = getSeed(argc, argv);
+    cout << endl << "Welcome to Azul!" << endl;
 
     bool gameExit = false;
     while (!gameExit) {
-        int seed = getSeed(argc, argv);
+        cout << "-------------------";
         displayMenu();
         std::cout << INPUT_TAB;
 
@@ -26,29 +25,32 @@ int main(int argc, char **argv) {
         if (cin.good()) {
             if (input == NEW_GAME) {
                 string players[MAX_PLAYER_INSTANCES];
-                for (auto &player : players) {
-                    bool success = false;
-                    cout << endl << "Enter player name: ";
-                    cout << endl << INPUT_TAB;
-                    while (!success) {
-                        try {
-                            getline(cin, player);
-                            success = true;
-                        }
-                        catch (...) {
-                            cout << "Selection is invalid. Please try again." << endl;
-                        }
+                bool nameSuccess = false;
+                while (!nameSuccess) {
+                    for (auto &player : players) {
+                        cout << endl << "Enter player name: ";
+                        cout << endl << INPUT_TAB;
+                        getline(cin, player);
                     }
+                    if (players[0] == players[1]) {
+                        cout << endl << "Players cannot have the same name";
+                    } else {nameSuccess = true;}
+
                 }
+
+
                 cout << endl << "Starting a new game..." << endl;
                 manager = make_unique<GameManager>(players[0], players[1], seed);
                 manager->playGame();
+
             } else if (input == LOAD_GAME) {
                 string saveSelection;
                 bool selection = false;
                 std::vector<string> saveFiles;
                 cout << endl;
-                bool files = getSaveFiles(saveFiles);
+                bool files = false;
+                files = getSaveFiles(saveFiles);
+                
                 if (files) {
                     for (int i = 0; i < saveFiles.size(); i++) {
                         cout << i + 1 << ": " << saveFiles[i] << endl;
@@ -69,13 +71,12 @@ int main(int argc, char **argv) {
                             cout << endl << "There are no current files under that name, please retry your selection";
                         }
                     }
-                    string filename = SAVE_PATH+saveSelection;
-                    cout << "Loading game from selection" << endl;
+                    string filename = SAVE_PATH + saveSelection;
+                    cout << "Loading game from selection..." << endl;
                     manager = make_unique<GameManager>(filename);
                     manager->playGame();
                 } else {
                     cout << "There are no current save files available to choose from. Please start a new game" << endl << endl;
-                    gameExit = true;
                 }
             } else if (input == CREDITS) {
                 displayCredits();
@@ -121,17 +122,21 @@ void displayCredits() {
     string filename = "../resources/credits.txt";
     ifstream file;
     file.open(filename);
-
     cout << "-------------------------------------" << endl;
-    if (file.is_open()) {
-        while (!file.eof()) {
-            string line;
-            getline(file, line);
-            cout << line << endl;
+    if (!file.fail()) {
+        if (file.is_open()) {
+            while (!file.eof()) {
+                string line;
+                getline(file, line);
+                cout << line << endl;
+            }
+            file.close();
         }
-        file.close();
+    } else {
+        cout << "Credits data could not be found" << endl;
     }
-    cout << "-------------------------------------" << endl;
+    cout << "-------------------------------------" << endl;    
+
 }
 
 bool getSaveFiles(std::vector<string> &saveFiles) {
@@ -147,7 +152,8 @@ bool getSaveFiles(std::vector<string> &saveFiles) {
                 saveFiles.emplace_back(ent->d_name);
             }
         }
+        closedir(directory);
     }
-    closedir(directory);
+    
     return files;
 }

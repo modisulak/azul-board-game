@@ -1,13 +1,13 @@
 #include "Factory.h"
 
-Factory::Factory(int size) {
+Factory::Factory(unsigned int size) {
     tiles = make_unique<std::vector<Tile>>(size);
     for (int i = 0; i != size; ++i) {
         tiles->at(i) = BLANK_SPACE;
     }
 }
 
-Factory::Factory(int size, string tiles) {
+Factory::Factory(unsigned int size, string tiles) {
     this->tiles = make_unique<std::vector<Tile>>(size);
 
     for (int i = 0; i != size; ++i) {
@@ -26,7 +26,7 @@ int Factory::getSize() const {
     return tiles->size();
 }
 
-Tile Factory::getTile(const int index) {
+Tile Factory::getTile(const unsigned int index) {
     Tile tile = BLANK_SPACE;
     if (index < tiles->size()) {
         tile = tiles->at(index);
@@ -34,7 +34,7 @@ Tile Factory::getTile(const int index) {
     return tile;
 }
 
-int Factory::getTilesOfSameColour(const Tile tile) {
+int Factory::getTilesOfSameColour(const Tile tile) const {
     int tileCount = 0;
     for (int i = 0; i != tiles->size(); ++i) {
         if (tiles->at(i) == tile) {
@@ -55,7 +55,7 @@ void Factory::addTile(const Tile tile) {
     sortTiles();
 }
 
-void Factory::removeTile(int index) {
+void Factory::removeTile(const unsigned int index) {
     tiles->at(index) = BLANK_SPACE;
 }
 
@@ -63,7 +63,7 @@ void Factory::sortTiles() const {
     std::sort(tiles->begin(), tiles->end(), &Utils::totalOrdering);
 }
 
-void Factory::removeTile(Tile tile) {
+void Factory::removeTile(const Tile tile) {
     int i = 0;
     while (i != tiles->size() && tiles->at(i) != tile) {
         ++i;
@@ -73,7 +73,7 @@ void Factory::removeTile(Tile tile) {
     }
 }
 
-string Factory::toString() {
+string Factory::toString() const {
     string out;
     for (int i = 0; i != tiles->size(); ++i) {
         out += tiles->at(i);
@@ -81,7 +81,7 @@ string Factory::toString() {
     return out;
 }
 
-bool Factory::isEmpty() {
+bool Factory::isEmpty() const {
     int i = 0;
     while (i != tiles->size() && tiles->at(i) == BLANK_SPACE) {
         ++i;
@@ -89,7 +89,7 @@ bool Factory::isEmpty() {
     return i == tiles->size();
 }
 
-bool Factory::contains(Tile tile) {
+bool Factory::contains(const Tile tile) const {
     int i = 0;
     bool contains = false;
     while (!contains && i != tiles->size()) {

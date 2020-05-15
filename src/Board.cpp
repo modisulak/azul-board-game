@@ -33,19 +33,13 @@ Board::~Board() {
     delete mosaic;
 }
 
-Tile **Board::getStorage() const {
-    return storage;
-}
 
-Tile **Board::getMosaic() const {
-    return mosaic;
-}
 
 shared_ptr<std::vector<Tile>> Board::getBroken() const {
     return broken;
 }
 
-string Board::storageToString() {
+string Board::storageToString() const {
     string storageToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
@@ -58,7 +52,7 @@ string Board::storageToString() {
     return storageToString;
 }
 
-string Board::mosaicToString() {
+string Board::mosaicToString() const {
     string mosaicToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         for (int col = 0; col != MAX_BOARD_COLS; ++col) {
@@ -68,7 +62,7 @@ string Board::mosaicToString() {
     return mosaicToString;
 }
 
-string Board::brokenToString() {
+string Board::brokenToString() const {
     string brokenToString;
     int i = 0;
     while (i != broken->size()) {
@@ -79,7 +73,7 @@ string Board::brokenToString() {
     return brokenToString;
 }
 
-string Board::toString() {
+string Board::toString() const {
     string boardToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
         boardToString += std::to_string(row + 1);
@@ -100,7 +94,7 @@ string Board::toString() {
     return boardToString;
 }
 
-bool Board::addToStorage(Tile tile, int numberOfTiles, int row) {
+bool Board::addToStorage(const Tile tile, unsigned int numberOfTiles, const unsigned int row) {
     bool success = false;
 
     // Ensure the mosaic doesn't already contain tile colour
@@ -161,12 +155,12 @@ int Board::addToMosaic() {
     return points;
 }
 
-void Board::addToBroken(Tile tile) {
+void Board::addToBroken(const Tile tile) {
     broken->push_back(tile);
     std::sort(broken->begin(), broken->end(), &Utils::totalOrdering);
 }
 
-bool Board::isGameFinished() {
+bool Board::isGameFinished() const {
     bool finished = false;
     int row = 0;
     while (row != MAX_BOARD_ROWS && !finished) {
@@ -227,7 +221,7 @@ void Board::newBroken(string brokenInput) {
     }
 }
 
-int Board::lostPoints() {
+int Board::lostPoints() const {
     int lostPoints = 0;
     int count = 0;
     while (broken->at(count) != BLANK_SPACE) {

@@ -1,8 +1,7 @@
 #ifndef APT_A2_FACTORY_H
 #define APT_A2_FACTORY_H
 
-#include "../include/Types.h"
-#include "../include/Utils.h"
+#include "Utils.h"
 
 class Factory {
 public:
@@ -11,14 +10,14 @@ public:
      * Default constructor for 5 factories
      * @param size
      */
-    explicit Factory(int size);
+    explicit Factory(unsigned int size);
 
     /**
      * Constructor for pile loaded from file
      * @param size
      * @param tiles
      */
-    Factory(int size, string tiles);
+    Factory(unsigned int size, string tiles);
 
     ~Factory();
 
@@ -27,44 +26,44 @@ public:
      * @param index
      * @return
      */
-    Tile getTile(int index);
+    Tile getTile(const unsigned int index) ;
 
     /**
      * Get number of tiles of the same colour
      * @param tile
      * @return
      */
-    int getTilesOfSameColour(Tile tile);
+    int getTilesOfSameColour(const Tile tile) const;
 
     /**
      * Add a tile to the factory
      * @param tile
      */
-    void addTile(Tile tile);
+    void addTile(const Tile tile);
 
     /**
      * Remove a tile from the factory by index
      * @param index
      */
-    void removeTile(int index);
+    void removeTile(const unsigned int index);
 
     /**
      * Remove a tile from the factory by tile
      * @param tile
      */
-    void removeTile(Tile tile);
+    void removeTile(const Tile tile);
 
     /**
      * Return the contents of the factory as a string
      * @return
      */
-    string toString();
+    string toString() const;
 
     /**
      * Check if the factory is empty
      * @return
      */
-    bool isEmpty();
+    bool isEmpty() const;
 
     /**
      * Returns the size of the factory
@@ -77,7 +76,7 @@ public:
      * @param tile
      * @return
      */
-    bool contains(Tile tile);
+    bool contains(const Tile tile) const;
 
     /**
      * Sorts the tiles in a Total order of => F R Y B L U

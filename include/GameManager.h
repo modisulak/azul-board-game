@@ -1,11 +1,8 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
-#include <vector>
 #include <random>
-#include <algorithm>
-#include "Types.h"
-#include "Board.h"
+
 #include "Player.h"
 #include "Factory.h"
 
@@ -42,6 +39,7 @@ public:
     /**
      * Gives a selection of information to help a user interact with the game
      */
+    // TODO
     void help();
 
     /**

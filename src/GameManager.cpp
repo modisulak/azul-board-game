@@ -297,14 +297,14 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
                             players[playerIndex]->getBoard()->addToBroken(FIRST_PLAYER_TILE);
                             discard->removeTile(FIRST_PLAYER_TILE);
                         }
-                        for (int i = 0; i != discard->getSize(); ++i) {
+                        for (unsigned int i = 0; i != discard->getSize(); ++i) {
                             if (discard->getTile(i) == tile) {
                                 discard->removeTile(i);
                             }
                         }
                         discard->sortTiles();
                     } else {
-                        for (int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
+                        for (unsigned int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
                             if (factories[factoryNumber]->getTile(i) != tile) {
                                 discard->addTile(factories[factoryNumber]->getTile(i));
                             }
