@@ -36,20 +36,6 @@ unsigned int LinkedList::size() const {
     return length;
 }
 
-Tile LinkedList::get(const unsigned int index) const {
-    Tile toReturn = BLANK_SPACE;
-    if (index < length) {
-        shared_ptr<Node> current = head;
-        unsigned int i = 0;
-        while (i <= index) {
-            toReturn = current->value;
-            current = current->next;
-            ++i;
-        }
-    }
-    return toReturn;
-}
-
 void LinkedList::addFront(const Tile value) {
     shared_ptr<Node> toAdd = make_shared<Node>(value, head, nullptr);
     if (head == nullptr) {
@@ -117,14 +103,3 @@ string LinkedList::toString() {
     return list;
 }
 
-bool LinkedList::includes(Tile tile) {
-    shared_ptr<Node> current = head;
-    bool includes = false;
-    while (current != nullptr && !includes) {
-        if (current->value == tile) {
-            includes = true;
-        }
-        current = current->next;
-    }
-    return includes;
-}

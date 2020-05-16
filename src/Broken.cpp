@@ -28,10 +28,6 @@ bool Broken::add(const Tile tile) {
     return added;
 }
 
-Tile Broken::at(int index) {
-    return tiles.at(index);
-}
-
 string Broken::toString() const {
     string toString;
     int i = 0;

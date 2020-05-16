@@ -27,9 +27,9 @@ public:
      */
     ~Mosaic() override;
 
-
     /**
      * Check whether someone has ended the game by completing any row
+     * @return true if a row is completed
      */
     bool isAnyRowComplete() const;
 

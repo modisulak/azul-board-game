@@ -38,7 +38,6 @@ int main(int argc, char **argv) {
 
                 }
 
-
                 cout << endl << "Starting a new game..." << endl;
                 manager = make_unique<GameManager>(players[0], players[1], seed);
                 manager->playGame();
@@ -48,8 +47,7 @@ int main(int argc, char **argv) {
                 bool selection = false;
                 std::vector<string> saveFiles;
                 cout << endl;
-                bool files = false;
-                files = getSaveFiles(saveFiles);
+                bool files = getSaveFiles(saveFiles);
                 
                 if (files) {
                     for (int i = 0; i < saveFiles.size(); i++) {

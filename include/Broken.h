@@ -30,13 +30,6 @@ public:
     bool add(Tile tile);
 
     /**
-     *
-     * @param index
-     * @return Tile at specifc index
-     */
-    Tile at(int index);
-
-    /**
      * Clears the broken tiles vector
      */
     void clear();

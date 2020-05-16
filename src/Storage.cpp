@@ -23,8 +23,11 @@ void Storage::clearRow(int row) {
 
 string Storage::toString() {
     string toString = Grid::toString();
+    // Add new line at the end of each column
     int newLineIndex = MAX_BOARD_COLS;
+    // Increment by columns + \n character = 6
     int increment = MAX_BOARD_COLS + 1;
+    // Add new lines to all except last row
     int requiredLines = MAX_BOARD_ROWS -1;
 
     for (int i = 0; i != requiredLines; ++i) {

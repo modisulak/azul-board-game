@@ -26,11 +26,6 @@ public:
     unsigned int size() const;
 
     /**
-     * Get the value at the given index.
-     */
-    Tile get(unsigned int index) const;
-
-    /**
      * Add the value to the back of the Linked List
      */
     void addBack(Tile value);
@@ -60,7 +55,6 @@ public:
      */
     string toString();
 
-    bool includes(Tile tile);
 
     Tile getFront() const;
 

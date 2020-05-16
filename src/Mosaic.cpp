@@ -8,7 +8,7 @@ Mosaic::Mosaic() {
         }
         shiftMosaic(defaultMosaic);
     }
-};
+}
 
 Mosaic::Mosaic(const std::basic_string<char> &input) : Grid(input) {}
 
