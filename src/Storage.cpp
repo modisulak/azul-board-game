@@ -10,7 +10,7 @@ Storage::Storage(const std::basic_string<char> &input) : Grid(input) {}
 
 Storage::~Storage() = default;
 
-void Storage::clearRow(int row){
+void Storage::clearRow(int row) {
     int minStorageCol = MAX_BOARD_COLS - row - 1;
     for (int col = 0; col != MAX_BOARD_COLS; ++col) {
         if (col >= minStorageCol) {
@@ -23,12 +23,15 @@ void Storage::clearRow(int row){
 
 string Storage::toString() {
     string toString = Grid::toString();
+    int newLineIndex = MAX_BOARD_COLS;
+    int increment = MAX_BOARD_COLS + 1;
+    int requiredLines = MAX_BOARD_ROWS -1;
 
-    for (int i = 0; i != toString.size(); ++i) {
-        if(i+1 % MAX_BOARD_COLS && i != toString.size()){
-            toString.replace(i, 1, "\n");
-        }
+    for (int i = 0; i != requiredLines; ++i) {
+        toString.insert(newLineIndex, 1, '\n');
+        newLineIndex+=increment;
     }
+
     toString.erase(std::remove(toString.begin(), toString.end(), ' '), toString.end());
     return toString;
 }
