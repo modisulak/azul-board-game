@@ -137,56 +137,26 @@ void GameManager::playGame() {
 
     cout << endl << "Let's Play!" << endl;
 
-    while (!p1Board->isGameFinished() && !p2Board->isGameFinished()) {
+    while (!p1Board->getMosaic()->isAnyRowComplete() && !p2Board->getMosaic()->isAnyRowComplete()) {
         playRound();
+        tileMosaic(p1Board, p2Board);
+        prepareNextRound(p1Board, p2Board);
 
-        // Update mosaic and get score for newly placed tiles
-        int p1Points = p1Board->addToMosaic();
-        int p2Points = p2Board->addToMosaic();
-
-        // Update players score
-        players[0]->setScore(players[0]->getScore() + p1Points);
-        players[1]->setScore(players[1]->getScore() + p2Points);
-
-        // Get broken for each player
-        shared_ptr<std::vector<Tile>> p1Broken = p1Board->getBroken();
-        shared_ptr<std::vector<Tile>> p2Broken = p2Board->getBroken();
-
-        // Update players turn
-        if (std::count(p1Broken->begin(), p1Broken->end(), FIRST_PLAYER_TILE)) {
-            players[0]->setPlayerTurn(true);
-            players[1]->setPlayerTurn(false);
-        } else {
-            players[0]->setPlayerTurn(false);
-            players[1]->setPlayerTurn(true);
-        }
-
-
-        // Add broken tiles to back of the box lid
-        for (Tile i : *p1Broken) {
-            if (i != FIRST_PLAYER_TILE) {
-                boxLid->addBack(i);
-            }
-        }
-        for (Tile i : *p2Broken) {
-            if (i != FIRST_PLAYER_TILE) {
-                boxLid->addBack(i);
-            }
-        }
-
-        // Clear the broken tiles
-        p1Broken->clear();
-        p2Broken->clear();
-
-        populateFactories();
+        cout << endl << "=== END OF ROUND ===" << endl;
     }
+    addEndOfGamePoints(p1Board, p2Board);
+
     //TODO announce the winner!
 }
+
 
 void GameManager::playRound() {
     bool roundEnd = false;
 
     cout << endl << "=== Start Round ===" << endl;
+    cout << endl << "Scores:" << endl;
+    cout << players[0]->getName() << ": " << players[0]->getScore() << endl;
+    cout << players[1]->getName() << ": " << players[1]->getScore() << endl;
 
     while (!roundEnd) {
         int playerIndex;
@@ -199,7 +169,7 @@ void GameManager::playRound() {
         string input = promptPlayer(playerIndex);
         transform(input.begin(), input.end(), input.begin(), ::toupper);
         std::vector<string> inputs;
-        getInputsVector(input, inputs);
+        getPlayerInput(input, inputs);
 
         string message = "Invalid input, try again.";
         string command = inputs[0];
@@ -229,6 +199,47 @@ void GameManager::playRound() {
     }
 }
 
+void GameManager::tileMosaic(shared_ptr<Board> &p1Board,
+                             shared_ptr<Board> &p2Board) const {// Update mosaic and get score for newly placed tiles
+    int p1Points = p1Board->addToMosaic();
+    int p2Points = p2Board->addToMosaic();
+
+    // Update players score
+    players[0]->setScore(players[0]->getScore() + p1Points);
+    players[1]->setScore(players[1]->getScore() + p2Points);
+}
+
+void GameManager::prepareNextRound(const shared_ptr<Board> &p1Board,
+                                   const shared_ptr<Board> &p2Board) {// Get broken for each player
+    std::shared_ptr<Broken> p1Broken = p1Board->getBroken();
+    std::shared_ptr<Broken> p2Broken = p2Board->getBroken();
+
+    /**
+     * Add broken tiles to back of the box lid
+     * Update players turn depending who has the First player Tile
+     */
+    for (Tile tile : p1Broken->getTiles()) {
+        if (tile != FIRST_PLAYER_TILE) {
+            boxLid->addBack(tile);
+        } else {
+            players[0]->setPlayerTurn(true);
+            players[1]->setPlayerTurn(false);
+        }
+    }
+    for (Tile tile : p2Broken->getTiles()) {
+        if (tile != FIRST_PLAYER_TILE) {
+            boxLid->addBack(tile);
+        } else {
+            players[0]->setPlayerTurn(false);
+            players[1]->setPlayerTurn(true);
+        }
+    }
+    // Clear the broken tiles
+    p1Broken->clear();
+    p2Broken->clear();
+    populateFactories();
+}
+
 string GameManager::promptPlayer(int index) {
 
     cout << endl << "Turn for player " << players[index]->getName() << ":" << endl;
@@ -253,7 +264,7 @@ string GameManager::promptPlayer(int index) {
     return line;
 }
 
-void GameManager::getInputsVector(string &input, std::vector<string> &inputs) const {
+void GameManager::getPlayerInput(string &input, std::vector<string> &inputs) const {
     string delimiter = " ";
     int pos = 0;
     string token;
@@ -267,51 +278,22 @@ void GameManager::getInputsVector(string &input, std::vector<string> &inputs) co
 
 bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
     bool success = false;
-    if (validateInputs(inputs)) {
-        int factoryNumber = std::stoi(inputs[1]);
+    int factoryNumber;
+    Tile tile = inputs[2][0];
+    if (validateInputs(inputs, factoryNumber)) {
         bool isDiscard = true;
         if (factoryNumber != 0) {
             factoryNumber -= 1;
             isDiscard = false;
         }
-        Tile tile = inputs[2][0];
-
 
         if (tile != FIRST_PLAYER_TILE) {
             int noOfTiles = isDiscard ? discard->getTilesOfSameColour(tile)
                                       : factories[factoryNumber]->getTilesOfSameColour(tile);
-
             if (noOfTiles > 0) {
-                if (isANumber(inputs[3])) {
-                    int storageRow = std::stoi(inputs[3]) - 1;
-                    success = players[playerIndex]->getBoard()->addToStorage(tile, noOfTiles, storageRow);
-                } else if (inputs[3] == BROKEN) {
-                    for (int count = 0; count != noOfTiles; ++count) {
-                        players[playerIndex]->getBoard()->addToBroken(tile);
-                    }
-                    success = true;
-                }
+                success = addTiles(inputs[3], playerIndex, tile, noOfTiles);
                 if (success) {
-                    if (isDiscard) {
-                        if (discard->contains(FIRST_PLAYER_TILE)) {
-                            players[playerIndex]->getBoard()->addToBroken(FIRST_PLAYER_TILE);
-                            discard->removeTile(FIRST_PLAYER_TILE);
-                        }
-                        for (unsigned int i = 0; i != discard->getSize(); ++i) {
-                            if (discard->getTile(i) == tile) {
-                                discard->removeTile(i);
-                            }
-                        }
-                        discard->sortTiles();
-                    } else {
-                        for (unsigned int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
-                            if (factories[factoryNumber]->getTile(i) != tile) {
-                                discard->addTile(factories[factoryNumber]->getTile(i));
-                            }
-                            factories[factoryNumber]->removeTile(i);
-                        }
-                        factories[factoryNumber]->sortTiles();
-                    }
+                    removePlayedTiles(playerIndex, factoryNumber, isDiscard, tile);
                 }
             }
         }
@@ -319,12 +301,81 @@ bool GameManager::playTurn(std::vector<string> &inputs, int playerIndex) {
     return success;
 }
 
-bool GameManager::validateInputs(std::vector<string> &inputs) {
-    return isANumber(inputs[1]) && inputs[2].length() == TILE_LENGTH;
+bool GameManager::validateInputs(std::vector<string> &inputs, int &factoryNumber) {
+    bool valid = false;
+    // Validate factory selection
+    if (isANumber(inputs[1])) {
+        factoryNumber = std::stoi(inputs[1]);
+        if (factoryNumber >= 0 && factoryNumber <= MAX_FACTORY_INSTANCES) {
+            // Validate destination selection
+            if (!inputs[3].empty() && isANumber(inputs[3])) {
+                int destination = std::stoi(inputs[3]);
+                if (destination >= 0 && destination <= MAX_BOARD_ROWS) {
+                    valid = true;
+                }
+            } else if (inputs[3] == BROKEN) {
+                valid = true;
+            }
+        }
+    }
+    return valid;
 }
 
 bool GameManager::isANumber(const string &input) {
     return input.find_first_not_of("0123456789") == string::npos;
+}
+
+bool GameManager::addTiles(const string &destination, int playerIndex, Tile tile, int noOfTiles) {
+    bool success = false;
+    if (isANumber(destination)) {
+        int storageRow = std::stoi(destination) - 1;
+        bool validMove = players[playerIndex]->getBoard()->validateMove(tile, storageRow);
+        if (validMove) {
+            while (noOfTiles != 0) {
+                bool addedToStorage = players[playerIndex]->getBoard()->addToStorage(tile, storageRow);
+                if (!addedToStorage) {
+                    bool addedToBroken = players[playerIndex]->getBoard()->getBroken()->add(tile);
+                    if (!addedToBroken) {
+                        boxLid->addBack(tile);
+                    }
+                }
+                --noOfTiles;
+            }
+            success = true;
+        }
+    } else if (destination == BROKEN) {
+        for (int count = 0; count != noOfTiles; ++count) {
+            bool addedToBroken = players[playerIndex]->getBoard()->getBroken()->add(tile);
+            if (!addedToBroken) {
+                boxLid->addBack(tile);
+            }
+        }
+        success = true;
+    }
+    return success;
+}
+
+void GameManager::removePlayedTiles(int playerIndex, int factoryNumber, bool isDiscard, Tile tile) const {
+    if (isDiscard) {
+        if (discard->contains(FIRST_PLAYER_TILE)) {
+            players[playerIndex]->getBoard()->getBroken()->add(FIRST_PLAYER_TILE);
+            discard->removeTile(FIRST_PLAYER_TILE);
+        }
+        for (unsigned int i = 0; i != discard->getSize(); ++i) {
+            if (discard->getTile(i) == tile) {
+                discard->removeTile(i);
+            }
+        }
+        discard->sortTiles();
+    } else {
+        for (unsigned int i = 0; i != factories[factoryNumber]->getSize(); ++i) {
+            if (factories[factoryNumber]->getTile(i) != tile) {
+                discard->addTile(factories[factoryNumber]->getTile(i));
+            }
+            factories[factoryNumber]->removeTile(i);
+        }
+        factories[factoryNumber]->sortTiles();
+    }
 }
 
 bool GameManager::isRoundEnd() const {
@@ -335,6 +386,33 @@ bool GameManager::isRoundEnd() const {
     }
     roundEnd = discard->isEmpty() && i == MAX_FACTORY_INSTANCES;
     return roundEnd;
+}
+
+void GameManager::addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board) {
+    //Tally end of game points
+    int p1CompletedRows = 0;
+    int p1CompletedCols = 0;
+    int p2CompletedRows = 0;
+    int p2CompletedCols = 0;
+
+    for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
+        p1CompletedRows += p1Board->getMosaic()->isRowComplete(i);
+        p1CompletedCols += p1Board->getMosaic()->isColumnComplete(i);
+        p2CompletedRows += p2Board->getMosaic()->isRowComplete(i);
+        p2CompletedCols += p2Board->getMosaic()->isColumnComplete(i);
+    }
+
+    // Find how many tiles the mosaic contains all 5 completed for
+    int p1TileColourComplete = p1Board->getMosaic()->numberOfTilesCompleted();
+    int p2TileColourComplete = p1Board->getMosaic()->numberOfTilesCompleted();
+
+    // Update players score
+    players[0]->setScore(players[0]->getScore() + (p1CompletedRows * ROW_COMPLETE_POINTS)
+                         + (p1CompletedCols * COL_COMPLETE_POINTS) +
+                         (p1TileColourComplete * TILE_COMPLETE_POINTS));
+    players[1]->setScore(players[1]->getScore() + (p2CompletedRows * ROW_COMPLETE_POINTS)
+                         + (p2CompletedCols * COL_COMPLETE_POINTS) +
+                         (p2TileColourComplete * TILE_COMPLETE_POINTS));
 }
 
 void GameManager::help() {

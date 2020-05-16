@@ -28,6 +28,9 @@
 #define MAX_TOTAL_TILES         100
 #define MAX_AMOUNT_COLOUR       20
 #define MAX_PLAYER_INSTANCES    2
+#define MAX_BROKEN_TILES        7
+#define MAX_BOARD_ROWS          5
+#define MAX_BOARD_COLS          5
 
 typedef char Tile;
 

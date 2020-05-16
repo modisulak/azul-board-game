@@ -1,15 +1,15 @@
 #include "Player.h"
+
 Player::Player(string name, int score) :
         name(std::move(name)),
         score(score),
-        isTurn(false)
-        {board = make_shared<Board>();}
+        isTurn(false) { board = make_shared<Board>(); }
 
-Player::Player(string name, int score, const string& storageInput, const string& mosaicInput, const string& brokenInput, bool isTurn) :
+Player::Player(string name, int score, const string &storageInput, const string &mosaicInput,
+               const string &brokenInput, bool isTurn) :
         name(std::move(name)),
         score(score),
-        isTurn(isTurn)
-        { board = make_shared<Board>(storageInput, mosaicInput, brokenInput); }
+        isTurn(isTurn) { board = make_shared<Board>(storageInput, mosaicInput, brokenInput); }
 
 Player::Player(const Player &other) :
         name(other.name),
@@ -38,13 +38,13 @@ bool Player::isPlayersTurn() const {
     return isTurn;
 }
 
-string Player::getStrings(const string& data) {
+string Player::getStrings(const string &data) {
     string s;
 
-    if (data == "storage") {s = board->storageToString();}
-    else if (data == "mosaic") {s = board->mosaicToString();}
-    else if (data == "broken") {s = board->brokenToString();}
-    else {s = board->toString();}
+    if (data == "storage") { s = board->getStorage()->toString(); }
+    else if (data == "mosaic") { s = board->getMosaic()->toString(); }
+    else if (data == "broken") { s = board->getBroken()->toString(); }
+    else { s = board->toString(); }
 
     return s;
 }

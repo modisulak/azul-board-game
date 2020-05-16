@@ -1,6 +1,12 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#define TILE_COMPLETE_POINTS 10
+
+#define COL_COMPLETE_POINTS 7
+
+#define ROW_COMPLETE_POINTS 2
+
 #include <random>
 
 #include "Player.h"
@@ -34,7 +40,7 @@ public:
      * Gets the input of the tiles chosen and places them onto the board
      * Factory number, colour, storage row     
      */
-    bool playTurn(std::vector<string> &inputs, int i);
+    bool playTurn(std::vector<string> &inputs, int playerIndex);
 
     /**
      * Gives a selection of information to help a user interact with the game
@@ -85,13 +91,23 @@ private:
 
     string promptPlayer(int index);
 
-    void getInputsVector(string &input, std::vector<string> &inputs) const;
+    void getPlayerInput(string &input, std::vector<string> &inputs) const;
 
     bool isANumber(const string &input);
 
-    bool validateInputs(std::vector<string> &inputs);
+    bool validateInputs(std::vector<string> &inputs, int &factoryNumber);
 
     void TransferLidToBag();
+
+    bool addTiles(const string& destination, int playerIndex, Tile tile, int noOfTiles);
+
+    void removePlayedTiles(int playerIndex, int factoryNumber, bool isDiscard, Tile tile) const;
+
+    void tileMosaic(shared_ptr<Board> &p1Board, shared_ptr<Board> &p2Board) const;
+
+    void prepareNextRound(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
+
+    void addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
 };
 
 #endif // GAME_MANAGER_H
