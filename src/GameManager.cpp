@@ -144,9 +144,42 @@ void GameManager::playGame() {
 
         cout << endl << "=== END OF ROUND ===" << endl;
     }
+
     addEndOfGamePoints(p1Board, p2Board);
 
-    //TODO announce the winner!
+    string winner = "The winner is: ";
+
+    getWinner(p1Board, p2Board, winner);
+
+    cout << winner << endl;
+    cout << "Press enter to return to the main menu." << endl;
+    cout << endl << INPUT_TAB;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void
+GameManager::getWinner(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board,
+                       string &winner) const {
+    if (players[0]->getScore() > players[1]->getScore()) {
+        winner += players[0]->getName();
+    } else if (players[0]->getScore() < players[1]->getScore()) {
+        winner += players[1]->getName();
+    } else {
+        int p1CompletedRows = 0;
+        int p2CompletedRows = 0;
+        for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
+            p1CompletedRows += p1Board->getMosaic()->isRowComplete(i);
+            p2CompletedRows += p2Board->getMosaic()->isRowComplete(i);
+        }
+        if (p1CompletedRows > p2CompletedRows) {
+            winner += players[0]->getName();
+        } else if (p1CompletedRows < p2CompletedRows) {
+            winner += players[1]->getName();
+        } else {
+            winner = "The game is a draw!";
+        }
+    }
 }
 
 

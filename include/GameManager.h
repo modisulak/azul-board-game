@@ -108,6 +108,8 @@ private:
     void prepareNextRound(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
 
     void addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
+
+    void getWinner(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board, string &winner) const;
 };
 
 #endif // GAME_MANAGER_H
