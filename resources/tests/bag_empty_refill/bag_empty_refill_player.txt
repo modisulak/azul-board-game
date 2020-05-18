@@ -1,4 +1,4 @@
 2
-bag_empty_refill.input
+bag_empty_refill.txt
 turn 0 R 5
 save bag_empty_refill_actual.out
