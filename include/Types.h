@@ -15,7 +15,7 @@
 #define EMPTY                   '.'
 #define FIRST_PLAYER_TILE       'F'
 #define INPUT_TAB               "> "
-#define SAVE_PATH               "save_files/"
+#define SAVE_PATH               "../save_files/"
 #define FILE_EXTENSION          ".txt"
 #define TURN                    "TURN"
 #define SAVE                    "SAVE"

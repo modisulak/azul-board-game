@@ -553,30 +553,33 @@ void GameManager::saveGame(const string &filename) {
 
     std::ofstream outfile;
     outfile.open(path);
+    if( !outfile ) {
+      std::cerr << "Error: game could not be saved" << endl;
+    } else {
+        outfile << seed << endl;
+        outfile << players[0]->isPlayersTurn() << endl;
 
-    outfile << seed << endl;
-    outfile << players[0]->isPlayersTurn() << endl;
+        for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i) {
+            outfile << players[i]->getName() << endl;
+            outfile << players[i]->getScore() << endl;
+        }
 
-    for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i) {
-        outfile << players[i]->getName() << endl;
-        outfile << players[i]->getScore() << endl;
+        outfile << discard->toString() << endl;
+
+        for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
+            outfile << factories[i]->toString() << endl;
+        }
+
+        for (int i = 0; i != MAX_PLAYER_INSTANCES; i++) {
+            outfile << players[i]->getStrings("storage") << endl;
+            outfile << players[i]->getStrings("broken") << endl;
+            outfile << players[i]->getStrings("mosaic") << endl;
+        }
+
+        outfile << boxLid->toString() << endl;
+        outfile << bag->toString();
+
+        outfile.close();
     }
-
-    outfile << discard->toString() << endl;
-
-    for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
-        outfile << factories[i]->toString() << endl;
-    }
-
-    for (int i = 0; i != MAX_PLAYER_INSTANCES; i++) {
-        outfile << players[i]->getStrings("storage") << endl;
-        outfile << players[i]->getStrings("broken") << endl;
-        outfile << players[i]->getStrings("mosaic") << endl;
-    }
-
-    outfile << boxLid->toString() << endl;
-    outfile << bag->toString();
-
-    outfile.close();
 }
 
