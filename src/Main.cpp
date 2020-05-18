@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
                         cout << endl << "Enter player name: ";
                         cout << endl << INPUT_TAB;
                         getline(cin, player);
+                        transform(player.begin(), player.end(), player.begin(), ::toupper);
                     }
                     if (players[0] == players[1]) {
                         cout << endl << "Players cannot have the same name";

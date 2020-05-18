@@ -239,7 +239,7 @@ void GameManager::playRound() {
             info(RULES_FILE);
             message = "";
         } else if (command == EXIT) {
-            cout << endl << "Goodbye" << endl;
+            cout << endl << "Quitting Game...\nGoodbye" << endl;
             exit(EXIT_SUCCESS);
 
         }
