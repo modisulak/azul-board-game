@@ -4,18 +4,18 @@ John
 0
 Kate
 0
-
-
-
-
-
-
 B
+
+
+
+
+
+.
 BB
 .RR
 .YYY
 ...UU
-<player 1 broken tiles>
+
 byrullbyruuLbyrrulbyyrulb
 U
 LL
@@ -24,8 +24,8 @@ RRR
 .....
 FR
 byrullbyruulbyrrulbyyrulb
-<lid>
-RRRRRRRRRRRRRBBBBBBBBBBBYYYYYYYYYYYYYYYLLLLLLLLLLUUUUUUUUUUUUUUUUU
+
+RRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYBBBBBBBBBBBBBBBBBLLLLLLLLLLLLLLLUUUUUUUUUUUUUUUUU
 
 
 
