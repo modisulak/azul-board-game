@@ -1,5 +1,4 @@
 *.json
-Makefile
 /CMakeLists.txt
 /cmake-APT_A2/
 /.idea/
