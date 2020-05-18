@@ -1,0 +1,4 @@
+2
+game_loads_correctly_input
+save game_loads_correctly_output
+

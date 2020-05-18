@@ -1,11 +1,11 @@
 72
 False 
 John
-5
+0
 Kate
-2
-YU.......
-<factory1>
+0
+YU
+
 LLBB
 URLL
 URYY
@@ -15,7 +15,7 @@ LL
 ...
 ....
 .....
-<player 1 broken tiles>
+
 bYrullByruuLbyrrulbyyrulb
 .
 BB
@@ -24,8 +24,8 @@ RRR
 .....
 F
 ByrullByruulbyrrulbyyrulb
-<lid>
-RRRRRRRRRRRRRBBBBBBBBBBBYYYYYYYYYYYYYYYLLLLLLLLLLUUUUUUUUUUUUUUUUU
+
+YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
 
 
 

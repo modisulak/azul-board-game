@@ -1,9 +1,0 @@
-2 
-update_score_round_end.input
-turn 0 R 1
-save update_score_round_end.ouput
-
-
-
-
-

@@ -4,7 +4,7 @@ Tom
 0
 Dave
 0
-       B  B
+BB
 
 
 

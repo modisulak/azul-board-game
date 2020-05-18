@@ -1,0 +1,2 @@
+Cannot add to row with same tile on mosaic. 
+> 
