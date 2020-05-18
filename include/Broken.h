@@ -47,7 +47,7 @@ public:
     /**
      * @return  the number of points lost from broken tiles
      */
-    int lostPoints() const;
+    unsigned int lostPoints() const;
 private:
     /**
      * Vector of tiles

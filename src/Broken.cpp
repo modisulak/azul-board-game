@@ -3,7 +3,7 @@
 Broken::Broken() = default;
 
 Broken::Broken(std::basic_string<char> input) {
-    for (int i = 0; i != input.size(); ++i) {
+    for (unsigned int i = 0; i != input.size(); ++i) {
         add(input[i]);
     }
 }
@@ -25,7 +25,7 @@ bool Broken::add(const Tile tile) {
 
 string Broken::toString() const {
     string toString;
-    int i = 0;
+    unsigned int i = 0;
     while (i != tiles.size()) {
         toString += tiles.at(i);
         toString += " ";
@@ -34,9 +34,9 @@ string Broken::toString() const {
     return toString;
 }
 
-int Broken::lostPoints() const {
-    int lostPoints = 0;
-    for (int i = 0; i != tiles.size(); ++i) {
+unsigned int Broken::lostPoints() const {
+    unsigned int lostPoints = 0;
+    for (unsigned int i = 0; i != tiles.size(); ++i) {
         if (i < 2) { lostPoints += 1; }
         else if (i < 5) { lostPoints += 2; }
         else { lostPoints += 3; }

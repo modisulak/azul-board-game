@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
                 bool files = getSaveFiles(saveFiles);
                 
                 if (files) {
-                    for (int i = 0; i < saveFiles.size(); i++) {
+                    for (unsigned int i = 0; i < saveFiles.size(); i++) {
                         cout << i + 1 << ": " << saveFiles[i] << endl;
                     }
                     while (!selection) {

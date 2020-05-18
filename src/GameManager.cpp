@@ -340,7 +340,7 @@ string GameManager::promptPlayer(int index) {
 
 void GameManager::getPlayerInput(string &input, std::vector<string> &inputs) const {
     string delimiter = " ";
-    int pos = 0;
+    unsigned int pos = 0;
     string token;
     while ((pos = input.find(delimiter)) != string::npos) {
         token = input.substr(0, pos);
@@ -538,7 +538,7 @@ void GameManager::populateFactories() {
 }
 
 void GameManager::TransferLidToBag() {
-    for (int i = 0; i != boxLid->size(); ++i) {
+    for (unsigned int i = 0; i != boxLid->size(); ++i) {
         bag->addBack(boxLid->getFront());
         boxLid->removeFront();
     }

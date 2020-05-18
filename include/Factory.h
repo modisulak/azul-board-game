@@ -33,7 +33,7 @@ public:
      * @param tile
      * @return
      */
-    int getTilesOfSameColour(const Tile tile) const;
+    unsigned int getTilesOfSameColour(const Tile tile) const;
 
     /**
      * Add a tile to the factory
@@ -69,7 +69,7 @@ public:
      * Returns the size of the factory
      * @return
      */
-    int getSize() const;
+    unsigned int getSize() const;
 
     /**
      * Checks if the factory contains a specific tile
