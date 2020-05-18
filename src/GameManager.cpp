@@ -288,7 +288,7 @@ void GameManager::playRound()
         else if (command == EXIT)
         {
             cout << endl
-                 << "Goodbye" << endl;
+                 << "Quitting Game...\nGoodbye" << endl;
             exit(EXIT_SUCCESS);
         }
         cout << message << endl;
@@ -689,32 +689,38 @@ void GameManager::saveGame(const string &filename)
 
     std::ofstream outfile;
     outfile.open(path);
-
-    outfile << seed << endl;
-    outfile << players[0]->isPlayersTurn() << endl;
-
-    for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i)
+    if (!outfile)
     {
-        outfile << players[i]->getName() << endl;
-        outfile << players[i]->getScore() << endl;
+        std::cerr << "Error: game could not be saved" << endl;
     }
-
-    outfile << discard->toString() << endl;
-
-    for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i)
+    else
     {
-        outfile << factories[i]->toString() << endl;
+        outfile << seed << endl;
+        outfile << players[0]->isPlayersTurn() << endl;
+
+        for (int i = 0; i != MAX_PLAYER_INSTANCES; ++i)
+        {
+            outfile << players[i]->getName() << endl;
+            outfile << players[i]->getScore() << endl;
+        }
+
+        outfile << discard->toString() << endl;
+
+        for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i)
+        {
+            outfile << factories[i]->toString() << endl;
+        }
+
+        for (int i = 0; i != MAX_PLAYER_INSTANCES; i++)
+        {
+            outfile << players[i]->getStrings("storage") << endl;
+            outfile << players[i]->getStrings("broken") << endl;
+            outfile << players[i]->getStrings("mosaic") << endl;
+        }
+
+        outfile << boxLid->toString() << endl;
+        outfile << bag->toString();
+
+        outfile.close();
     }
-
-    for (int i = 0; i != MAX_PLAYER_INSTANCES; i++)
-    {
-        outfile << players[i]->getStrings("storage") << endl;
-        outfile << players[i]->getStrings("broken") << endl;
-        outfile << players[i]->getStrings("mosaic") << endl;
-    }
-
-    outfile << boxLid->toString() << endl;
-    outfile << bag->toString();
-
-    outfile.close();
 }
