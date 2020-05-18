@@ -1,10 +1,10 @@
 #ifndef APT_A2_GRID_H
 #define APT_A2_GRID_H
 
-
 #include "Types.h"
 
-class Grid {
+class Grid
+{
 public:
     /**
      * Default Constructor
@@ -15,7 +15,7 @@ public:
      * Construct 2D array from input string
      * @param input
      */
-    explicit Grid(const std::basic_string<char>& input);
+    explicit Grid(const std::basic_string<char> &input);
 
     /**
      * Default de-constructor
@@ -34,7 +34,7 @@ public:
      * @param col
      * @param tile to set at specific co-ordinates
      */
-    void setTile( unsigned int row, unsigned int col, Tile tile);
+    void setTile(unsigned int row, unsigned int col, Tile tile);
 
     /**
      * @return String representation of 2D array
@@ -45,8 +45,7 @@ protected:
     /**
      * 5 x 5 2D array of tiles
      */
-    std::array<std::array<Tile, MAX_BOARD_ROWS>, MAX_BOARD_COLS>  tiles{};
+    std::array<std::array<Tile, MAX_BOARD_ROWS>, MAX_BOARD_COLS> tiles{};
 };
-
 
 #endif //APT_A2_GRID_H
