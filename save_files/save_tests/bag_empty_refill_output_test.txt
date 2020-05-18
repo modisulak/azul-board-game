@@ -4,7 +4,7 @@ John
 9
 Kate
 10
-F 
+F                
 RRYU
 RRLU
 YYBU

@@ -1,7 +1,7 @@
 2
 pick_tile_from_centerpile_first.input.txt
 turn 0 B 2   
-save pick_tile_from_centerpile_first.output.txt
+save pick_tile_from_centerpile_first.output.txtc
 
 
 

@@ -19,7 +19,7 @@ LL
 byrullbyruulbyrrulbyyrulb
 .
 ..
-RRR
+.RR
 ....
 .....
 

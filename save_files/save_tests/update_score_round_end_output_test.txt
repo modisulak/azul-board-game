@@ -1,10 +1,10 @@
 72
 0
 John
-2
+3
 Kate
 1
-F
+F                
 RYLU
 YBBU
 YLUU
@@ -26,7 +26,3 @@ ByrullByruuLbyrrulbyyrulb
 byrUlLbyruulbyRrulbyyrulb
 BLRRR
 ULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-
-
-

@@ -1,15 +1,15 @@
 72
-False 
+0 
 John
 0
 Kate
 0
-FYBBULL
+FYBBLLU
 
 
-URLL
-URYY
-LYRR
+RLLU
+RYYU
+RRYL
 .
 LL
 .BB

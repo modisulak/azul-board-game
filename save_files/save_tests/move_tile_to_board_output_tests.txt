@@ -1,12 +1,12 @@
 72
-0 
+0
 John
 2
 Kate
 4
-F
+F                
 RYLU
-YUBB
+YBBU
 YLUU
 YBLL
 RBBB
@@ -16,7 +16,7 @@ RBBB
 ..BB
 .....
 
-byrUlLByruuLbyRrulbyyrulb
+byrUlLbyruulbyRrulbyyrulb
 .
 ..
 ...
@@ -26,7 +26,3 @@ byrUlLByruuLbyRrulbyyrulb
 byrUllByruulbyRrulbYyruLb
 LBRRRRYYYLLLLRU
 ULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-
-
-
