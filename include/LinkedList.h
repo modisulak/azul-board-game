@@ -20,6 +20,12 @@ public:
 
     ~LinkedList();
 
+    //TODO add contract that it can only be used when there is an element at the index
+    /**
+     * @return get the value of element at an index
+     */
+    Tile get(unsigned int i) const;
+
     /**
      * Return the current size of the Linked List.
      */
@@ -54,9 +60,6 @@ public:
      * Returns a string containing all the elements in the list
      */
     string toString();
-
-
-    Tile getFront() const;
 
 private:
     shared_ptr<Node> head;

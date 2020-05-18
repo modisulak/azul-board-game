@@ -28,8 +28,18 @@ LinkedList::~LinkedList() {
     clear();
 }
 
-Tile LinkedList::getFront() const {
-    return head->value;
+Tile LinkedList::get(const unsigned int index) const {
+    Tile toReturn = BLANK_SPACE;
+    if (index < length) {
+        shared_ptr<Node> current = head;
+        unsigned int i = 0;
+        while (i <= index) {
+            toReturn = current->value;
+            current = current->next;
+            ++i;
+        }
+    }
+    return toReturn;
 }
 
 unsigned int LinkedList::size() const {

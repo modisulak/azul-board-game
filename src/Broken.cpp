@@ -28,7 +28,6 @@ string Broken::toString() const {
     unsigned int i = 0;
     while (i != tiles.size()) {
         toString += tiles.at(i);
-        toString += " ";
         ++i;
     }
     return toString;

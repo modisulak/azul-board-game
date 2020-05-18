@@ -98,7 +98,7 @@ private:
 
     void TransferLidToBag();
 
-    bool addTiles(const string& destination, int playerIndex, Tile tile, int noOfTiles);
+    bool addTiles(const string& destination, int playerIndex, Tile tile, unsigned int noOfTiles);
 
     void removePlayedTiles(int playerIndex, int factoryNumber, bool isDiscard, Tile tile) const;
 
