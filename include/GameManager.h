@@ -1,11 +1,11 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
-#define TILE_COMPLETE_POINTS 10
-
-#define COL_COMPLETE_POINTS 7
-
-#define ROW_COMPLETE_POINTS 2
+#define TILE_COMPLETE_POINTS    10
+#define COL_COMPLETE_POINTS     7
+#define ROW_COMPLETE_POINTS     2
+#define HELP_FILE               "../resources/help.txt"
+#define RULES_FILE              "../resources/rules.txt"
 
 #include <random>
 
@@ -45,8 +45,7 @@ public:
     /**
      * Gives a selection of information to help a user interact with the game
      */
-    // TODO
-    void help();
+     void info(string filename);
 
     /**
      * Saves the current state of the game
@@ -103,13 +102,19 @@ private:
 
     void removePlayedTiles(int playerIndex, int factoryNumber, bool isDiscard, Tile tile) const;
 
-    void tileMosaic(shared_ptr<Board> &p1Board, shared_ptr<Board> &p2Board) const;
+    void endOfRound(shared_ptr<Board> &p1Board, shared_ptr<Board> &p2Board) const;
 
     void prepareNextRound(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
 
     void addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board);
 
     void getWinner(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board, string &winner) const;
+
+    void waitForEnter() const;
+
+    int tileMosaic(const shared_ptr<Board> &board, int row) const;
+
+    bool processBroken(const shared_ptr<Board> &board) const;
 };
 
 #endif // GAME_MANAGER_H

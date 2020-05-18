@@ -14,11 +14,6 @@ std::vector<Tile> Broken::getTiles() const {
     return tiles;
 }
 
-int Broken::size() const {
-    return tiles.size();
-}
-
-
 bool Broken::add(const Tile tile) {
     bool added = false;
     if (tiles.size() < MAX_BROKEN_TILES) {
@@ -37,6 +32,16 @@ string Broken::toString() const {
         ++i;
     }
     return toString;
+}
+
+int Broken::lostPoints() const {
+    int lostPoints = 0;
+    for (int i = 0; i != tiles.size(); ++i) {
+        if (i < 2) { lostPoints += 1; }
+        else if (i < 5) { lostPoints += 2; }
+        else { lostPoints += 3; }
+    }
+    return lostPoints;
 }
 
 void Broken::clear() {

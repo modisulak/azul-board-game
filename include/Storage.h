@@ -32,6 +32,18 @@ public:
      */
     void clearRow(int row);
 
+    /**
+     * @param row to check if it is complete
+     * @return if the row is complete or not
+     */
+    bool isRowComplete(int row);
+
+    /**
+     * @param tile to add to storage
+     * @param row  to add the tile in
+     * @return if tile was added successfully depending on game rules
+     */
+    bool add(Tile tile, unsigned int row);
 };
 
 #endif //APT_A2_STORAGE_H

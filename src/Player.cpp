@@ -28,6 +28,9 @@ int Player::getScore() const {
 
 void Player::setScore(int score) {
     this->score = score;
+    if (this->score < 0) {
+        this->score = 0;
+    }
 }
 
 void Player::setPlayerTurn(bool value) {

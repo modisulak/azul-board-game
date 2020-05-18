@@ -45,10 +45,9 @@ public:
     std::vector<Tile> getTiles() const;
 
     /**
-     * @return size of broken tiles vector
+     * @return  the number of points lost from broken tiles
      */
-    int size() const;
-
+    int lostPoints() const;
 private:
     /**
      * Vector of tiles

@@ -1,0 +1,90 @@
+
+Game rules based on those at https://www.ultraboardgames.com/azul/game-rules.php
+
+Overview:
+This is a two player only version of AZUL.
+
+Each player starts their own blank board.
+The player who makes the first move is randomly assigned at the start of the game.
+
+The tile bag is populated with 20 tiles of each colour (100 in total) in random order.
+
+Five Factories are populated with 4 tiles each at the start of each round.
+The central discard factory (index 0) is populated with the special 'F' tile.
+
+The aim of the game is to be the player with the most points at the end of the game.
+The game ends after completion of a round in which at least one player has completed a horizontal
+line of 5 consecutive tiles on the mosaic wall.
+
+Note: Just because a player finishes a row first, does not necessarily mean they will win!
+
+Game Play:
+In turn, each player must pick tiles in one of the following ways:
+Either:
+Pick all tiles of the same colour from any one Factory display;
+
+Or:
+Pick all tiles of the same colour from the central discard factory.
+If you are the first player in this round to pick tiles from the center of the table, the 'F' tile
+will be added to your 'broken' tile floor line.
+
+Then, add the tiles you picked to one of the 5 storage rows on your player board (the first line
+has 1 space to hold 1 tile, the fifth line has 5).
+
+If the storage row already holds tiles, you may only add tiles of the same colour to it.
+If the storage row is full, you cannot add tiles to it.
+If the adjacent mosaic row already contains a tile of the selected colour, you cannot add
+tiles to the storage row.
+
+Once all spaces of a storage row are filled, that line is considered complete.
+
+If you have selected more tiles than you can place in your chosen storage row, the excess tiles will
+be added to your 'broken' floor line.
+
+Any tiles you have picked that you cannot or do not want to place according to the above rules, you
+can place directly on your 'broken' floor line, filling its spaces from left to right.
+
+At the end of the round, completed storage rows are converted to tiles on the mosaic and cleared
+accordingly, from top to bottom.
+Points are scored as each row is checked.
+Incomplete storage rows remain untouched.
+
+Scoring:
+When a tile is placed on the mosaic in the space matching it's colour the score is tallied
+immediately, as follows:
+
+        - If there are no tiles directly adjacent (vertically or horizontally) to the newly placed
+        tile, gain 1 point on the score track.
+
+    Otherwise
+
+        - If there are  1 or more tiles horizontally linked to the newly placed tile, count all the
+        linked tiles (including the newly placed one) and gain that many points.
+
+        AND
+
+        - If there are  1 or more tiles vertically linked to the newly placed tile, count all the
+        linked tiles (including the newly placed one) and gain that many points.
+
+
+At the end of tile placement, for each tile in your broken floor line, you lose points as follows:
+    - Tiles in the first and second space result in -1 point each
+    - Tiles in the third to fifth space result in -2 point each
+    - Tiles in the sixth and seventh space result in -2 point each
+
+Note: If your score reaches 0, don't worry, you can never drop below 0 points.
+
+Note: If you have the 'F' tile in your 'broken' floor line, it counts as a normal tile there.
+This indicates that you will make the first move at the start of the next round.
+
+End of the Game
+The game ends right after the tile placement phase in which at least one player has completed at
+least one horizontal line of 5 consecutive tiles on their wall.
+
+Once the game has ended, additional points are added if a player has achieved the following goals:
+- Gain 2 points for each complete horizontal line of 5 consecutive tiles on your mosaic.
+- Gain 7 points for each complete vertical line of 5 consecutive tiles on your mosaic.
+- Gain 10 points for each colour of which you have placed all 5 tiles on your mosaic.
+
+In the case of a tie, the player with more complete horizontal lines wins the game.
+If that does not break the tie, the victory is shared.

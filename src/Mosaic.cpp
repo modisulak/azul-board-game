@@ -24,6 +24,18 @@ void Mosaic::shiftMosaic(string &mosaicRow) {
     }
 }
 
+int Mosaic::add(Tile tile, int row) {
+    Tile location = std::tolower(tile);
+    int col = 0;
+    // Find location in mosaic for current storage row's colour
+    while (col != MAX_BOARD_COLS && tiles[row][col] != location) {
+        ++col;
+    }
+    // Update mosaic
+    setTile(row, col, tile);
+    return col;
+}
+
 int Mosaic::getPoints(int row, int col) {
     // Start on 1 point for placing a tile
     int points = 1;

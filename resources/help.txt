@@ -1,0 +1,29 @@
+I NEED HELP!
+
+Player input:
+There are a variety of commands a player can play throughout the game.
+Commands are not case sensitive.
+
+Accepted player input commands are as follows:
+To view help:
+Enter "help" (You obviously know this one!)
+
+To view game rules:
+Enter "rules"
+
+To save your game:
+Enter "save <filename>"
+
+To play a turn:
+Enter "turn <factory> <tile colour> <storage destination>"
+
+Notes:  - The factory must be a single digit number, i.e 2.
+        - The tile colour must be a single character that is contained in the selected factory.
+        - The storage destination must be one of the following:
+                - a single digit number, i.e 2; OR,
+                - the keyword 'broken' - to add tiles directly to your broken floor line.
+
+To exit the game:
+Enter "exit"
+Or
+Press ctrl D

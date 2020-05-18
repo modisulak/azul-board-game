@@ -51,12 +51,19 @@ public:
     int numberOfTilesCompleted();
 
     /**
-     *
      * @param row
      * @param col
      * @return total points scored
      */
     int getPoints(int row, int col);
+
+
+    /**
+     * @param tile to add to the mosaic
+     * @param row to add the tile
+     * @return the number of points earned within a round
+     */
+    int add(Tile tile, int row);
 
 private:
     /**
@@ -75,6 +82,7 @@ private:
      * @return point increase
      */
     int getPoints(int row, int col, int rowOffset, int colOffset);
+
 };
 
 

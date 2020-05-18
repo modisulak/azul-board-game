@@ -139,10 +139,8 @@ void GameManager::playGame() {
 
     while (!p1Board->getMosaic()->isAnyRowComplete() && !p2Board->getMosaic()->isAnyRowComplete()) {
         playRound();
-        tileMosaic(p1Board, p2Board);
+        endOfRound(p1Board, p2Board);
         prepareNextRound(p1Board, p2Board);
-
-        cout << endl << "=== END OF ROUND ===" << endl;
     }
 
     addEndOfGamePoints(p1Board, p2Board);
@@ -153,7 +151,11 @@ void GameManager::playGame() {
 
     cout << winner << endl;
     cout << "Press enter to return to the main menu." << endl;
-    cout << endl << INPUT_TAB;
+    waitForEnter();
+}
+
+void GameManager::waitForEnter() const {
+    cout << INPUT_TAB;
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
@@ -225,52 +227,88 @@ void GameManager::playRound() {
                 message = "Game Saved.";
             }
         } else if (command == HELP) {
-            help();
+            cout << endl;
+            info(HELP_FILE);
             message = "";
+        }else if (command == RULES) {
+            cout << endl;
+            info(RULES_FILE);
+            message = "";
+        } else if (command == EXIT) {
+            cout << endl << "Goodbye" << endl;
+            exit(EXIT_SUCCESS);
+
         }
         cout << message << endl;
     }
 }
 
-void GameManager::tileMosaic(shared_ptr<Board> &p1Board,
-                             shared_ptr<Board> &p2Board) const {// Update mosaic and get score for newly placed tiles
-    int p1Points = p1Board->addToMosaic();
-    int p2Points = p2Board->addToMosaic();
+void GameManager::endOfRound(shared_ptr<Board> &p1Board, shared_ptr<Board> &p2Board) const {
+    cout << endl << "=== END OF ROUND ===" << endl;
+
+    int p1Points = 0;
+    int p2Points = 0;
+    // Update mosaic and get score for newly placed tiles
+    for (int row = 0; row != MAX_BOARD_ROWS; ++row) {
+        // Ensure storage row is full of tiles
+        if (p1Board->getStorage()->isRowComplete(row)) {
+            p1Points += tileMosaic(p1Board, row);
+        }
+        if (p2Board->getStorage()->isRowComplete(row)) {
+            p2Points += tileMosaic(p2Board, row);
+        }
+    }
+    // remove lost points for broken tiles
+    p1Points -= p1Board->getBroken()->lostPoints();
+    p2Points -= p2Board->getBroken()->lostPoints();
 
     // Update players score
     players[0]->setScore(players[0]->getScore() + p1Points);
     players[1]->setScore(players[1]->getScore() + p2Points);
 }
 
-void GameManager::prepareNextRound(const shared_ptr<Board> &p1Board,
-                                   const shared_ptr<Board> &p2Board) {// Get broken for each player
-    std::shared_ptr<Broken> p1Broken = p1Board->getBroken();
-    std::shared_ptr<Broken> p2Broken = p2Board->getBroken();
+int GameManager::tileMosaic(const shared_ptr<Board> &board, int row) const {
+    // Add the rightmost tile to the mosaic and get its points
+    Tile tile = board->getStorage()->getTile(row, MAX_BOARD_COLS - 1);
+    int col = board->getMosaic()->add(tile, row);
 
-    /**
-     * Add broken tiles to back of the box lid
-     * Update players turn depending who has the First player Tile
-     */
-    for (Tile tile : p1Broken->getTiles()) {
-        if (tile != FIRST_PLAYER_TILE) {
-            boxLid->addBack(tile);
-        } else {
-            players[0]->setPlayerTurn(true);
-            players[1]->setPlayerTurn(false);
-        }
+    //get the points for the move
+    int points = board->getMosaic()->getPoints(row, col);
+
+    // Add left over tiles to the box lid
+    for (int i = 0; i != row; ++i) {
+        boxLid->addBack(tile);
     }
-    for (Tile tile : p2Broken->getTiles()) {
-        if (tile != FIRST_PLAYER_TILE) {
-            boxLid->addBack(tile);
-        } else {
-            players[0]->setPlayerTurn(false);
-            players[1]->setPlayerTurn(true);
-        }
-    }
-    // Clear the broken tiles
-    p1Broken->clear();
-    p2Broken->clear();
+
+    // Clear the row ready for the next round
+    board->getStorage()->clearRow(row);
+    return points;
+}
+
+void GameManager::prepareNextRound(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board) {
+    // Add broken tiles to back of the box lid
+    bool p1FirstTurn = processBroken(p1Board);
+    bool p2FirstTurn = processBroken(p2Board);
+
+    //Update players turn depending who had the First player Tile
+    players[0]->setPlayerTurn(p1FirstTurn);
+    players[1]->setPlayerTurn(p2FirstTurn);
+
     populateFactories();
+}
+
+bool GameManager::processBroken(const shared_ptr<Board> &board) const {
+    std::shared_ptr<Broken> broken = board->getBroken();
+    bool firstTurn = false;
+    for (Tile tile : broken->getTiles()) {
+        if (tile != FIRST_PLAYER_TILE) {
+            boxLid->addBack(tile);
+        } else {
+            firstTurn = true;
+        }
+    }
+    broken->clear();
+    return firstTurn;
 }
 
 string GameManager::promptPlayer(int index) {
@@ -293,6 +331,9 @@ string GameManager::promptPlayer(int index) {
     string line;
     while (line.empty()) {
         getline(cin, line);
+        if (cin.eof()) {
+            line = EXIT;
+        }
     }
     return line;
 }
@@ -365,7 +406,7 @@ bool GameManager::addTiles(const string &destination, int playerIndex, Tile tile
         bool validMove = players[playerIndex]->getBoard()->validateMove(tile, storageRow);
         if (validMove) {
             while (noOfTiles != 0) {
-                bool addedToStorage = players[playerIndex]->getBoard()->addToStorage(tile, storageRow);
+                bool addedToStorage = players[playerIndex]->getBoard()->getStorage()->add(tile, storageRow);
                 if (!addedToStorage) {
                     bool addedToBroken = players[playerIndex]->getBoard()->getBroken()->add(tile);
                     if (!addedToBroken) {
@@ -448,8 +489,20 @@ void GameManager::addEndOfGamePoints(const shared_ptr<Board> &p1Board, const sha
                          (p2TileColourComplete * TILE_COMPLETE_POINTS));
 }
 
-void GameManager::help() {
-    // TODO
+void GameManager::info(string filename) {
+    ifstream file;
+    file.open(filename);
+    if (file.is_open()) {
+        string line;
+        while (!file.eof()) {
+            getline(file, line);
+            cout << line << endl;
+        }
+    }
+    file.close();
+
+    cout << "Press enter to return to the game." << endl;
+    waitForEnter();
 }
 
 void GameManager::populateBag() {
@@ -522,3 +575,4 @@ void GameManager::saveGame(const string &filename) {
 
     outfile.close();
 }
+
