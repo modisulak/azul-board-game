@@ -1,5 +1,5 @@
 72
-1
+1 
 John
 0
 Kate
@@ -11,7 +11,7 @@ RLLU
 RYYU
 RRYL
 .
-LL
+.L
 ...
 ....
 .....
@@ -19,7 +19,7 @@ LL
 byrullbyruulbyrrulbyyrulb
 .
 ..
-RRR
+.RR
 ....
 .....
 

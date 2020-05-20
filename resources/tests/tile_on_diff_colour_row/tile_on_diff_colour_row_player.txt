@@ -1,0 +1,4 @@
+2 
+place_tile_on_full_row_input.txt
+turn 3 U 1
+save save_files/place_tile_on_full_row_output

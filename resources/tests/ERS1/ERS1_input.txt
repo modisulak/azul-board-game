@@ -4,25 +4,25 @@ John
 0
 Kate
 0
-FYBBU            
+B                
     
-BBLL
-RLLU
-RYYU
-RRYL
+    
+    
+    
+    
 .
-LL
-...
-....
-.....
+BB
+.RR
+.YYY
+...UU
 
 byrullbyruulbyrrulbyyrulb
-.
-..
+U
+LL
 RRR
-....
+.LLL
 .....
-
+FR
 byrullbyruulbyrrulbyyrulb
 
 YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU

@@ -1,5 +1,5 @@
 72
-1
+0 
 John
 0
 Kate
@@ -19,7 +19,7 @@ LL
 byrullbyruulbyrrulbyyrulb
 .
 ..
-RRR
+.RR
 ....
 .....
 
