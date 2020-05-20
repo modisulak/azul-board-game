@@ -1,4 +1,0 @@
-2 
-pick_tile_from_factory_input2.txt
-turn 5 B 5
-save save_files/pick_tile_from_factory_output2

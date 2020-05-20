@@ -1,0 +1,4 @@
+2 
+TP6_input.txt
+turn 3 U 1
+save save_files/TP6_output

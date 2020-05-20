@@ -1,4 +1,0 @@
-2
-cannot_add_to_row_with_same_tile_on_mosaic_input.txt
-turn 0 B 3
-save save_tests/cannot_add_to_row_with_same_tile_on_mosaic_output

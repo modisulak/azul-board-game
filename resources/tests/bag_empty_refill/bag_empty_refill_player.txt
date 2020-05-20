@@ -1,4 +1,0 @@
-2
-bag_empty_refill_input.txt
-turn 0 R 5
-save save_tests/bag_empty_refill_output
