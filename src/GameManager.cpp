@@ -61,7 +61,7 @@ GameManager::GameManager(const string &filename) {
         string discardAsString;
         getline(file, discardAsString);
 
-        if (discardAsString.length() != MAX_DISCARD_TILES){
+        if (discardAsString.length() > MAX_DISCARD_TILES){
             throw std::invalid_argument("Discard invalid.");
         }
         discard = make_unique<Factory>(MAX_DISCARD_TILES, discardAsString);
@@ -69,7 +69,7 @@ GameManager::GameManager(const string &filename) {
         for (int i = 0; i != MAX_FACTORY_INSTANCES; ++i) {
             string factoryAsString;
             getline(file, factoryAsString);
-            if (factoryAsString.length() != MAX_FACTORY_TILES){
+            if (factoryAsString.length() > MAX_FACTORY_TILES){
                 throw std::invalid_argument("Factory invalid.");
             }
             factories[i] = make_unique<Factory>(MAX_FACTORY_TILES, factoryAsString);
