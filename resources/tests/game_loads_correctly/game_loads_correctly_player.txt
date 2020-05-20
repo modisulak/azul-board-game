@@ -1,3 +1,3 @@
 2
-game_loads_correctly_input
-save save_files/game_loads_correctly_output
+game_loads_correctly_input.txt
+save save_tests/game_loads_correctly_output
