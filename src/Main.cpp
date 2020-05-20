@@ -19,72 +19,72 @@ int main(int argc, char **argv) {
         displayMenu();
         std::cout << INPUT_TAB;
 
-        string input;
-        getline(cin, input);
-
-        if (cin.good()) {
-            if (input == NEW_GAME) {
-                string players[MAX_PLAYER_INSTANCES];
-                bool nameSuccess = false;
-                while (!nameSuccess) {
-                    for (auto &player : players) {
-                        cout << endl << "Enter player name: ";
-                        cout << endl << INPUT_TAB;
-                        getline(cin, player);
-                        transform(player.begin(), player.end(), player.begin(), ::toupper);
-                    }
-                    if (players[0] == players[1]) {
-                        cout << endl << "Players cannot have the same name";
-                    } else {nameSuccess = true;}
-
+        int input = 0;
+        cin >> input;
+        cout << endl;
+        if (input == NEW_GAME) {
+            string players[MAX_PLAYER_INSTANCES];
+            int i = 0;
+            while (!cin.eof() && i != MAX_PLAYER_INSTANCES) {
+                cout << "Enter player " << i + 1 << "'s name: " << endl;
+                cout << INPUT_TAB;
+                getline(cin, players[i]);
+                transform(players[i].begin(), players[i].end(), players[i].begin(), ::toupper);
+                ++i;
+            }
+            if (!cin.eof()) {
+                if (players[0] == players[1]) {
+                    cout << endl << "Players cannot have the same name" << endl;
+                } else {
+                    cout << endl << "Starting a new game..." << endl;
+                    manager = make_unique<GameManager>(players[0], players[1], seed);
+                    manager->playGame();
                 }
+            }
+        } else if (input == LOAD_GAME) {
+            string saveSelection;
+            bool selection = false;
+            std::vector<string> saveFiles;
+            bool files = getSaveFiles(saveFiles);
 
-                cout << endl << "Starting a new game..." << endl;
-                manager = make_unique<GameManager>(players[0], players[1], seed);
-                manager->playGame();
-
-            } else if (input == LOAD_GAME) {
-                string saveSelection;
-                bool selection = false;
-                std::vector<string> saveFiles;
-                cout << endl;
-                bool files = getSaveFiles(saveFiles);
-                
-                if (files) {
-                    for (unsigned int i = 0; i < saveFiles.size(); i++) {
-                        cout << i + 1 << ": " << saveFiles[i] << endl;
+            if (files) {
+                for (auto &saveFile : saveFiles) {
+                    cout << saveFile << endl;
+                }
+                cout << endl << "Please enter the name of the save file you wish to load: " << endl
+                     << INPUT_TAB;
+                cin >> saveSelection;
+                // Transform to lower case
+                transform(saveSelection.begin(), saveSelection.end(), saveSelection.begin(),
+                          ::tolower);
+                // Check if file exists
+                for (auto &saveFile : saveFiles) {
+                    if (saveFile == saveSelection) {
+                        selection = true;
                     }
-                    while (!selection) {
-                        cout << endl << "Please enter the name of the save file you wish to load: " << endl << INPUT_TAB;
-                        getline(cin, saveSelection);
-                        // Transform to lower case
-                        transform(saveSelection.begin(), saveSelection.end(), saveSelection.begin(), ::tolower);
-                        // Check if file exists
-                        for (auto & saveFile : saveFiles) {
-                            if (saveFile == saveSelection) {
-                                selection = true;
-                            }
-                        }
-
-                        if (!selection) { 
-                            cout << endl << "There are no current files under that name, please retry your selection";
-                        }
-                    }
+                }
+                if (!selection) {
+                    cout << endl << "There are no current files under that name." << endl << endl;
+                } else {
                     string filename = SAVE_PATH + saveSelection;
                     cout << "Loading game from selection..." << endl;
                     manager = make_unique<GameManager>(filename);
                     manager->playGame();
-                } else {
-                    cout << "There are no current save files available to choose from. Please start a new game" << endl << endl;
                 }
-            } else if (input == CREDITS) {
-                displayCredits();
-            } else if (input == QUIT) {
-                gameExit = true;
             } else {
-                cout << "Selection is invalid. Please try again." << endl;
+                cout << "There are no save files available to choose from. Please start a new game"
+                     << endl;
             }
+        } else if (input == CREDITS) {
+            displayCredits();
+        } else if (input == QUIT || cin.eof()) {
+            cout << endl << "Quitting Game...\nGoodbye" << endl;
+            gameExit = true;
+        } else {
+            cout << "Selection is invalid. Please try again." << endl;
         }
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     return EXIT_SUCCESS;
 }
@@ -134,8 +134,7 @@ void displayCredits() {
     } else {
         cout << "Credits data could not be found" << endl;
     }
-    cout << "-------------------------------------" << endl;    
-
+    cout << "-------------------------------------" << endl;
 }
 
 bool getSaveFiles(std::vector<string> &saveFiles) {
@@ -146,13 +145,13 @@ bool getSaveFiles(std::vector<string> &saveFiles) {
     if (directory != nullptr) {
         char str1[] = ".", str2[] = "..";
         while ((ent = readdir(directory)) != nullptr) {
-            if ((strcmp(ent->d_name, str1) != 0) && (strcmp(ent->d_name, str2) != 0)) {
+            if ((strcmp(ent->d_name, "save_tests") != 0) && (strcmp(ent->d_name, str1) != 0) &&
+                (strcmp(ent->d_name, str2) != 0)) {
                 files = true;
                 saveFiles.emplace_back(ent->d_name);
             }
         }
         closedir(directory);
     }
-    
     return files;
 }

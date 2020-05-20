@@ -287,8 +287,7 @@ void GameManager::playRound()
         }
         else if (command == EXIT)
         {
-            cout << endl
-                 << "Quitting Game...\nGoodbye" << endl;
+            cout << endl << "Quitting Game...\nGoodbye" << endl;
             exit(EXIT_SUCCESS);
         }
         cout << message << endl;
