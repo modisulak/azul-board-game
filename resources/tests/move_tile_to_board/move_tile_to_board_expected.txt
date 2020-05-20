@@ -4,7 +4,7 @@ John
 2
 Kate
 4
-F
+F                
 RYLU
 YUBB
 YLUU
@@ -26,7 +26,3 @@ byrUlLByruuLbyRrulbyyrulb
 byrUllByruulbyRrulbYyruLb
 LBRRRRYYYLLLLRU
 ULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-
-
-

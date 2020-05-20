@@ -1,4 +1,3 @@
 2
-factories_incorrect_player.txt
-
-
+factories_incorrect_input.txt
+4

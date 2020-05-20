@@ -4,15 +4,15 @@ John
 0
 Kate
 0
-FYBBU
+FYBBLLU          
 
-LLBB
-URLL
-URYY
-LYRR
+
+RLLU
+RYYU
+RRYL
 .
 LL
-...
+.BB
 ....
 .....
 
@@ -26,7 +26,3 @@ RRR
 byrullbyruulbyrrulbyyrulb
 
 YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-
-
-

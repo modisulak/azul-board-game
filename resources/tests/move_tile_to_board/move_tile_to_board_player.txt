@@ -1,10 +1,4 @@
 2 
-move_tile_to_board.input.txt
+move_tile_to_board_input.txt
 turn 0 U 1
-move_tile_to_board.output 
-end
-
-
-
-
-
+save save_files/move_tile_to_board_output 

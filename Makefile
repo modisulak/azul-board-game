@@ -1,9 +1,11 @@
 CXX			:= g++
 CXX_FLAGS	:= -Wall -std=c++14 
 
-BIN		:= bin
-SRC		:= src
-INCLUDE	:= include
+BIN				:= bin
+SRC				:= src
+INCLUDE			:= include
+TEST_INPUTS 	:= resources/tests/
+TEST_OUTPUTS 	:= save_files/save_tests/
 
 LIBRARIES	:=
 EXECUTABLE	:= main
@@ -20,3 +22,9 @@ $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
 
 clean:
 	-rm $(BIN)/*
+
+test1:
+	./$(BIN)/$(EXECUTABLE) < $(TEST_INPUTS)update_score_round_end/update_score_round_end_player.txt > test-output.txt
+	diff $(TEST_INPUTS)update_score_round_end/update_score_round_end_output.txt $(TEST_OUTPUTS)update_score_round_end_output.txt 
+
+tests: clean all test1

@@ -4,7 +4,7 @@ John
 3
 Kate
 1
-F 
+F                
 RYLU
 YBBU
 YLUU
@@ -25,8 +25,4 @@ ByrullByruuLbyrrulbyyrulb
 
 byrUlLbyruulbyRrulbyyrulb
 BLRRR
-ULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU 
-
-
-
-
+ULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU

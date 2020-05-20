@@ -1,5 +1,3 @@
 2
-player1_board_missing_input
-save player1_board_missing_output
-
-
+player1_board_missing_input.txt
+4

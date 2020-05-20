@@ -1,10 +1,4 @@
 2 
-pick_tile_from_factory.input.txt
+pick_tile_from_factory_input.txt
 turn 2 B 3
-save pick_tile_from_factory.output.txt
-
-
-
-
-
-
+save save_files/pick_tile_from_factory_output

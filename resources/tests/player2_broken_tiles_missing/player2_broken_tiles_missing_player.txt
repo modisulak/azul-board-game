@@ -1,5 +1,3 @@
 2
 player2_broken_tiles_missing_input
-save player2_broken_tiles_missing_output
-
-
+4

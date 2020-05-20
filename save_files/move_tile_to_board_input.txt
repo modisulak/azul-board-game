@@ -4,7 +4,7 @@ John
 0
 Kate
 0
-U
+U                
 
 
 
@@ -26,5 +26,3 @@ FU
 byrullbyruulbyrrulbyyrulb
 
 YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-

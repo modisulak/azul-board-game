@@ -574,16 +574,14 @@ bool GameManager::isRoundEnd() const
     return roundEnd;
 }
 
-void GameManager::addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board)
-{
+void GameManager::addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board) {
     //Tally end of game points
     int p1CompletedRows = 0;
     int p1CompletedCols = 0;
     int p2CompletedRows = 0;
     int p2CompletedCols = 0;
 
-    for (int i = 0; i != MAX_BOARD_ROWS; ++i)
-    {
+    for (int i = 0; i != MAX_BOARD_ROWS; ++i) {
         p1CompletedRows += p1Board->getMosaic()->isRowComplete(i);
         p1CompletedCols += p1Board->getMosaic()->isColumnComplete(i);
         p2CompletedRows += p2Board->getMosaic()->isRowComplete(i);
@@ -595,29 +593,12 @@ void GameManager::addEndOfGamePoints(const shared_ptr<Board> &p1Board, const sha
     int p2TileColourComplete = p2Board->getMosaic()->numberOfTilesCompleted();
 
     // Update players score
-    players[0]->setScore(players[0]->getScore() + (p1CompletedRows * ROW_COMPLETE_POINTS) + (p1CompletedCols * COL_COMPLETE_POINTS) +
+    players[0]->setScore(players[0]->getScore() + (p1CompletedRows * ROW_COMPLETE_POINTS) +
+                         (p1CompletedCols * COL_COMPLETE_POINTS) +
                          (p1TileColourComplete * TILE_COMPLETE_POINTS));
-    players[1]->setScore(players[1]->getScore() + (p2CompletedRows * ROW_COMPLETE_POINTS) + (p2CompletedCols * COL_COMPLETE_POINTS) +
+    players[1]->setScore(players[1]->getScore() + (p2CompletedRows * ROW_COMPLETE_POINTS) +
+                         (p2CompletedCols * COL_COMPLETE_POINTS) +
                          (p2TileColourComplete * TILE_COMPLETE_POINTS));
-}
-
-void GameManager::info(string filename)
-{
-    ifstream file;
-    file.open(filename);
-    if (file.is_open())
-    {
-        string line;
-        while (!file.eof())
-        {
-            getline(file, line);
-            cout << line << endl;
-        }
-    }
-    file.close();
-
-    cout << "Press enter to return to the game." << endl;
-    waitForEnter();
 }
 
 void GameManager::populateBag()
@@ -681,6 +662,25 @@ void GameManager::TransferLidToBag()
         bag->addBack(boxLid->get(i));
     }
     boxLid->clear();
+}
+
+void GameManager::info(string filename)
+{
+    ifstream file;
+    file.open(filename);
+    if (file.is_open())
+    {
+        string line;
+        while (!file.eof())
+        {
+            getline(file, line);
+            cout << line << endl;
+        }
+    }
+    file.close();
+
+    cout << "Press enter to return to the game." << endl;
+    waitForEnter();
 }
 
 void GameManager::saveGame(const string &filename)

@@ -4,8 +4,8 @@
 #define TILE_COMPLETE_POINTS    10
 #define COL_COMPLETE_POINTS     7
 #define ROW_COMPLETE_POINTS     2
-#define HELP_FILE               "../resources/help.txt"
-#define RULES_FILE              "../resources/rules.txt"
+#define HELP_FILE               "resources/help.txt"
+#define RULES_FILE              "resources/rules.txt"
 
 #include <random>
 

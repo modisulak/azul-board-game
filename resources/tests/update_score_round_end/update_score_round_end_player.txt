@@ -1,9 +1,4 @@
 2
 update_score_round_end_input.txt
 turn 0 B 1
-save update_score_round_end.ouput
-
-
-
-
-
+save save_tests/update_score_round_end_output
