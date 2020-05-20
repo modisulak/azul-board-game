@@ -68,8 +68,12 @@ int main(int argc, char **argv) {
                 } else {
                     string filename = SAVE_PATH + saveSelection;
                     cout << "Loading game from selection..." << endl;
-                    manager = make_unique<GameManager>(filename);
-                    manager->playGame();
+                    try {
+                        manager = make_unique<GameManager>(filename);
+                        manager->playGame();
+                    } catch (const std::exception &e) {
+                        std::cout << endl << "Incorrect game file format. Try again." << endl;
+                    }
                 }
             } else {
                 cout << "There are no save files available to choose from. Please start a new game"

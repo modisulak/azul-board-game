@@ -1,4 +1,4 @@
-Incorrect game save file format. Try again. 
+Incorrect game file format. Try again.
 
 Welcome to Azul!
 -------------------
