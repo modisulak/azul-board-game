@@ -19,7 +19,6 @@ pick_tile_from_factory_input.txt
 player1_board_missing_input.txt
 player2_broken_tiles_missing_input.txt
 update_score_round_end_input.txt
-update_score_round_end_ouput.txt.txt
 
 Please enter the name of the save file you wish to load: 
 > Loading game from selection...

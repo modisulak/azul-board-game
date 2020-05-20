@@ -60,7 +60,7 @@ GameManager::GameManager(const string &filename) {
 
         string discardAsString;
         getline(file, discardAsString);
-        
+
         if (discardAsString.length() != MAX_DISCARD_TILES){
             throw std::invalid_argument("Discard invalid.");
         }
@@ -84,22 +84,21 @@ GameManager::GameManager(const string &filename) {
             getline(file, line);
 
             p1storageAsString += line;
-            
-            if (p1storageAsString.length() != MAX_BOARD_COLS){
-                throw std::invalid_argument("Storage invalid.");
-            }
+        }
+        if (p1storageAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
+            throw std::invalid_argument("Player 1 Storage invalid.");
         }
 
         string p1BrokenAsString;
         getline(file, p1BrokenAsString);
-        if (p1BrokenAsString.length() != MAX_BROKEN_TILES){
-            throw std::invalid_argument("Broken invalid.");
+        if (p1BrokenAsString.length() > MAX_BROKEN_TILES){
+            throw std::invalid_argument("Player 1 Broken invalid.");
         }
 
         string p1MosaicAsString;
         getline(file, p1MosaicAsString);
-        if (p1BrokenAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
-            throw std::invalid_argument("Mosaic invalid.");
+        if (p1MosaicAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
+            throw std::invalid_argument("Player 1 Mosaic invalid.");
         }
 
         string p2storageAsString;
@@ -110,22 +109,20 @@ GameManager::GameManager(const string &filename) {
             }
             getline(file, line);
             p2storageAsString += line;
-
-            if (p2storageAsString.length() != MAX_BOARD_COLS){
-                throw std::invalid_argument("Storage invalid.");
-            }
         }
-
+        if (p2storageAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
+            throw std::invalid_argument("Player 2 Storage invalid.");
+        }
         string p2BrokenAsString;
         getline(file, p2BrokenAsString);
-        if (p1BrokenAsString.length() != MAX_BROKEN_TILES){
-            throw std::invalid_argument("Broken invalid.");
+        if (p1BrokenAsString.length() > MAX_BROKEN_TILES){
+            throw std::invalid_argument("Player 2 Broken invalid.");
         }
 
         string p2MosaicAsString;
         getline(file, p2MosaicAsString);
-        if (p1BrokenAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
-            throw std::invalid_argument("Mosaic invalid.");
+        if (p2MosaicAsString.length() != MAX_BOARD_ROWS*MAX_BOARD_COLS){
+            throw std::invalid_argument("Player 2 Mosaic invalid.");
         }
 
         players[0] = make_unique<Player>(player1Name, player1Score,
@@ -139,7 +136,7 @@ GameManager::GameManager(const string &filename) {
         for (char c : line) {
             boxLid->addBack(c);
         }
-        if (boxLid->size() != MAX_TOTAL_TILES){
+        if (boxLid->size() > MAX_TOTAL_TILES){
             throw std::invalid_argument("Box Lid invalid.");
         }
 
@@ -147,7 +144,7 @@ GameManager::GameManager(const string &filename) {
         for (char c : line) {
             bag->addBack(c);
         }
-        if (bag->size() != MAX_TOTAL_TILES){
+        if (bag->size() > MAX_TOTAL_TILES){
             throw std::invalid_argument("Bag invalid.");
         }
         file.close();

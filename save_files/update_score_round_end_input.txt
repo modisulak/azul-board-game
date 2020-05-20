@@ -4,12 +4,12 @@ John
 0
 Kate
 0
-B
-
-
-
-
-
+B                
+    
+    
+    
+    
+    
 .
 BB
 .RR
@@ -26,7 +26,3 @@ FR
 byrullbyruulbyrrulbyyrulb
 
 YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
-
-
-
-
