@@ -689,12 +689,8 @@ void GameManager::saveGame(const string &filename)
 
     std::ofstream outfile;
     outfile.open(path);
-    if (!outfile)
-    {
-        std::cerr << "Error: game could not be saved" << endl;
-    }
-    else
-    {
+    if( !outfile ) {std::cerr << "Error: game could not be saved" << endl;} 
+    else {
         outfile << seed << endl;
         outfile << players[0]->isPlayersTurn() << endl;
 
