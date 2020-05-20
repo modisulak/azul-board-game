@@ -1,4 +1,4 @@
 2 
 pick_tile_from_factory_input.txt
 turn 2 B 3
-save save_files/pick_tile_from_factory_output
+save save_tests/pick_tile_from_factory_output

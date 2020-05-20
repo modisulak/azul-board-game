@@ -1,0 +1,4 @@
+2
+pick_tile_from_centerpile_first_input.txt
+turn 0 B 2   
+save save_tests/pick_tile_from_centerpile_first_output

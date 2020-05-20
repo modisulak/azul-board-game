@@ -3,7 +3,7 @@
 John
 9
 Kate
-10
+9
 F                
 RRYU
 RRLU
@@ -21,8 +21,8 @@ bYrUlLByruuLbyRrulbyyrulb
 ..
 ...
 ....
-.....
+....R
 
-ByRulLByruulbyRrulbYyrulb
+ByrulLByruulbyRrulbYyrulb
 
 LYUULLBYBRRBBRULBYRYYLBBLULBUBYLURLLLLRRRRYY
