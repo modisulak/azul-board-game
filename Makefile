@@ -1,4 +1,3 @@
-#!/bin/bash
 CXX			:= g++
 CXX_FLAGS	:= -Wall -std=c++14 
 

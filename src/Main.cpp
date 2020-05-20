@@ -22,22 +22,28 @@ int main(int argc, char **argv) {
         int input = 0;
         cin >> input;
         cout << endl;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (input == NEW_GAME) {
-            string players[MAX_PLAYER_INSTANCES];
-            int i = 0;
-            while (!cin.eof() && i != MAX_PLAYER_INSTANCES) {
-                cout << "Enter player " << i + 1 << "'s name: " << endl;
-                cout << INPUT_TAB;
-                getline(cin, players[i]);
-                transform(players[i].begin(), players[i].end(), players[i].begin(), ::toupper);
-                ++i;
-            }
+            string player1 = "";
+            string player2 = "";
+
+            cout << "Enter player 1's name: " << endl;
+            cout << INPUT_TAB;
+            getline(cin, player1);
+            transform(player1.begin(), player1.end(), player1.begin(), ::toupper);
+
+            cout << "Enter player 2's name: " << endl;
+            cout << INPUT_TAB;
+            getline(cin, player2);
+            transform(player2.begin(), player2.end(), player2.begin(), ::toupper);
+
             if (!cin.eof()) {
-                if (players[0] == players[1]) {
+                if (player1 == player2) {
                     cout << endl << "Players cannot have the same name" << endl;
                 } else {
                     cout << endl << "Starting a new game..." << endl;
-                    manager = make_unique<GameManager>(players[0], players[1], seed);
+                    manager = make_unique<GameManager>(player1, player2, seed);
                     manager->playGame();
                 }
             }
@@ -87,8 +93,6 @@ int main(int argc, char **argv) {
         } else {
             cout << "Selection is invalid. Please try again." << endl;
         }
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     return EXIT_SUCCESS;
 }
