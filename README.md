@@ -14,9 +14,9 @@ To create a base implementation of a 2 player, human only, command line version 
 │         └── <test>    # Each test subdirectory contains 2 files:
 │                                  # <test>_player.txt - Commands to redirect as input into the application.
 │                                  # <test>_expected.txt - The expected output of the test.
-├── save_files         # All saved games are stored in this directory, including inputs to be loaded for testing.
-│   └── save_tests     # All test outputs are saved in this subdirectory.
-└── src                # Contains all source code implementations (.cpp) for the game.
+├── save_files          # All saved games are stored in this directory, including inputs to be loaded for testing.
+│   └── save_tests      # All test outputs are saved in this subdirectory.
+└── src                 # Contains all source code implementations (.cpp) for the game.
 ```
 
 ---
