@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
             bool files = getSaveFiles(saveFiles);
 
             if (files) {
+                std::sort(saveFiles.begin(), saveFiles.end());
                 for (auto &saveFile : saveFiles) {
                     cout << saveFile << endl;
                 }

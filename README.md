@@ -12,8 +12,8 @@ To create a base implementation of a 2 player, human only, command line version 
 ├── resources           # Contains text files that are read by the application, i.e. help, rules and credits
 │   └── tests           # Contains a test overview and many subdirectories for black box testing.
 │         └── <test>    # Each test subdirectory contains 2 files:
-│                                  - <test>_player.txt - Commands to redirect as input into the application.
-│                                  - <test>_expected.txt - The expected output of the test.
+│                                  # <test>_player.txt - Commands to redirect as input into the application.
+│                                  # <test>_expected.txt - The expected output of the test.
 |── save_files         # All saved games are stored in this directory, including inputs to be loaded for testing.
 |   └── save_tests     # All test outputs are saved in this subdirectory.
 └── src                # Contains all source code implementations (.cpp) for the game.
@@ -39,4 +39,6 @@ To create a base implementation of a 2 player, human only, command line version 
 
 **Email:** _s3780445@student.rmit.edu.au_
 
-
+---
+### Testing
+The project uses black box testing to run predefined tests on the 
