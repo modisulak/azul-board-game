@@ -134,7 +134,7 @@ test-TS1:
 	@./run_test.sh $(BIN) $(EXECUTABLE) TS1
 test-FR1:
 	@printf "\nTest 1 round is playable.\n"
-	@./run_test.sh $(BIN) $(EXECUTABLE) FR1 null 10
+	@./run_test.sh $(BIN) $(EXECUTABLE) FR1
 test-FG1:
 	@printf "\nTest full game is playable.\n"
-	@./run_test.sh $(BIN) $(EXECUTABLE) FG1 output 10
+	@./run_test.sh $(BIN) $(EXECUTABLE) FG1
