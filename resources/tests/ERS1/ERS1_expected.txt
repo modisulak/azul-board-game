@@ -1,25 +1,25 @@
 72
-0 
+0
 John
-3
+1
 Kate
 0
-F            
-RULU    
+F                
+RYLU
 YBBU
 YLUU
 YBLL
 RBBB
 .
-.L
+..
 ...
 ....
 .....
 
-bYRUllbyruulbyrrulbyyrulb
+bYrullbyruulbyrrulbyyrulb
 .
 ..
-.RR
+...
 ....
 .....
 

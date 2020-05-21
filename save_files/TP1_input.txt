@@ -5,13 +5,13 @@ John
 Kate
 0
 FYBBU            
-    
+RYYY
 BBLL
 RLLU
 RYYU
 RRYL
 .
-LL
+..
 ...
 ....
 .....
@@ -19,7 +19,7 @@ LL
 byrullbyruulbyrrulbyyrulb
 .
 ..
-RRR
+...
 ....
 .....
 

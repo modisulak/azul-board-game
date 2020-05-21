@@ -1,5 +1,0 @@
-2 
-TP9_input.txt
-turn 2 L 1
-save save_files/TP9_output
-

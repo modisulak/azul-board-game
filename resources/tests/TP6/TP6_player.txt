@@ -1,4 +1,4 @@
-2 
+2
 TP6_input.txt
-turn 3 U 1
-save save_files/TP6_output
+turn 3 L 3
+save save_tests/TP6_output

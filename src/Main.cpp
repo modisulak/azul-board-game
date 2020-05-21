@@ -60,9 +60,6 @@ int main(int argc, char **argv) {
                 cout << endl << "Please enter the name of the save file you wish to load: " << endl
                      << INPUT_TAB;
                 cin >> saveSelection;
-                // Transform to lower case
-                transform(saveSelection.begin(), saveSelection.end(), saveSelection.begin(),
-                          ::tolower);
                 // Check if file exists
                 for (auto &saveFile : saveFiles) {
                     if (saveFile == saveSelection) {

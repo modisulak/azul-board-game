@@ -4,22 +4,22 @@ John
 0
 Kate
 0
-YU               
+YYU              
     
 BBLL
 RLLU
 RYYU
 RRYL
 .
-LL
+..
 ...
 ....
 .....
 
 byrullbyruulbyrrulbyyrulb
 .
-BB
-.RR
+..
+..B
 ....
 .....
 F

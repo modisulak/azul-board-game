@@ -1,28 +1,28 @@
 72
 1
 John
-0
+7
 Kate
 0
-U                
+Y                
     
     
     
     
     
 .
-LL
-RRR
-..BB
+..
+...
+....
 .....
-R
-byrullbyruulbyrrulbyyrulb
-U
-BB
-RRR
-YYYY
-LLLLL
-FU
+BBYYL
+byrullbyruuLbyrrulbyyrulb
+.
+..
+...
+....
+.....
+F
 byrullbyruulbyrrulbyyrulb
 
 YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU

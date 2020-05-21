@@ -1,5 +1,4 @@
-2 
+2
 TP8_input.txt
-turn 3 U 6
-save save_files/TP8_output
-
+turn 2 B 1
+save save_tests/TP8_output

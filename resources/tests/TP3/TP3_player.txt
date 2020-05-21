@@ -1,4 +1,4 @@
 2
 TP3_input.txt
-turn 0 B 2   
-save save_files/TP3_output
+turn 0 B 3 
+save save_tests/TP3_output

@@ -1,4 +1,0 @@
-2 
-move_tile_to_board_input.txt
-turn 0 U 1
-save save_tests/move_tile_to_board_output 

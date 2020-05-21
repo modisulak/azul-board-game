@@ -1,4 +1,0 @@
-2
-ERS5_input.txt
-turn 0 U 4
-save save_tests/ERS5_output

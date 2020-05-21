@@ -19,31 +19,6 @@ $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
 
 clean:
 	-rm $(BIN)/*
-
-test1: 
-	@printf "\nTest the bag refills correctly when it runs empty.\n"
-	@./run_test $(BIN) $(EXECUTABLE) bag_empty_refill
- 
-test2:
-	@printf "\nTest that a player cannot add a tile to a storage row with same tile already completed on the mosaic.\n"
-	@./run_test $(BIN) $(EXECUTABLE) cannot_add_to_row_with_same_tile_on_mosaic
-
-test3:
-	@printf "\nTest the game loads and saves correctly.\n"
-	@./run_test $(BIN) $(EXECUTABLE) game_loads_correctly
-test4:
-	@printf "\nTest the movement of a tile to the storage area of the board.\n"
-	@./run_test $(BIN) $(EXECUTABLE) move_tile_to_board
-
-test5:
-	@printf "\nTest the first player for the round to pick a tile from the center 'discard' pile.\n"
-	@./run_test $(BIN) $(EXECUTABLE) pick_tile_from_centerpile_first
-test6:
-	@printf "\nTest picking a tile from the factory and placing it in the tile storage row.\n"
-	@./run_test $(BIN) $(EXECUTABLE) pick_tile_from_factory
-test7:
-	@printf "\nTest the players scores update correctly at the end of the round.\n"
-	@./run_test $(BIN) $(EXECUTABLE) update_score_round_end
 test8:
 	@printf "\nTest the game fails to load when the a factory is invalid (missing).\n"
 	@./run_test $(BIN) $(EXECUTABLE) factories_incorrect output
@@ -54,4 +29,98 @@ test10:
 	@printf "\nTest the game fails to load when the players mosaic board is invalid (missing).\n"
 	@./run_test $(BIN) $(EXECUTABLE) player1_board_missing output
 
-tests: test1 test2 test3 test4 test5 test6 test7 test8 test9 test10
+test-TP1:
+	@printf "\nTest tile placement from factory 1 to empty storage row.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP1
+test-TP2:
+	@printf "\nTest tile placement from factory 5 to empty storage row 5.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP2
+test-TP3:
+	@printf "\nTest tile placement from factory 2 to empty storage row. 2.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP3
+test-TP4:
+	@printf "\nTest tile placement from factory to 'broken'.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP4
+test-TP5:
+	@printf "\nTest tile cannot be placed on a full storage row.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP5
+test-TP6:
+	@printf "\nTest tile cannot be placed on a storage row already containing a different colour.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP6
+test-TP7:
+	@printf "\nTest tile cannot be placed on a storage row where corresponding mosaic row has already completed tile of the same colour.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP7
+test-TP8:
+	@printf "\nTest that when the broken row is full (has 7 Tiles in it) any more tiles are added to the box lid instead.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP8
+test-TP9:
+	@printf "\nTest that when the broken row is full (has 7 Tiles in it) any more tiles are added to the box lid instead.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TP9
+test-UI1:
+	@printf "\nTest the game handles out of range factory index input.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI1
+test-UI2:
+	@printf "\nTest the game handles char as factory index input.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI2
+test-UI3:
+	@printf "\nTest the game handles out of range storage index input.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI3
+test-UI4:
+	@printf "\nTest the game handles string as storage index input.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI4
+test-UI5:
+	@printf "\nTest the game handles non existent tile reference.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI5
+test-UI6:
+	@printf "\nTest the game handles multi character tile reference string.\n"
+	@./run_test $(BIN) $(EXECUTABLE) UI6
+test-ERS1:
+	@printf "\nTest the players score increases by 1 when 1 tile is placed at the end of a round.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS1
+test-ERS2:
+	@printf "\nTest a players score increases by 3 when 1 tile is placed adjacent to two others horizontally at the end of a round.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS2
+test-ERS3:
+	@printf "\nTest a players score increases by 6 when 1 tile is placed adjacent to 2 tiles horizontally and 2 tiles vertically at the end of a round.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS3
+test-ERS4:
+	@printf "\nTest a players score decreases 1 per tile for the first two spaces on the broken row.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS4
+test-ERS5:
+	@printf "\nTest a players score decreases 1 per tile for the first two spaces on the broken row & 2 per tile for the next 3 spaces on the broken row.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS5
+test-ERS6:
+	@printf "\nTest a players score decreases 1 per tile for the first two spaces on the broken row & 2 per tile for the next 3 spaces on the broken row & 3 per tile for the next 2 spaces on the broken row.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS6
+test-ERS7:
+	@printf "\nTest a players score ddoes not go below zero when they lose more points than they have.\n"
+	@./run_test $(BIN) $(EXECUTABLE) ERS7
+test-EGS1:
+	@printf "\n\n"
+	@./run_test $(BIN) $(EXECUTABLE) EGS1
+test-EGS2:
+	@printf "\n\n"
+	@./run_test $(BIN) $(EXECUTABLE) EGS2
+test-EGS3:
+	@printf "\n\n"
+	@./run_test $(BIN) $(EXECUTABLE) EGS3
+test-RB1:
+	@printf "\nTest the bag refills correctly when it runs empty.\n"
+	@./run_test $(BIN) $(EXECUTABLE) RB1
+test-LS1:
+	@printf "\nTest the game loads and saves correctly.\n"
+	@./run_test $(BIN) $(EXECUTABLE) LS1
+test-TS1:
+	@printf "\nTest the factories sort tiles into total order.\n"
+	@./run_test $(BIN) $(EXECUTABLE) TS1
+
+
+tests: test-TP test-UI test-ERS test-EGS test-RB1 test-LS1 test-TS1
+
+test-TP: test-TP1 test-TP2 test-TP3 test-TP4 test-TP5 test-TP6 test-TP7 test-TP8 test-TP9
+
+test-UI: test-UI1 test-UI2 test-UI3 test-UI4 test-UI5 test-UI6
+
+test-ERS: test-ERS1 test-ERS2 test-ERS3 test-ERS4 test-ERS5 test-ERS6 test-ERS7
+
+test-EGS: test-EGS1 test-EGS2 test-EGS3

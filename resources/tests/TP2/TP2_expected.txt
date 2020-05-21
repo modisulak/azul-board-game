@@ -1,17 +1,17 @@
 72
-1
+0
 John
 0
 Kate
 0
-FYBBURRY            
+FRRYYBBU         
     
 BBLL
 RLLU
 RYYU
-
+    
 .
-LL
+..
 ...
 ....
 ....B
@@ -19,7 +19,7 @@ LL
 byrullbyruulbyrrulbyyrulb
 .
 ..
-RRR
+...
 ....
 .....
 

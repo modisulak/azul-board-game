@@ -1,4 +1,4 @@
-2 
+2
 TP5_input.txt
-turn 3 R 1
-save save_files/TP5_output
+turn 2 U 1
+save save_tests/TP5_output

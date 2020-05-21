@@ -1,5 +1,4 @@
-2 
-TP9_input.txt
+2
+UI2_input.txt
 turn N L 2
-save save_files/TP9_output
-
+save save_tests/UI2_output

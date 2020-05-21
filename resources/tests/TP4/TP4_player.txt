@@ -1,4 +1,4 @@
-2 
+2
 TP4_input.txt
-turn 2 B 5
-save save_files/TP4_output
+turn 2 B broken
+save save_tests/TP4_output
