@@ -1,0 +1,28 @@
+10
+1
+PLAYER 1
+0
+PLAYER 2
+0
+F                
+RYYB
+YBBU
+RBBL
+RYLL
+RYLU
+.
+..
+...
+....
+.....
+
+byrullbyruulbyrrulbyyrulb
+.
+..
+...
+....
+.....
+
+byrullbyruulbyrrulbyyrulb
+
+RLLLLRRYUYUUBLRURLBLYLRRUUBYBRLBYYYRLYLRRYUYUUUULURUUURBRLULBYUBYLBYRBBULBBYBBRY

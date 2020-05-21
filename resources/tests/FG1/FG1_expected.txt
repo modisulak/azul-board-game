@@ -9,10 +9,46 @@ Menu
 4. Quit
 
 > 
-Enter player 1's name: 
-> Enter player 2's name: 
-> 
-Starting a new game...
+EGS1_input.txt
+EGS2_input.txt
+EGS3_input.txt
+ERS1_input.txt
+ERS2_input.txt
+ERS3_input.txt
+ERS4_input.txt
+ERS5_input.txt
+ERS6_input.txt
+ERS7_input.txt
+FG1_input.txt
+FR1_input.txt
+IF1_input.txt
+IF2_input.txt
+IF3_input.txt
+IF4_input.txt
+IF5_input.txt
+IF6_input.txt
+IF7_input.txt
+LS1_input.txt
+RB1_input.txt
+TP1_input.txt
+TP2_input.txt
+TP3_input.txt
+TP4_input.txt
+TP5_input.txt
+TP6_input.txt
+TP7_input.txt
+TP8_input.txt
+TP9_input.txt
+TS1_input.txt
+UI1_input.txt
+UI2_input.txt
+UI3_input.txt
+UI4_input.txt
+UI5_input.txt
+UI6_input.txt
+
+Please enter the name of the save file you wish to load: 
+> Loading game from selection...
 
 Let's Play!
 
@@ -21,6 +57,46 @@ Let's Play!
 Scores:
 PLAYER 1: 0
 PLAYER 2: 0
+
+Turn for player PLAYER 1:
+
+Factories: 
+0: F                
+1: RYYB
+2: YBBU
+3: RBBL
+4: RYLL
+5: RYLU
+
+Mosaic for PLAYER 1:
+1:         . || b y r u l
+2:       . . || l b y r u
+3:     . . . || u l b y r
+4:   . . . . || r u l b y
+5: . . . . . || y r u l b
+Broken: 
+
+> Invalid input, try again.
+
+Turn for player PLAYER 1:
+
+Factories: 
+0: F                
+1: RYYB
+2: YBBU
+3: RBBL
+4: RYLL
+5: RYLU
+
+Mosaic for PLAYER 1:
+1:         . || b y r u l
+2:       . . || l b y r u
+3:     . . . || u l b y r
+4:   . . . . || r u l b y
+5: . . . . . || y r u l b
+Broken: 
+
+> Invalid input, try again.
 
 Turn for player PLAYER 1:
 

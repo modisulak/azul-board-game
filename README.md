@@ -41,4 +41,5 @@ To create a base implementation of a 2 player, human only, command line version 
 
 ---
 ### Testing
-The project uses black box testing to run predefined tests on the 
+The project uses black box testing to run predefined tests on the application through I/O redirection. In most test 
+cases, games are saved after performing an operation and then compared against an expected output.
