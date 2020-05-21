@@ -1,4 +1,0 @@
-2
-EGS1_input.txt
-turn 0 U 1
-save save_tests/EGS1_output

@@ -48,46 +48,8 @@ UI6_input.txt
 Please enter the name of the save file you wish to load: 
 > Loading game from selection...
 
-Let's Play!
-
-=== Start Round ===
-
-Scores:
-John: 0
-Kate: 0
-
-Turn for player John:
-
-Factories: 
-0: Y                
-1:     
-2:     
-3:     
-4:     
-5:     
-
-Mosaic for John:
-1:         . || B y R U L
-2:       . . || l b y r u
-3:     . . . || u l b y r
-4:   . . . . || r u l b y
-5: . . . . . || y r u l b
-Broken: 
-
-> Turn successful.
-
-=== END OF ROUND ===
-
-Round points after deductions:
-John: 5
-Kate: 0
-
-Final Scores:
-John: 7
-Kate: 0
-The winner is: John
-Press enter to return to the main menu.
-> -------------------
+Incorrect game file format. Try again.
+-------------------
 Menu
 ----
 1. New Game

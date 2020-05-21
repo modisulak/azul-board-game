@@ -2,19 +2,17 @@
 TEST_INPUTS=resources/tests
 TEST_OUTPUTS=save_files/save_tests
 
-if [ -z "$4" ]; then
+if [[ -z "$4" || "$4" == "null" ]]; then
   OUTPUT=/dev/null
 else
   OUTPUT="${TEST_OUTPUTS}/${3}_${4}.txt"
 fi
 
 if [ -z "$5" ]; then
-  RUN_EXECUTABLE="${1}/${2}"
+./"${1}/${2}" < "${TEST_INPUTS}/${3}/${3}_player.txt" > "${OUTPUT}"
 else
-  RUN_EXECUTABLE="${1}/${2} -s $5"  
+./"${1}/${2}" -s "$5" < "${TEST_INPUTS}/${3}/${3}_player.txt" > "${OUTPUT}" 
 fi
-
-./"${RUN_EXECUTABLE}" < "${TEST_INPUTS}/${3}/${3}_player.txt" > "${OUTPUT}"
 
 if (diff "${TEST_INPUTS}/${3}/${3}_expected.txt" "${TEST_OUTPUTS}/${3}_output.txt"); then
   echo "Passed!"

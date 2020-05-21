@@ -1,0 +1,4 @@
+2
+EGS2_input.txt
+turn 0 Y 1
+save save_tests/EGS2_output

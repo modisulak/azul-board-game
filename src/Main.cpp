@@ -107,7 +107,6 @@ int getSeed(int argc, char **argv) {
     for (int i = 0; i != argc; ++i) {
         if (argv[i] == std::string(SEED_FLAG)) {
             seed = std::stoi(argv[i + 1]);
-            cout << seed << endl;
         }
     }
     return seed;

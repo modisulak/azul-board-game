@@ -68,10 +68,10 @@ Factories:
 
 Mosaic for John:
 1:         . || B y R U L
-2:       . . || l b y r u
-3:     . . . || u l b y r
-4:   . . . . || r u l b y
-5: . . . . . || y r u l b
+2:       . . || l B y r u
+3:     . . . || u L b y r
+4:   . . . . || r U l b y
+5: . . . . . || y R u l b
 Broken: 
 
 > Turn successful.
@@ -79,11 +79,11 @@ Broken:
 === END OF ROUND ===
 
 Round points after deductions:
-John: 5
+John: 10
 Kate: 0
 
 Final Scores:
-John: 7
+John: 19
 Kate: 0
 The winner is: John
 Press enter to return to the main menu.
