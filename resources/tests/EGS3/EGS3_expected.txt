@@ -19,6 +19,8 @@ ERS4_input.txt
 ERS5_input.txt
 ERS6_input.txt
 ERS7_input.txt
+FG1_input.txt
+FR1_input.txt
 IF1_input.txt
 IF2_input.txt
 IF3_input.txt
