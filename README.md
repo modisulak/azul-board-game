@@ -25,7 +25,7 @@ To create a base implementation of a 2 player, human only, command line version 
 
 **Student ID:** _s3756843_
 
-**Email:** _s3756843@student.rmit.edu.au
+**Email:** _s3756843@student.rmit.edu.au_
 
 **Name:** _Thomas Pfundt_
 
