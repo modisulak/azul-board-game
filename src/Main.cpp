@@ -123,7 +123,7 @@ void displayMenu() {
 }
 
 void displayCredits() {
-    string filename = "../resources/credits.txt";
+    string filename = CREDITS_PATH;
     ifstream file;
     file.open(filename);
     cout << "-------------------------------------" << endl;
