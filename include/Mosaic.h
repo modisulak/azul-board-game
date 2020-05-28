@@ -3,13 +3,15 @@
 
 #include "Grid.h"
 
-#define DEFAULT_MOSAIC     "byrul"
+#define DEFAULT_MOSAIC "byrul"
+#define RED "\033[31m"
 
 #define INCREMENT 1
 
 #define DECREMENT -1
 
-class Mosaic : public Grid {
+class Mosaic : public Grid
+{
 public:
     /**
      * Default constructor
@@ -57,7 +59,6 @@ public:
      */
     int getPoints(int row, int col);
 
-
     /**
      * @param tile to add to the mosaic
      * @param row to add the tile
@@ -82,8 +83,6 @@ private:
      * @return point increase
      */
     int getPoints(int row, int col, int rowOffset, int colOffset);
-
 };
-
 
 #endif //APT_A2_MOSAIC_H

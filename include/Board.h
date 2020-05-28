@@ -8,7 +8,8 @@
 #include "Mosaic.h"
 #include "Broken.h"
 
-class Board {
+class Board
+{
 public:
     /**
      * Default constructor, builds a new "blank" storage
@@ -21,19 +22,19 @@ public:
      * @param mosaicInput
      * @param brokenInput
      */
-    Board(const string& storageInput, const string& mosaicInput, const string& brokenInput);
+    Board(const string &storageInput, const string &mosaicInput, const string &brokenInput);
 
     ~Board();
 
     /**
      * @return pointer to storage
      */
-    const unique_ptr<Storage> & getStorage() const;
+    const unique_ptr<Storage> &getStorage() const;
 
     /**
      * @return pointer to mosaic
      */
-    const unique_ptr<Mosaic> & getMosaic() const;
+    const unique_ptr<Mosaic> &getMosaic() const;
     /**
      * @return pointer to broken
      */
@@ -51,7 +52,6 @@ public:
      */
     bool validateMove(const Tile tile, const unsigned int row) const;
 
-
 private:
     // 2D array Class Storage for the tile storage
     unique_ptr<Storage> storage;
@@ -59,7 +59,6 @@ private:
     unique_ptr<Mosaic> mosaic;
     // Vector pointer containing the broken tiles
     shared_ptr<Broken> broken;
-
 };
 
 #endif //APT_A2_BOARD_H
