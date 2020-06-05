@@ -42,7 +42,6 @@ GameManager::GameManager(std::vector<string> newplayers, int seed, int numofplay
     {
         factories[i] = make_unique<Factory>(MAX_FACTORY_TILES);
     }
-
     populateFactories();
 }
 
@@ -77,8 +76,11 @@ GameManager::GameManager(const string &filename)
         pTurn = stoi(line);
 
         std::vector<string> playernames;
+        playernames.reserve(4);
         std::vector<string> playerscoresStr;
+        playerscoresStr.reserve(4);
         std::vector<int> playerscores;
+        playerscores.reserve(4);
 
         for (int i = 0; i < numOfPlayers; ++i)
         {
@@ -124,8 +126,11 @@ GameManager::GameManager(const string &filename)
             factories[i] = make_unique<Factory>(MAX_FACTORY_TILES, factoryAsString);
         }
         std::vector<string> playerStorageString;
-        std::vector<string> playerBrokenString;
+        playerStorageString.reserve(25);
+        std::vector<string>
+            playerBrokenString;
         std::vector<string> playerMosiacString;
+        playerMosiacString.reserve(25);
 
         for (int count = 0; count < numOfPlayers; ++count)
         {
@@ -319,7 +324,7 @@ void GameManager::playRound()
         {
             if (numOfCFactory == TWO_CENTER_FACTORY)
             {
-                if (inputs.size() == TURN_ARG2C || inputs[1] == "10" || inputs[1] == "20" || inputs[3] == "BROKEN")
+                if (inputs.size() == TURN_ARG2C || inputs[1] == "10" || inputs[1] == "20")
                 {
                     bool success = playTurn(inputs, playerIndex);
                     if (success)

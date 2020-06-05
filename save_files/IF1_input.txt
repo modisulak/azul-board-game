@@ -1,27 +1,30 @@
-805257046
-1
-Tom
+-494755219
+3
+7
+2
 0
-Aiden
+MODI
 0
-UB               
-LRYU
+JACK
+0
+MODIAGAIN
+0
+FRLLU            
+FYBBLU           
     
     
-RUBL
-    
-.
-...
-RRRR
-.....
-F
+RLLL
+RRRB
+RBLL
+RBUU
+    .   YY  ... .........
+
 byrullbyruulbyrrulbyyrulb
-.
-UU
-.YY
-....
-.....
+    .   BB  ... .........
+
+byrullbyruulbyrrulbyyrulb
+    R   ..  ... .........
 
 byrullbyruulbyrrulbyyrulb
 
-RURYURLRYUBYBBYYBYRRLYUULLBYBRRBBRULBYRYYLBBLULBUBYLURLLBUBLUUYURLLYYBBLULRYRBYU
+YULUURBBUYRYYLBUUUURYLYBRLUURYYRBRRYLBUURYYBYRBLYUYRUYLULBLBBUBB

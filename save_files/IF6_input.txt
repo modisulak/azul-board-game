@@ -1,28 +1,31 @@
-72
+-494755219
+3
+7
+2
 0
-John
+MODI
 0
-Kate
+JACK
 0
-FYBBU            
+MODIAGAIN
+0
+FRLLU            
+FYBBLU           
     
-BBLL
-RLLU
-RYYU
-RRYL
-.R
-..
-...
-....
-.....
+    
+RLLL
+RLLL
+RRRB
+RBLL
+RBUU
+    .   YY  LLLL .........
 
 byrullbyruulbyrrulbyyrulb
-.
-..
-...
-....
-.....
+    .   BB  ... .........
+
+byrullbyruulbyrrulbyyrulb
+    R   ..  ... .........
 
 byrullbyruulbyrrulbyyrulb
 
-YURLYUBBYLUULLBYBBBRULBYRYYULBUBYURBUBLUUYURYYBBLULRYRBYU
+YULUURBBUYRYYLBUUUURYLYBRLUURYYRBRRYLBUURYYBYRBLYUYRUYLULBLBBUBB

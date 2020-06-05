@@ -65,6 +65,7 @@ int main(int argc, char **argv)
             } while (!validateCFactory(numofcfactory));
 
             std::vector<string> players;
+            players.reserve(4);
             for (int i = 0; i < numofplayers; ++i)
             {
                 cout << "Enter player " << i + 1 << "'s name: " << endl;

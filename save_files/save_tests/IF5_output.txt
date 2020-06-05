@@ -1,0 +1,66 @@
+
+Welcome to Azul!
+-------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+
+> 
+.DS_Store
+EGS1_input.txt
+EGS2_input.txt
+EGS3_input.txt
+ERS1_input.txt
+ERS2_input.txt
+ERS3_input.txt
+ERS4_input.txt
+ERS5_input.txt
+ERS6_input.txt
+ERS7_input.txt
+FG1_input.txt
+FR1_input.txt
+IF1_input.txt
+IF2_input.txt
+IF3_input.txt
+IF4_input.txt
+IF5_input.txt
+IF6_input.txt
+IF7_input.txt
+LS1_input.txt
+RB1_input.txt
+TP1_input.txt
+TP2_input.txt
+TP3_input.txt
+TP4_input.txt
+TP5_input.txt
+TP6_input.txt
+TP7_input.txt
+TP8_input.txt
+TP9_input.txt
+TS1_input.txt
+UI1_input.txt
+UI2_input.txt
+UI3_input.txt
+UI4_input.txt
+UI5_input.txt
+UI6_input.txt
+
+Please enter the name of the save file you wish to load: 
+> Loading game from selection...
+
+Incorrect game file format. Try again.
+-------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+
+> 
+
+Quitting Game...
+Goodbye
