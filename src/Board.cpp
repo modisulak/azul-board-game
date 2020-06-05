@@ -60,7 +60,6 @@ bool Board::validateMove(const Tile tile, const unsigned int row) const
 
 string Board::toString() const
 {
-
     string boardToString;
     for (int row = 0; row != MAX_BOARD_ROWS; ++row)
     {
@@ -68,48 +67,53 @@ string Board::toString() const
         boardToString += ": ";
         for (int col = 0; col != MAX_BOARD_COLS; ++col)
         {
+
+            boardToString += displayColors(storage->getTile(row, col));
             boardToString += storage->getTile(row, col);
+            boardToString += RESET;
             boardToString += " ";
         }
-        boardToString += "☰"; //RIGHTO
+        boardToString += "☰";
         for (int col = 0; col != MAX_BOARD_COLS; ++col)
         {
             boardToString += " ";
-            if (mosaic->getTile(row, col) == 'b')
-
-            {
-                boardToString += BLUE;
-                boardToString += mosaic->getTile(row, col);
-                boardToString += RESET;
-            }
-            else if (mosaic->getTile(row, col) == 'y')
-            {
-                boardToString += YELLOW;
-                boardToString += mosaic->getTile(row, col);
-                boardToString += RESET;
-            }
-            else if (mosaic->getTile(row, col) == 'r')
-            {
-                boardToString += RED;
-                boardToString += mosaic->getTile(row, col);
-                boardToString += RESET;
-            }
-            else if (mosaic->getTile(row, col) == 'u')
-            {
-                boardToString += WHITE;
-                boardToString += mosaic->getTile(row, col);
-                boardToString += RESET;
-            }
-            else if (mosaic->getTile(row, col) == 'l')
-            {
-                boardToString += CYAN;
-                boardToString += mosaic->getTile(row, col);
-                boardToString += RESET;
-            }
+            boardToString += displayColors(mosaic->getTile(row, col));
+            boardToString += mosaic->getTile(row, col);
+            boardToString += RESET;
         }
         boardToString += "\n";
     }
-    boardToString += "Broken:                  ";
+    boardToString += "Broken: ";
     boardToString += broken->toString();
     return boardToString;
+}
+
+string Board::displayColors(char input) const
+{
+    string out = RESET;
+    if ((input == 'b') || (input == 'B'))
+    {
+        out = BLUE;
+    }
+    else if ((input == 'r') || (input == 'R'))
+    {
+        out = RED;
+    }
+    else if ((input == 'y') || (input == 'Y'))
+    {
+        out = YELLOW;
+    }
+    else if ((input == 'u') || (input == 'U'))
+    {
+        out = WHITE;
+    }
+    else if ((input == 'l') || (input == 'L'))
+    {
+        out = CYAN;
+    }
+    else if ((input == EMPTY) || (input == BLANK_SPACE))
+    {
+        out = WHITE;
+    }
+    return out;
 }

@@ -1,5 +1,8 @@
 72
-0
+2
+5
+1
+1
 John
 9
 Kate
@@ -10,18 +13,10 @@ RRLU
 YYBU
 YYBB
 RRYB
-.
-..
-...
-.UUU
-.....
+    .   ..  ... .UUU.....
 
 bYrUlLByruuLbyRrulbyyrulb
-.
-..
-...
-....
-....R
+    .   ..  ... ........R
 
 ByrulLByruulbyRrulbYyrulb
 

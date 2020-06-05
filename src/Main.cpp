@@ -8,7 +8,11 @@ int getSeed(int argc, char **argv);
 
 bool getSaveFiles(std::vector<string> &saveFiles);
 
-bool checkEqual(string player, string player2, string player3, string player4);
+bool checkEqual(std::vector<string> players);
+
+bool validatePlayers(int numofplayers);
+
+bool validateCFactory(int numofCFactory);
 
 int main(int argc, char **argv)
 {
@@ -25,63 +29,55 @@ int main(int argc, char **argv)
         std::cout << INPUT_TAB;
 
         int input = 0;
-        cin >> input;
+        string inputStr = "";
+        cin >> inputStr;
+        transform(inputStr.begin(), inputStr.end(), inputStr.begin(), ::toupper);
+        if (inputStr != "HELP")
+        {
+            input = std::stoi(inputStr);
+        }
         cout << endl;
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (input == NEW_GAME)
         {
-            cout << "Number of Players: ";
-            std::cout << INPUT_TAB;
 
             int numofplayers = 0;
-            cin >> numofplayers;
-            cout << endl;
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-            cout << "Number of Center Factories: ";
-            std::cout << INPUT_TAB;
-
-            int numofCFactory = 0;
-            cin >> numofCFactory;
-            cout << endl;
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-            string player1 = "";
-            string player2 = "";
-            string player3 = "";
-            string player4 = "";
-
-            cout << "Enter player 1's name: " << endl;
-            cout << INPUT_TAB;
-            getline(cin, player1);
-            transform(player1.begin(), player1.end(), player1.begin(), ::toupper);
-
-            cout << "Enter player 2's name: " << endl;
-            cout << INPUT_TAB;
-            getline(cin, player2);
-            transform(player2.begin(), player2.end(), player2.begin(), ::toupper);
-
-            if (numofplayers > 2)
+            do
             {
-                cout << "Enter player 3's name: " << endl;
-                cout << INPUT_TAB;
-                getline(cin, player3);
-                transform(player3.begin(), player3.end(), player3.begin(), ::toupper);
-            }
-            if (numofplayers == 4)
+                cout << "Number of Players: ";
+                std::cout << INPUT_TAB;
+                cin >> numofplayers;
+                cout << endl;
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            } while (!validatePlayers(numofplayers));
+
+            int numofcfactory = 0;
+            do
             {
-                cout << "Enter player 4's name: " << endl;
+                cout << "Number of Center Factories: ";
+                std::cout << INPUT_TAB;
+                cin >> numofcfactory;
+                cout << endl;
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            } while (!validateCFactory(numofcfactory));
+
+            std::vector<string> players;
+            for (int i = 0; i < numofplayers; ++i)
+            {
+                cout << "Enter player " << i + 1 << "'s name: " << endl;
                 cout << INPUT_TAB;
-                getline(cin, player4);
-                transform(player4.begin(), player4.end(), player4.begin(), ::toupper);
+                string line;
+                getline(cin, line);
+                players.push_back(line);
+                transform(players.at(i).begin(), players.at(i).end(), players.at(i).begin(), ::toupper);
             }
 
             if (!cin.eof())
             {
-                if (checkEqual(player1, player2, player3, player4))
+                if (!checkEqual(players))
                 {
                     cout << endl
                          << "Players cannot have the same name" << endl;
@@ -91,7 +87,7 @@ int main(int argc, char **argv)
                     cout << endl
                          << "Starting a new game..." << endl;
 
-                    manager = make_unique<GameManager>(player1, player2, player3, player4, seed, numofplayers);
+                    manager = make_unique<GameManager>(players, seed, numofplayers, numofcfactory);
 
                     manager->playGame();
                 }
@@ -142,6 +138,8 @@ int main(int argc, char **argv)
                     {
                         std::cout << endl
                                   << "Incorrect game file format. Try again." << endl;
+
+                        std::cerr << e.what();
                     }
                 }
             }
@@ -160,6 +158,14 @@ int main(int argc, char **argv)
             cout << endl
                  << "Quitting Game...\nGoodbye" << endl;
             gameExit = true;
+        }
+        else if (inputStr == "HELP")
+        {
+            string message;
+            cout << endl;
+            Utils::info(HELP_MENU);
+            message = "";
+            cout << message << endl;
         }
         else
         {
@@ -251,23 +257,30 @@ bool getSaveFiles(std::vector<string> &saveFiles)
     return files;
 }
 
-bool checkEqual(string player, string player2, string player3, string player4)
+bool checkEqual(std::vector<string> players)
 {
-    if (player == player2 || player == player3 || player == player4)
+    sort(players.begin(), players.end());
+    auto it = std::unique(players.begin(), players.end());
+    bool wasUnique = (it == players.end());
+    return wasUnique;
+}
+
+bool validatePlayers(int numofplayers)
+{
+    if (numofplayers >= 2 && numofplayers <= 4)
     {
         return true;
     }
-    else if (player2 == player || player2 == player3 || player2 == player4)
+    cout << "Invalid number of Player. Must be between 2 and 4" << endl;
+    return false;
+}
+
+bool validateCFactory(int numofCFactory)
+{
+    if (numofCFactory >= 1 && numofCFactory <= 2)
     {
         return true;
     }
-    else if (player3 == player || player3 == player4 || player3 == player2)
-    {
-        return true;
-    }
-    else if (player4 == player || player4 == player2 || player4 == player3)
-    {
-        return true;
-    }
+    cout << "Invalid number of Center Factory. Must be either 1 or 2" << endl;
     return false;
 }

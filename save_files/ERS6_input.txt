@@ -1,5 +1,8 @@
 72
+2
+5
 1
+0
 John
 15
 Kate
@@ -10,18 +13,10 @@ Y
     
     
     
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 BBYYLLU
 byrullbyruuLbyrrulbyyrulb
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 F
 byrullbyruulbyrrulbyyrulb
 

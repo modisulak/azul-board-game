@@ -4,7 +4,6 @@
 #include "Grid.h"
 
 #define DEFAULT_MOSAIC "byrul"
-#define RED "\033[31m"
 
 #define INCREMENT 1
 

@@ -5,6 +5,7 @@
 #define COL_COMPLETE_POINTS 7
 #define ROW_COMPLETE_POINTS 2
 #define HELP_FILE "resources/help.txt"
+#define HELP_MENU "resources/helpmenu.txt"
 #define RULES_FILE "resources/rules.txt"
 
 #include <random>
@@ -12,6 +13,7 @@
 
 #include "Player.h"
 #include "Factory.h"
+#include "Utils.h"
 
 class GameManager
 {
@@ -19,11 +21,8 @@ public:
     /**
      * Creates a new game
      */
-    // GameManager(string p1, string p2, int seed);
 
-    // GameManager(string p1s, string p2, string p3, int seed);
-
-    GameManager(string p1, string p2, string p3, string p4, int seed, int numofplayers);
+    GameManager(std::vector<string> players, int seed, int numofplayers, int numofCFactory);
 
     /**
      * Loads a game from a save file with given name
@@ -69,11 +68,16 @@ private:
 
     int maxNumOfFactories;
 
+    int numOfCFactory;
+
+    int pTurn;
+
     // 2D array to store factories factories
     unique_ptr<unique_ptr<Factory>[]> factories;
 
     // Discard factory
     unique_ptr<Factory> discard;
+    unique_ptr<Factory> discard2;
 
     // 4 Players
     unique_ptr<unique_ptr<Player>[]> players;
@@ -110,25 +114,27 @@ private:
 
     bool addTiles(const string &destination, int playerIndex, Tile tile, unsigned int noOfTiles);
 
-    void removePlayedTiles(int playerIndex, int factoryNumber, bool isDiscard, Tile tile) const;
+    void removePlayedTiles(int playerIndex, const string cFactory, int factoryNumber, bool isDiscard, bool isDiscard2, Tile tile) const;
 
-    void endOfRound(shared_ptr<Board> &p1Board, shared_ptr<Board> &p2Board,
-                    shared_ptr<Board> &p3Board, shared_ptr<Board> &p4Board) const;
+    void endOfRound() const;
 
-    void prepareNextRound(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board,
-                          const shared_ptr<Board> &p3Board, const shared_ptr<Board> &p4Board);
+    void prepareNextRound();
 
-    void addEndOfGamePoints(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board,
-                            const shared_ptr<Board> &p3Board, const shared_ptr<Board> &p4Board);
+    void addEndOfGamePoints();
 
-    void getWinner(const shared_ptr<Board> &p1Board, const shared_ptr<Board> &p2Board,
-                   const shared_ptr<Board> &p3Board, const shared_ptr<Board> &p4Board, string &winner) const;
+    void getWinner(string &winner) const;
 
     void waitForEnter() const;
 
     int tileMosaic(const shared_ptr<Board> &board, int row) const;
 
     bool processBroken(const shared_ptr<Board> &board) const;
+
+    int findCurrentPlayer();
+
+    void setNextPlayer(int playerIndex);
+
+    string displayColoured(string input);
 };
 
 #endif // GAME_MANAGER_H

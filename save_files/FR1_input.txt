@@ -1,5 +1,8 @@
 10
+2
+5
 1
+0
 PLAYER 1
 0
 PLAYER 2
@@ -10,18 +13,10 @@ YBBU
 RBBL
 RYLL
 RYLU
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 
 byrullbyruulbyrrulbyyrulb
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 
 byrullbyruulbyrrulbyyrulb
 

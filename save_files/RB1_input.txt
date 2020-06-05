@@ -1,5 +1,8 @@
 72
-False
+2
+5
+1
+1
 John
 5
 Kate
@@ -10,18 +13,10 @@ R
     
     
     
-U
-LL
-RRR
-.UUU
-.....
+    U   LL  RRR .UUU.....
 
 bYrullByruuLbyrrulbyyrulb
-.
-LL
-RRR
-YYYY
-.....
+    .   LL  RRR YYYY.....
 
 ByrullByruulbyrrulbyyrulb
 RURYURLRYUBYBBYYBYRRLYUULLBYBRRBBRULBYRYYLBBLULBUBYLURLL

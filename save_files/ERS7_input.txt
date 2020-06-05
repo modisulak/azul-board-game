@@ -1,5 +1,8 @@
 72
+2
+5
 1
+0
 John
 7
 Kate
@@ -10,18 +13,10 @@ Y
     
     
     
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 BBYYL
 byrullbyruuLbyrrulbyyrulb
-.
-..
-...
-....
-.....
+    .   ..  ... .........
 F
 byrullbyruulbyrrulbyyrulb
 

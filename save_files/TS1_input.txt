@@ -1,4 +1,7 @@
 72
+2
+5
+1
 0
 John
 0
@@ -10,18 +13,10 @@ LBBL
 ULLR
 URYY
 YRLR
-.
-LL
-...
-....
-.....
+    .   LL  ... .........
 
 byrullbyruulbyrrulbyyrulb
-.
-..
-.RR
-....
-.....
+    .   ..  .RR .........
 
 byrullbyruulbyrrulbyyrulb
 

@@ -1,0 +1,24 @@
+Hello, Welcome to Azul!
+
+The main menu instructions are pretty simple! 
+Type 1: To start a new game.
+        Note: You will be asked the number of players and centre factories.
+
+Type 2: To load a previous saved game.
+
+Type 3: To checkout who created this awesome game. 
+
+Type 4: To exit. 
+
+PS: Don't forget to use "HELP" during gameplay as well. Happy gaming!
+
+General Commands:
+To view help:
+Enter "help" (You obviously know this one!)
+
+To view game rules:
+Enter "rules"
+
+
+
+

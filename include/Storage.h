@@ -1,10 +1,10 @@
 #ifndef APT_A2_STORAGE_H
 #define APT_A2_STORAGE_H
 
-
 #include "Grid.h"
 
-class Storage : public Grid{
+class Storage : public Grid
+{
 public:
     /**
      * Default Constructor
@@ -24,7 +24,6 @@ public:
     /**
      * @return Overridden String representation of 2D array
      */
-    string toString() override;
 
     /**
      * Clears a row of the 2D storage array

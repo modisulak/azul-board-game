@@ -1,5 +1,8 @@
 805257046
+2
+5
 1
+0
 Tom
 0
 Aiden
@@ -10,18 +13,10 @@ RYLU
 
 RBLU
 
-.
-..
-...
-RRRR
-.....
+    .   ..  ... RRRR.....
 F
 byrullbyruulbyrrulbyyrulb
-.
-UU
-.YY
-....
-.....
+    .   UU  .YY .........
 
 byrullbyruulbyrrulbyyrulb
 

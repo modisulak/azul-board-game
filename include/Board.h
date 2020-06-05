@@ -59,6 +59,8 @@ private:
     unique_ptr<Mosaic> mosaic;
     // Vector pointer containing the broken tiles
     shared_ptr<Broken> broken;
+
+    string displayColors(char input) const;
 };
 
 #endif //APT_A2_BOARD_H

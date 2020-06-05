@@ -4,13 +4,14 @@
 #include "Types.h"
 #include "Board.h"
 
-class Player {
+class Player
+{
 public:
     // New player constructor
     Player(string name, int score);
 
     // Load player constructor
-    Player(string name, int score, const string& storageInput, const string& mosaicInput, const string& brokenInput, bool isTurn);
+    Player(string name, int score, const string &storageInput, const string &mosaicInput, const string &brokenInput, bool isTurn);
 
     Player(const Player &other);
 
@@ -30,7 +31,7 @@ public:
      * Set the player score.
      */
     void setScore(int score);
-    
+
     /**
      * Set the players turn.
      */
@@ -44,7 +45,7 @@ public:
     /**
      * Get the board as a string
      */
-    string getStrings(const string& data);
+    string getStrings(const string &data);
 
     const shared_ptr<Board> &getBoard() const;
 
