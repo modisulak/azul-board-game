@@ -3,6 +3,9 @@
 ### The Aim
 To create a base implementation of a 2 player, human only, command line version of the strategy board game - Azul.
 
+### Update V2.0
+Solo improvements made to make the game multiplayer and improve it's overall UI for mulitplayer gameplay.
+
 ---
 ## Repository structure
 ``` sh
