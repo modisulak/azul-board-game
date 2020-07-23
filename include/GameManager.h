@@ -22,7 +22,7 @@ public:
      * Creates a new game
      */
 
-    GameManager(std::vector<string> players, int seed, int numofplayers, int numofCFactory);
+    GameManager(std::vector<string> &players, int seed, int numofplayers, int numofCFactory);
 
     /**
      * Loads a game from a save file with given name
@@ -74,7 +74,7 @@ private:
 
     // 2D array to store factories factories
     unique_ptr<unique_ptr<Factory>[]> factories;
-
+    unique_ptr<unique_ptr<int>[]> pCompletedRows;
     // Discard factory
     unique_ptr<Factory> discard;
     unique_ptr<Factory> discard2;

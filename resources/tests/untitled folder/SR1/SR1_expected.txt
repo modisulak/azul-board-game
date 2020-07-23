@@ -4,28 +4,28 @@
 2
 1
 MODI
-0
+1
 JACK
-0
+5
 MODIAGAIN
-0
-FRLLU            
-FYBBBLUUU           
-    
-    
-RLLL
-RLLL
-RRRB
-RBLL
-    
+3
+F           
+F          
+YUUL
+RBBU
+RYUU
+BYLU
+RUUU
+BYYL
+RLUU    
     R   YY  ... .........
 
 byrullbyruulbyrrulbyyrulb
-    .   BB  ... .........
+    .   ..  ... .........
 
-byrullbyruulbyrrulbyyrulb
-    R   ..  ... .........
+byRullbYruulByrrulbyyrulb
+    .   ..  ... .........
 
-byrullbyruulbyrrulbyyrulb
+byRullbyrUulbYrrulbyyrulb
 
-YULUURBBUYRYYLBUUUURYLYBRLUURYYRBRRYLBUURYYBYRBLYUYRUYLULBLBBUBB
+RYYRBRRYLBUURYYBYRBLYUYRUYLULBLBBUBB

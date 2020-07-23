@@ -1,0 +1,5 @@
+2 
+TP10_input.txt
+turn 7 R 1 10
+save save_tests/TP10_output
+

@@ -2,6 +2,9 @@
 TEST_INPUTS=resources/tests
 TEST_OUTPUTS=save_files/save_tests
 
+rm -f ./save_files/save_tests/"${3}_output.txt"
+
+
 if [[ -z "$4" || "$4" == "null" ]]; then
   OUTPUT=/dev/null
 else

@@ -2,9 +2,9 @@
 2
 5
 1
-1
+0
 John
-9
+8
 Kate
 9
 F                
@@ -19,5 +19,5 @@ bYrUlLByruuLbyRrulbyyrulb
     .   ..  ... ........R
 
 ByrulLByruulbyRrulbYyrulb
-
-LYUULLBYBRRBBRULBYRYYLBBLULBUBYLURLLLLRRRRYY
+LLRRRRYYY
+LYUULLBYBRRBBRULBYRYYLBBLULBUBYLURLL

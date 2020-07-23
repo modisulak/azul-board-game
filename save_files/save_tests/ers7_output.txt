@@ -6,7 +6,7 @@
 John
 0
 Kate
-0
+2147483647
 F                
 RYLU
 YBBU

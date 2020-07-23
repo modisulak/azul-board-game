@@ -83,7 +83,8 @@ string Board::toString() const
         }
         boardToString += "\n";
     }
-    boardToString += "Broken: ";
+    boardToString += std::to_string(MAX_BOARD_ROWS + 1);
+    boardToString += ": Broken: ";
     boardToString += broken->toString();
     return boardToString;
 }

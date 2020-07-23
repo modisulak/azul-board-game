@@ -9,10 +9,10 @@ Aiden
 0
 BU               
 RYLU
-
-
+    
+    
 RBLU
-
+    
     .   ..  ... RRRR.....
 F
 byrullbyruulbyrrulbyyrulb

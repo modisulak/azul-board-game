@@ -6,7 +6,7 @@
 PLAYER 1
 5
 PLAYER 2
-3
+1342177283
 F                
 RLLL
 RRYL

@@ -9,9 +9,11 @@ Menu
 4. Quit
 
 > 
+.DS_Store
 EGS1_input.txt
 EGS2_input.txt
 EGS3_input.txt
+ENDR.txt
 ERS1_input.txt
 ERS2_input.txt
 ERS3_input.txt
@@ -19,6 +21,7 @@ ERS4_input.txt
 ERS5_input.txt
 ERS6_input.txt
 ERS7_input.txt
+ERS8_input.txt
 FG1_input.txt
 FR1_input.txt
 IF1_input.txt
@@ -30,6 +33,9 @@ IF6_input.txt
 IF7_input.txt
 LS1_input.txt
 RB1_input.txt
+TP10_input.txt
+TP11_input.txt
+TP12_input.txt
 TP1_input.txt
 TP2_input.txt
 TP3_input.txt
