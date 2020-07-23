@@ -22,7 +22,7 @@ public:
      * Creates a new game
      */
 
-    GameManager(std::vector<string> players, int seed, int numofplayers, int numofCFactory);
+    GameManager(std::vector<string> &players, int seed, int numofplayers, int numofCFactory);
 
     /**
      * Loads a game from a save file with given name

@@ -1,7 +1,5 @@
 2
 FR1_input.txt
-Player 1
-Player 2
 turn 2 B 2
 turn 3 B 2
 turn 1 Y 3

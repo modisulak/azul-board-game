@@ -1,4 +1,4 @@
 2
 TP1_input.txt
-turn 1 R 1
+turn 1 R 1   
 save save_tests/TP1_output

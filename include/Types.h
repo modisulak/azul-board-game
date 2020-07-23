@@ -22,7 +22,10 @@
 #define HELP "HELP"
 #define RULES "RULES"
 #define EXIT "EXIT"
-#define BROKEN "BROKEN"
+#define DEFAULT "DEFAULT"
+#define FIRST_C_FACTORY_STR "10"
+#define SECOND_C_FACTORY_STR "20"
+#define BROKEN 6
 #define TURN_ARGC 4
 #define TURN_ARG2C 5
 #define SAVE_ARGC 2

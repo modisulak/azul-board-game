@@ -8,7 +8,7 @@ int getSeed(int argc, char **argv);
 
 bool getSaveFiles(std::vector<string> &saveFiles);
 
-bool checkEqual(std::vector<string> players);
+bool checkEqual(std::vector<string> &players, int numofplayers);
 
 bool validatePlayers(int numofplayers);
 
@@ -34,7 +34,14 @@ int main(int argc, char **argv)
         transform(inputStr.begin(), inputStr.end(), inputStr.begin(), ::toupper);
         if (inputStr != "HELP")
         {
-            input = std::stoi(inputStr);
+            try
+            {
+                input = std::stoi(inputStr);
+            }
+            catch (const std::exception)
+            {
+                cout << "Selection is invalid. Please try again." << endl;
+            }
         }
         cout << endl;
         cin.clear();
@@ -65,7 +72,8 @@ int main(int argc, char **argv)
             } while (!validateCFactory(numofcfactory));
 
             std::vector<string> players;
-            players.reserve(4);
+            players.reserve(numofplayers);
+
             for (int i = 0; i < numofplayers; ++i)
             {
                 cout << "Enter player " << i + 1 << "'s name: " << endl;
@@ -78,7 +86,7 @@ int main(int argc, char **argv)
 
             if (!cin.eof())
             {
-                if (!checkEqual(players))
+                if (checkEqual(players, numofplayers))
                 {
                     cout << endl
                          << "Players cannot have the same name" << endl;
@@ -168,10 +176,6 @@ int main(int argc, char **argv)
             message = "";
             cout << message << endl;
         }
-        else
-        {
-            cout << "Selection is invalid. Please try again." << endl;
-        }
     }
     return EXIT_SUCCESS;
 }
@@ -258,12 +262,19 @@ bool getSaveFiles(std::vector<string> &saveFiles)
     return files;
 }
 
-bool checkEqual(std::vector<string> players)
+bool checkEqual(std::vector<string> &players, int numofplayers)
 {
-    sort(players.begin(), players.end());
-    auto it = std::unique(players.begin(), players.end());
-    bool wasUnique = (it == players.end());
-    return wasUnique;
+    for (int i = 0; i < numofplayers; i++)
+    {
+        for (int j = 0; j < numofplayers; ++j)
+        {
+            if (players.at(i) == players.at(j) && i != j)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 bool validatePlayers(int numofplayers)

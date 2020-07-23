@@ -1,4 +1,4 @@
 2
 UI3_input.txt
-turn 3 L 6
+turn 3 L 7
 save save_tests/UI3_output
