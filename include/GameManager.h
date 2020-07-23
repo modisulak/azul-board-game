@@ -74,7 +74,7 @@ private:
 
     // 2D array to store factories factories
     unique_ptr<unique_ptr<Factory>[]> factories;
-
+    unique_ptr<unique_ptr<int>[]> pCompletedRows;
     // Discard factory
     unique_ptr<Factory> discard;
     unique_ptr<Factory> discard2;
